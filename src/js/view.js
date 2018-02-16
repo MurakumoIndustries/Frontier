@@ -4,6 +4,7 @@ import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
 
+import fontawesome from '@fortawesome/fontawesome'
 import faArchive from '@fortawesome/fontawesome-free-solid/faArchive'
 fontawesome.library.add(faArchive)
 import faPlay from '@fortawesome/fontawesome-free-solid/faPlay'
