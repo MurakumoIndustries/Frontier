@@ -27,7 +27,7 @@ body {
     position: relative;
 }
 
-.hex-table td:nth-child(even) .hex {
+.hex-table td:nth-child(odd) .hex {
     top: 32px;
 }
 

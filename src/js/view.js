@@ -67,6 +67,12 @@ var render = function (id) {
     var minY = _.minBy(map.hexList, function (o) { return o.y; }).y;
     var maxY = _.maxBy(map.hexList, function (o) { return o.y; }).y;
 
+    //keep minX have same odd/even as x
+    if(minX%2==1)
+    {
+        minX=minX-1;
+    }
+
     var $table = $('<table>');
     $table.addClass('hex-table');
 
