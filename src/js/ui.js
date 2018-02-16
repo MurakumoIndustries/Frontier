@@ -26,6 +26,7 @@ data["search"] = { "ja-JP": "検索", "zh-TW": "搜尋", "en-US": "Search", "zh-
 data["clear"] = { "ja-JP": "", "zh-TW": "清空", "en-US": "Clear", "zh-CN": "清空" };
 
 data["maplist"] = { "ja-JP": "", "zh-TW": "地圖列表", "en-US": "Map List", "zh-CN": "地图列表" };
+data["maplistrandom"] = { "ja-JP": "", "zh-TW": "地圖列表（隨機）", "en-US": "Random Map List", "zh-CN": "地图列表（随机）" };
 
 data["currentversion"] = { "ja-JP": "", "zh-TW": "當前版本：", "en-US": "Current Ver.:", "zh-CN": "当前版本：" };
 data["officalsite"] = { "ja-JP": "", "zh-TW": "官網", "en-US": "Offical Site", "zh-CN": "官网" };
