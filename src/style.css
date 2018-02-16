@@ -1,0 +1,109 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    height: 100%;
+}
+
+.panel-heading {
+    cursor: pointer;
+}
+
+#main {
+}
+
+.hex-table{
+    margin:0 50px;
+}
+.hex-table td {
+    border-collapse: collapse;
+    position: relative;
+}
+
+.hex-table td:nth-child(even) .hex {
+    top: 32px;
+}
+
+.hex {
+    width: 35px;
+    background: #fff;
+    height: 60px;
+    position: relative;
+    border-top: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    margin: 1px 15px;
+}
+
+.hex-inner {
+    height: 58px;
+    position: relative;
+}
+
+.hex-inner:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50%;
+    width: 3px;
+    background: #ccc;
+    -webkit-transform: skew(45deg, 0deg);
+    -moz-transform: skew(45deg, 0deg);
+    -ms-transform: skew(45deg, 0deg);
+    -o-transform: skew(45deg, 0deg);
+    transform: skew(-45deg, 0deg);
+}
+
+.hex-inner:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 50%;
+    width: 3px;
+    background: #ccc;
+    -webkit-transform: skew(-135deg, 0deg);
+    -moz-transform: skew(-135deg, 0deg);
+    -ms-transform: skew(-135deg, 0deg);
+    -o-transform: skew(-135deg, 0deg);
+    transform: skew(-135deg, 0deg);
+}
+
+.hex-inner.left {
+    margin-left: -15px;
+    float: left;
+}
+
+.hex-inner.right {
+    transform: rotate(180deg);
+    float: right;
+    margin-right: -15px
+}
+
+.hex .hex-content {
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    position: relative;
+    top: 6px;
+}
+
+.hex.hex-danger {
+    border-color: #f00;
+}
+
+.hex.hex-danger .hex-inner:before, .hex.hex-danger .hex-inner:after {
+    background-color: #f00;
+}
+
+.hex.hex-rare {
+    border-color: yellow;
+}
+
+.hex.hex-rare .hex-inner:before, .hex.hex-rare .hex-inner:after {
+    background-color: yellow;
+}
