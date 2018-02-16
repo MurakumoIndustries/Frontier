@@ -19,6 +19,8 @@ import faCircle from '@fortawesome/fontawesome-free-solid/faCircle'
 fontawesome.library.add(faCircle)
 import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown'
 fontawesome.library.add(faArrowDown)
+import faFlask from '@fortawesome/fontawesome-free-solid/faFlask'
+fontawesome.library.add(faFlask)
 
 var activeMenu = "";
 var inited;
@@ -93,6 +95,9 @@ var render = function (id) {
             }
             if (o.hasCoin) {
                 hexContent += '<i class="fas fa-circle"></i>' + o.CoinCount;
+            }
+            if (o.hasEnergy) {
+                hexContent += '<i class="fas fa-flask"></i>' + o.EnergyCount;
             }
         }
         else if (o.hexType == 70) {
