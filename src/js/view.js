@@ -4,6 +4,21 @@ import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
 
+import faArchive from '@fortawesome/fontawesome-free-solid/faArchive'
+fontawesome.library.add(faArchive)
+import faPlay from '@fortawesome/fontawesome-free-solid/faPlay'
+fontawesome.library.add(faPlay)
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
+fontawesome.library.add(faCheck)
+import faBatteryFull from '@fortawesome/fontawesome-free-solid/faBatteryFull'
+fontawesome.library.add(faBatteryFull)
+import faGem from '@fortawesome/fontawesome-free-solid/faGem'
+fontawesome.library.add(faGem)
+import faCircle from '@fortawesome/fontawesome-free-solid/faCircle'
+fontawesome.library.add(faCircle)
+import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown'
+fontawesome.library.add(faArrowDown)
+
 var activeMenu = "";
 var inited;
 
@@ -78,6 +93,9 @@ var render = function (id) {
             if (o.hasCoin) {
                 hexContent += '<i class="fas fa-circle"></i>' + o.CoinCount;
             }
+        }
+        else if (o.hexType == 70) {
+            hexContent = '<i class="fas fa-arrow-down"></i><br />';
         }
         switch (o.terminationHex) {
             case 120: {

@@ -28,6 +28,6 @@ module.exports = {
       template: './src/index.html'
     }),
     new ExtractTextPlugin("[name].[contenthash].css"),
-    //new UglifyJSPlugin()
+    new UglifyJSPlugin()
   ]
 };

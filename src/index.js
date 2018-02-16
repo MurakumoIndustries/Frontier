@@ -3,18 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import fontawesome from '@fortawesome/fontawesome'
 import faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe'
 fontawesome.library.add(faGlobe)
-import faArchive from '@fortawesome/fontawesome-free-solid/faArchive'
-fontawesome.library.add(faArchive)
-import faPlay from '@fortawesome/fontawesome-free-solid/faPlay'
-fontawesome.library.add(faPlay)
-import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
-fontawesome.library.add(faCheck)
-import faBatteryFull from '@fortawesome/fontawesome-free-solid/faBatteryFull'
-fontawesome.library.add(faBatteryFull)
-import faGem from '@fortawesome/fontawesome-free-solid/faGem'
-fontawesome.library.add(faGem)
-import faCircle from '@fortawesome/fontawesome-free-solid/faCircle'
-fontawesome.library.add(faCircle)
 
 import './style.css'
 
