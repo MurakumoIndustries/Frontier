@@ -8,18 +8,23 @@ var init = function () {
         /* webpackChunkName: "view" */
         './view.js').then(View => {
             page.base('/Frontier/');
-            page('map/:id', function (ctx) {
+            var mapPage = function (ctx) {
                 console.log("route:mapRoute");
                 View.init(ctx.params.id);
-            });
-            page.exit('lang/:lang', function (ctx) {
+            };
+            page('map/:id', mapPage);
+            page('/map/:id', mapPage);
+            var langPage = function (ctx) {
                 console.log("route:langRoute");
                 Ui.setLang(ctx.params.lang);
                 page.redirect('/');
                 location.reload();
-            });
+            };
+            page.exit('lang/:lang', langPage);
+            page.exit('/lang/:lang', langPage);
             page('/', function () {
-                console.log("route:homeRoute");
+                console.log("route:homeRoute");                
+                View.init();
             });
             page('*', function () {
                 console.log("route:notMatchRoute");

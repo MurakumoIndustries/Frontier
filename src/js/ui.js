@@ -25,13 +25,15 @@ var data = [];
 data["search"] = { "ja-JP": "検索", "zh-TW": "搜尋", "en-US": "Search", "zh-CN": "查询" };
 data["clear"] = { "ja-JP": "", "zh-TW": "清空", "en-US": "Clear", "zh-CN": "清空" };
 
-data["maplist"] = { "ja-JP": "", "zh-TW": "地圖列表", "en-US": "Map List", "zh-CN": "地图列表" };
-data["maplistrandom"] = { "ja-JP": "", "zh-TW": "地圖列表（隨機）", "en-US": "Random Map List", "zh-CN": "地图列表（随机）" };
+data["maplist"] = { "ja-JP": "宙域マップ", "zh-TW": "地圖列表", "en-US": "Map List", "zh-CN": "地图列表" };
+data["maplistrandom"] = { "ja-JP": "宙域マップ（ランダム）", "zh-TW": "地圖列表（隨機）", "en-US": "Random Map List", "zh-CN": "地图列表（随机）" };
 
-data["currentversion"] = { "ja-JP": "", "zh-TW": "當前版本：", "en-US": "Current Ver.:", "zh-CN": "当前版本：" };
-data["officalsite"] = { "ja-JP": "", "zh-TW": "官網", "en-US": "Offical Site", "zh-CN": "官网" };
+data["currentversion"] = { "ja-JP": "バージョン：", "zh-TW": "當前版本：", "en-US": "Current Ver.:", "zh-CN": "当前版本：" };
+data["externallink"] = { "ja-JP": "外部リンク", "zh-TW": "外部鏈接", "en-US": "External Links", "zh-CN": "外部链接" };
+data["officalsite"] = { "ja-JP": "公式サイト", "zh-TW": "官網", "en-US": "Offical Site", "zh-CN": "官网" };
+data["officalannouncement"] = { "ja-JP": "お知らせ", "zh-TW": "遊戲公告", "en-US": "Offical Announcement", "zh-CN": "游戏公告" };
 
-data["ui"] = { "ja-JP": "", "zh-TW": "界面語言", "en-US": "UI", "zh-CN": "界面语言" };
+data["ui"] = { "ja-JP": "UI言語", "zh-TW": "界面語言", "en-US": "UI", "zh-CN": "界面语言" };
 data["data"] = { "ja-JP": "", "zh-TW": "資料語言", "en-US": "Data", "zh-CN": "数据语言" };
 
 var getText = function (key) {
@@ -63,8 +65,33 @@ var init = function () {
         var $this = $(this);
         var key = $this.data("lang");
         var value = getText(key);
-        $this.text(value);
+        var target = $this.data("lang-target");
+        if (target) {
+            $this.attr(target, value);
+        }
+        else {
+            $this.text(value);
+        }
     });
+    //deal with bootstrap select
+    switch (currentLang) {
+        case "ja-JP": {
+            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-ja_JP');
+            break;
+        }
+        case "zh-TW": {
+            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-zh_TW');
+            break;
+        }
+        case "en-US": {
+            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-en_US');
+            break;
+        }
+        case "zh-CN": {
+            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-zh_CN');
+            break;
+        }
+    }
 };
 
 export {

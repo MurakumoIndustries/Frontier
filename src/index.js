@@ -1,5 +1,8 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './js/lib/bootstrap-select-1.13.0-beta/js/bootstrap-select'
+import './js/lib/bootstrap-select-1.13.0-beta/css/bootstrap-select.min.css'
+
 import fontawesome from '@fortawesome/fontawesome'
 import faGlobe from '@fortawesome/fontawesome-free-solid/faGlobe'
 fontawesome.library.add(faGlobe)

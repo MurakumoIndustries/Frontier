@@ -47,12 +47,16 @@ var initControl = function () {
     if (inited) { return; }
     $('#version').text(Data.getVersion());
 
+    $('.selectpicker').change(function (e) {
+        page.redirect('/map/' + $(this).val());
+    });
+
     inited = true;
 };
 var render = function (id) {
     console.log("render", id);
     var self = this;
-    if (id == 0) {
+    if (!id) {
         return;
     }
     setActiveMenu(id);
@@ -68,9 +72,8 @@ var render = function (id) {
     var maxY = _.maxBy(map.hexList, function (o) { return o.y; }).y;
 
     //keep minX have same odd/even as x
-    if(minX%2==1)
-    {
-        minX=minX-1;
+    if (minX % 2 == 1) {
+        minX = minX - 1;
     }
 
     var $table = $('<table>');
