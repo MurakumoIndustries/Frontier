@@ -11,7 +11,10 @@ body {
     cursor: pointer;
 }
 
-#main {}
+#main {
+    height: calc(100% - 56px);
+    overflow: auto;
+}
 
 .hex-table {
     margin: 0 50px;
