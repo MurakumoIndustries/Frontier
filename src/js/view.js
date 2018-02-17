@@ -4,24 +4,6 @@ import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
 
-import fontawesome from '@fortawesome/fontawesome'
-import faArchive from '@fortawesome/fontawesome-free-solid/faArchive'
-fontawesome.library.add(faArchive)
-import faPlay from '@fortawesome/fontawesome-free-solid/faPlay'
-fontawesome.library.add(faPlay)
-import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
-fontawesome.library.add(faCheck)
-import faBatteryFull from '@fortawesome/fontawesome-free-solid/faBatteryFull'
-fontawesome.library.add(faBatteryFull)
-import faGem from '@fortawesome/fontawesome-free-solid/faGem'
-fontawesome.library.add(faGem)
-import faCircle from '@fortawesome/fontawesome-free-solid/faCircle'
-fontawesome.library.add(faCircle)
-import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown'
-fontawesome.library.add(faArrowDown)
-import faFlask from '@fortawesome/fontawesome-free-solid/faFlask'
-fontawesome.library.add(faFlask)
-
 var activeMenu = "";
 var inited;
 
@@ -42,6 +24,9 @@ var init = function (id) {
     render(id);
 };
 var clear = function () {
+    //clear main
+    $('#main').find("img").attr('src', ''); //stop image loading when doPage
+    $('#main').empty();
 };
 var initControl = function () {
     if (inited) { return; }
@@ -60,9 +45,6 @@ var render = function (id) {
         return;
     }
     setActiveMenu(id);
-    //clear main
-    $('#main').find("img").attr('src', ''); //stop image loading when doPage
-    $('#main').empty();
     //get data
     var map = Data.getMap(id);
 
@@ -92,42 +74,9 @@ var render = function (id) {
         var x = o.x - minX;
         var y = o.y - minY;
         var $td = $table.find('tr:eq(' + y + ') td:eq(' + x + ')');
-        var $div = $('<div>');
-        var hexContent = "";
-        if (o.hexType == 50) {
-            hexContent = '<i class="fas fa-archive"></i><br />';
-            if (o.hasBattery) {
-                hexContent += '<i class="fas fa-battery-full"></i>' + o.BatteryCount;
-            }
-            if (o.hasGachaPoint) {
-                hexContent += '<i class="fas fa-gem"></i>' + o.GachaPointCount;
-            }
-            if (o.hasCoin) {
-                hexContent += '<i class="fas fa-circle"></i>' + o.CoinCount;
-            }
-            if (o.hasEnergy) {
-                hexContent += '<i class="fas fa-flask"></i>' + o.EnergyCount;
-            }
-        }
-        else if (o.hexType == 70) {
-            hexContent = '<i class="fas fa-arrow-down"></i><br />';
-        }
-        switch (o.terminationHex) {
-            case 120: {
-                hexContent = '<i class="fas fa-play"></i>';
-                break;
-            }
-            case 130: {
-                hexContent = '<i class="fas fa-check"></i>';
-                break;
-            }
-        }
-        $div.addClass('hex')
-            .append('<div class="hex-inner left">')
-            .append('<div class="hex-inner right">')
-            .append($('<div class="hex-content">')
-                .append(hexContent)
-            );
+        var $div = $('<div class="hex">');
+        var $hexContent = $('<div>');
+        $hexContent.addClass("hex-content");
         switch (o.hexType) {
             case 20: {
                 $div.addClass('hex-danger');
@@ -137,7 +86,41 @@ var render = function (id) {
                 $div.addClass('hex-rare');
                 break;
             }
+            case 50: {
+                $hexContent.append('<div><i class="icon icon-chest"></i></div>');
+                if (o.batteryCount) {
+                    $hexContent.append('<div><i class="icon icon-battery" />' + o.batteryCount);
+                }
+                if (o.gachaPointCount) {
+                    $hexContent.append('<div><i class="icon icon-gacha-point" />' + o.gachaPointCount);
+                }
+                if (o.goldCount) {
+                    $hexContent.append('<div><i class="icon icon-gold" />' + o.goldCount);
+                }
+                if (o.energyCount) {
+                    $hexContent.append('<div><i class="icon icon-energy" />' + o.energyCount);
+                }
+                break;
+            }
+            case 70:{
+                $hexContent.append('<div><i class="icon icon-PowDwnEne" />');
+                break;
+            }
         }
+        switch (o.termType) {
+            case 120: {
+                $hexContent.prepend('<div style="font-size: 1.5rem;">►');
+                break;
+            }
+            case 130: {
+                $hexContent.prepend('<div style="font-size: 1.5rem;">✓');
+                break;
+            }
+        }
+        $div.append($('<div class="hex-tile">')
+            .append('<div class="hex-tile-inner left">')
+            .append('<div class="hex-tile-inner right">'))
+            .append($hexContent);
         $td.append($div);
     });
 
