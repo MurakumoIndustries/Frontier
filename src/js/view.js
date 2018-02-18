@@ -52,9 +52,9 @@ var render = function (id) {
 
     var $mapinfo = $('<div>').
         addClass('mapinfo-container');
-    $mapinfo.append('<div>' + map.name);
+    $mapinfo.append('<div>' + map.hexList.length + "|" + map.name);
     if (map.canGiveUp) {
-        $mapinfo.append('<div>' + Ui.getText("giveup") +'<i class="icon icon-gold"></i>'+ map.giveUpCost);
+        $mapinfo.append('<div>' + Ui.getText("giveup") + '<i class="icon icon-gold"></i>' + map.giveUpCost);
     }
     else {
         $mapinfo.append('<div>' + Ui.getText("cannotgiveup"));
