@@ -15,7 +15,7 @@ var init = function () {
             page('map/:id', mapPage);
             page('/map/:id', mapPage);
             var langPage = function (ctx) {
-                console.log("route:langRoute");
+                console.log("route:langRoute",ctx);
                 Ui.setLang(ctx.params.lang);
                 page.redirect('/');
                 location.reload();

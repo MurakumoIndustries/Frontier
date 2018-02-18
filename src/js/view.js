@@ -50,6 +50,17 @@ var render = function (id) {
     //get data
     var map = Data.getMap(id);
 
+    var $mapinfo = $('<div>').
+        addClass('mapinfo-container');
+    $mapinfo.append('<div>' + map.name);
+    if (map.canGiveUp) {
+        $mapinfo.append('<div>' + Ui.getText("giveup") +'<i class="icon icon-gold"></i>'+ map.giveUpCost);
+    }
+    else {
+        $mapinfo.append('<div>' + Ui.getText("cannotgiveup"));
+    }
+    $('#main').append($mapinfo);
+
     var minX = _.minBy(map.hexList, function (o) { return o.x; }).x;
     var maxX = _.maxBy(map.hexList, function (o) { return o.x; }).x;
     var minY = _.minBy(map.hexList, function (o) { return o.y; }).y;

@@ -14,6 +14,7 @@ body {
 #main {
     height: calc(100% - 56px);
     overflow: auto;
+    position: relative;
 }
 
 .hex-table {
@@ -137,7 +138,7 @@ body {
     display: inline-block;
     width: 1.5rem;
     height: 1.5rem;
-    vertical-align: text-bottom;
+    vertical-align: bottom;
 }
 
 .icon.icon-2x {
@@ -197,4 +198,11 @@ body {
     display: inline-block;
     margin: 0 0.5rem;
     text-align: center;
+}
+
+.mapinfo-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: rgba(0,0,0,.5);
 }
