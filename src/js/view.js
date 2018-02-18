@@ -4,6 +4,8 @@ import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
 
+import '../item.css'
+
 var activeMenu = "";
 var inited;
 
@@ -70,44 +72,59 @@ var render = function (id) {
         $table.append($tr);
     }
 
-    $.each(map.hexList, function (i, o) {
-        var x = o.x - minX;
-        var y = o.y - minY;
+    $.each(map.hexList, function (i, hex) {
+        var x = hex.x - minX;
+        var y = hex.y - minY;
         var $td = $table.find('tr:eq(' + y + ') td:eq(' + x + ')');
-        var $div = $('<div class="hex">');
-        var $hexContent = $('<div>');
-        $hexContent.addClass("hex-content");
-        switch (o.hexType) {
+        var $hex = $('<div>')
+            .addClass('hex');
+        var $hexContent = $('<div>')
+            .addClass("hex-content")
+            .data('hex', hex)
+            .attr("data-toggle", "popover")
+            .attr("title", hex.name);
+        switch (hex.hexType) {
             case 20: {
-                $div.addClass('hex-danger');
+                $hex.addClass('hex-danger');
                 break;
             }
             case 30: {
-                $div.addClass('hex-rare');
+                $hex.addClass('hex-rare');
                 break;
             }
             case 50: {
                 $hexContent.append('<div><i class="icon icon-chest"></i></div>');
-                if (o.batteryCount) {
-                    $hexContent.append('<div><i class="icon icon-battery" />' + o.batteryCount);
-                }
-                if (o.gachaPointCount) {
-                    $hexContent.append('<div><i class="icon icon-gacha-point" />' + o.gachaPointCount);
-                }
-                if (o.goldCount) {
-                    $hexContent.append('<div><i class="icon icon-gold" />' + o.goldCount);
-                }
-                if (o.energyCount) {
-                    $hexContent.append('<div><i class="icon icon-energy" />' + o.energyCount);
-                }
+                _.each(hex.rewards, function (o, i) {
+                    $hexContent.append('<div><i class="icon icon-' + i.replace(/_/g, "-") + '" />' + o);
+                })
                 break;
             }
-            case 70:{
-                $hexContent.append('<div><i class="icon icon-PowDwnEne" />');
+            case 60: {
+                $hexContent.append('<div><i class="icon icon-2x icon-PowUpEne" />');
+                break;
+            }
+            case 61: {
+                $hexContent.append('<div><i class="icon icon-2x icon-PowUpAct" />');
+                break;
+            }
+            case 62: {
+                $hexContent.append('<div><i class="icon icon-2x icon-PowUpRwd" />');
+                break;
+            }
+            case 70: {
+                $hexContent.append('<div><i class="icon icon-2x icon-PowDwnEne" />');
+                break;
+            }
+            case 71: {
+                $hexContent.append('<div><i class="icon icon-2x icon-PowDwnAct" />');
+                break;
+            }
+            case 72: {
+                $hexContent.append('<div><i class="icon icon-2x icon-PowDwnRwd" />');
                 break;
             }
         }
-        switch (o.termType) {
+        switch (hex.termType) {
             case 120: {
                 $hexContent.prepend('<div style="font-size: 1.5rem;">►');
                 break;
@@ -117,14 +134,86 @@ var render = function (id) {
                 break;
             }
         }
-        $div.append($('<div class="hex-tile">')
+        var $hexTile = $('<div class="hex-tile">')
             .append('<div class="hex-tile-inner left">')
-            .append('<div class="hex-tile-inner right">'))
+            .append('<div class="hex-tile-inner right">');
+        $hex.append($hexTile)
             .append($hexContent);
-        $td.append($div);
+        $td.append($hex);
     });
 
     $('#main').append($table);
+
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        trigger: 'click hover focus',
+        viewport: '#main',
+        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body px-0 py-1"></div></div>',
+        content: function () {
+            var $hexContent = $(this);
+            var hex = $hexContent.data('hex');
+            var $content = $('<ul class="list-group list-group-flush">');
+
+            var $reward = $('<li class="list-group-item p-1">');
+            _.each(hex.rewards, function (o, i) {
+                $reward.append('<i class="icon icon-' + i.replace(/_/g, "-") + '" />' + o);
+            });
+            if (_.some(hex.rewards)) {
+                $content.append($reward);
+            }
+
+            var $drop = $('<li class="list-group-item p-1">');
+            _.each(hex.drops, function (o, i) {
+                var drop = o;
+                if (drop.id) {
+                    drop = _.extend(drop, Data.getItem(o.id));
+                }
+                $drop.append('<span class="drop-container">'
+                    + '<div><i class="item item-' + (drop.icon || "noitem") + '" />'
+                    + (drop.count > 1 ? ("*" + drop.count + "|") : "") + '</div>'
+                    + '<div>' + drop.rate / 100 + "%" + '</div>'
+                    + '</span>');
+            });
+            if (hex.drops.length) {
+                $content.append($drop);
+            }
+            return $content;
+        }
+    });
+    $('#main').click(function () {
+        $('#main').find(".popover").each(function (i, o) {
+            $(o).popover("hide");
+        });
+    })
+    /*$('#main').on('show.bs.popover', function (e) {
+        var $hexContent = $(e.target);
+        var hex = $hexContent.data("hex");
+        var $title = $('<div>')
+            .append($('<div>').text(hex.name))
+            .append('<button type="button" id="close" class="close" onclick="$(this).parents(&quot;.popover&quot;).popover(&quot;hide&quot;);">&times;</button>');
+        $hexContent.attr('data-original-title', $title.html());
+    });*/
+    $('#main').on('inserted.bs.popover', function (e) {
+        var z = 0;
+        $('.popover').each(function (i, o) {
+            if (z < parseInt($(o).css('z-index'))) {
+                z = parseInt($(o).css('z-index'));
+            }
+        });
+        $(e.target.nextSibling)
+            .css('z-index', z + 1)
+            .off('mouseenter').off('click')
+            .on("mouseenter click", function () {
+                var zIndex = 0;
+                $('.popover').each(function (i, o) {
+                    if (zIndex < parseInt($(o).css('z-index'))) {
+                        zIndex = parseInt($(o).css('z-index'));
+                    }
+                })
+                $(this).css('z-index', zIndex + 1);
+                //console.log("current popover Z-Index", zIndex);
+            });
+    });
 
     setTimeout(function () {
         //a little delay to unveil for better unveil effect

@@ -23,12 +23,20 @@ var init = function (type) {
             return dtd.promise();
         }
         else {
+            var savedata = function (key, jsondata) {
+                localStorage[key] = JSON.stringify(jsondata);
+                console.log("Get data from web. ", key);
+                data[type] = jsondata;
+            }
             switch (type.toLowerCase()) {
                 case "maptable":
                     return import('../data/maptable.json').then(jsondata => {
-                        localStorage[key] = JSON.stringify(jsondata);
-                        console.log("Get data from web. ", key);
-                        data[type] = jsondata;
+                        savedata(key, jsondata);
+                    });
+                    break;
+                case "items":
+                    return import('../data/items.json').then(jsondata => {
+                        savedata(key, jsondata);
                     });
                     break;
                 default:
@@ -67,17 +75,23 @@ var getMap = function (id) {
     return _.find(data["maptable"], function (o) { return o.id == id });
 };
 
+var getItem = function (id) {
+    return _.find(data["items"], function (o) { return o.id == id });
+};
+
 export {
     getVersion,
     init,
     isDataTooOld,
     saveLastUpdate,
-    getMap
+    getMap,
+    getItem
 };
 export default {
     getVersion,
     init,
     isDataTooOld,
     saveLastUpdate,
-    getMap
+    getMap,
+    getItem
 };

@@ -1,3 +1,4 @@
+import 'popper.js'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './js/lib/bootstrap-select-1.13.0-beta/js/bootstrap-select'
@@ -19,13 +20,17 @@ import Ui from './js/ui.js';
 import Router from './js/router.js';
 import Data from './js/data.js'
 
-NProgress.set(0.33);
+NProgress.set(0.2);
 Ui.init();
 $.when(Data.init("maptable"))
     .then(function () {
-        NProgress.set(0.66);
-        Data.saveLastUpdate();
-        NProgress.inc();
-        Router.init();
-        NProgress.done();
+        NProgress.set(0.7);
+        $.when(Data.init("items"))
+            .then(function () {
+                NProgress.set(0.9);
+                Data.saveLastUpdate();
+                NProgress.inc();
+                Router.init();
+                NProgress.done();
+            });
     });
