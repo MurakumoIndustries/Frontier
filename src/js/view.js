@@ -191,8 +191,11 @@ var render = function (id) {
             return $content;
         }
     });
-    $('#main').click(function () {
-        $('#main').find(".popover").each(function (i, o) {
+    $('#main').click(function (e) {
+        if ($(e.target).hasClass("hex-content")) {
+            return;
+        }
+        $('[data-toggle="popover"]').each(function (i, o) {
             $(o).popover("hide");
         });
     })
@@ -203,7 +206,7 @@ var render = function (id) {
             .append($('<div>').text(hex.name))
             .append('<button type="button" id="close" class="close" onclick="$(this).parents(&quot;.popover&quot;).popover(&quot;hide&quot;);">&times;</button>');
         $hexContent.attr('data-original-title', $title.html());
-    });*/
+    });
     $('#main').on('inserted.bs.popover', function (e) {
         var z = 0;
         $('.popover').each(function (i, o) {
@@ -224,7 +227,7 @@ var render = function (id) {
                 $(this).css('z-index', zIndex + 1);
                 //console.log("current popover Z-Index", zIndex);
             });
-    });
+    });*/
 
     setTimeout(function () {
         //a little delay to unveil for better unveil effect
