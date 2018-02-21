@@ -89,10 +89,11 @@ var render = function (id) {
         var $td = $table.find('tr:eq(' + y + ') td:eq(' + x + ')');
         var $hex = $('<div>')
             .addClass('hex');
-        var $hexContent = $('<div>')
+        var $hexContent = $('<a>')
             .addClass("hex-content")
             .data('hex', hex)
             .attr("data-toggle", "popover")
+            .attr('tabindex', 0)
             .attr("title", hex.name);
         switch (hex.hexType) {
             case 20: {
@@ -157,7 +158,9 @@ var render = function (id) {
 
     $('[data-toggle="popover"]').popover({
         html: true,
-        trigger: 'click hover focus',
+        trigger: 'hover focus',
+        delay: 100,
+        placement: 'auto',
         viewport: '#main',
         template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body px-0 py-1"></div></div>',
         content: function () {
@@ -191,14 +194,6 @@ var render = function (id) {
             return $content;
         }
     });
-    $('#main').click(function (e) {
-        if ($(e.target).hasClass("hex-content")) {
-            return;
-        }
-        $('[data-toggle="popover"]').each(function (i, o) {
-            $(o).popover("hide");
-        });
-    })
     /*$('#main').on('show.bs.popover', function (e) {
         var $hexContent = $(e.target);
         var hex = $hexContent.data("hex");
