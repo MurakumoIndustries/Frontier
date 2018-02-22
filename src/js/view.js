@@ -83,6 +83,7 @@ var render = function (id) {
         $table.append($tr);
     }
 
+    var totalGachaPoint = 0;
     $.each(map.hexList, function (i, hex) {
         var x = hex.x - minX;
         var y = hex.y - minY;
@@ -108,6 +109,9 @@ var render = function (id) {
                 $hexContent.append('<div><i class="icon icon-chest"></i></div>');
                 _.each(hex.rewards, function (o, i) {
                     $hexContent.append('<div><i class="icon icon-' + i.replace(/_/g, "-") + '" />' + o);
+                    if (i == "gacha_point") {
+                        totalGachaPoint += o;
+                    }
                 })
                 break;
             }
@@ -153,6 +157,8 @@ var render = function (id) {
             .append($hexContent);
         $td.append($hex);
     });
+
+    $mapinfo.append('<div><i class="icon icon-gacha-point"></i>' + totalGachaPoint);
 
     $('#main').append($table);
 
