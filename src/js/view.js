@@ -84,6 +84,7 @@ var render = function (id) {
     }
 
     var totalGachaPoint = 0;
+    var totalBattery = 0;
     $.each(map.hexList, function (i, hex) {
         var x = hex.x - minX;
         var y = hex.y - minY;
@@ -111,6 +112,9 @@ var render = function (id) {
                     $hexContent.append('<div><i class="icon icon-' + i.replace(/_/g, "-") + '" />' + o);
                     if (i == "gacha_point") {
                         totalGachaPoint += o;
+                    }
+                    if (i == "battery") {
+                        totalBattery += o;
                     }
                 })
                 break;
@@ -158,7 +162,9 @@ var render = function (id) {
         $td.append($hex);
     });
 
-    $mapinfo.append('<div><i class="icon icon-gacha-point"></i>' + totalGachaPoint);
+    $mapinfo.append('<div>' + Ui.getText("total")
+        + '<i class="icon icon-gacha-point"></i>' + totalGachaPoint
+        + '<i class="icon icon-battery"></i>' + totalBattery);
 
     $('#main').append($table);
 
