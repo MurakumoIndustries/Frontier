@@ -24,10 +24,12 @@ body {
 #main {
     height: calc(100% - 56px);
     overflow: auto;
+    padding: 0 30px;
+    position: relative;
 }
 
 .hex-table {
-    margin: 10px 40px;
+    margin: 10px auto;
 }
 
 .hex-table td {
@@ -234,10 +236,11 @@ body {
 }
 
 .mapinfo-container {
-    float: right;
+    position: absolute;
+    left: 0;
+    top: 0;
     z-index: 10;
     color: rgba(0, 0, 0, .5);
-    text-align: right;
 }/* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
