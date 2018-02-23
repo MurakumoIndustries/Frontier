@@ -121,6 +121,7 @@ body {
 }
 
 .hex-content:hover {
+    color: #212529;
     text-decoration: none;
 }
 
@@ -221,9 +222,10 @@ body {
 
 .mapinfo-container {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
     color: rgba(0, 0, 0, .5);
+    text-align: right;
 }/* Make clicks pass-through */
 #nprogress {
   pointer-events: none;

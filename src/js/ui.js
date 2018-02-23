@@ -27,6 +27,7 @@ data["clear"] = { "ja-JP": "", "zh-TW": "清空", "en-US": "Clear", "zh-CN": "�
 
 data["maplist"] = { "ja-JP": "宙域マップ", "zh-TW": "地圖列表", "en-US": "Map List", "zh-CN": "地图列表" };
 data["maplistrandom"] = { "ja-JP": "宙域マップ（ランダム）", "zh-TW": "地圖列表（隨機）", "en-US": "Random Map List", "zh-CN": "地图列表（随机）" };
+data["maplistevent"] = { "ja-JP": "宙域マップ（イベント）", "zh-TW": "地圖列表（活動）", "en-US": "Event Map List", "zh-CN": "地图列表（活动）" };
 
 data["giveup"] = { "ja-JP": "調查宙域变更：", "zh-TW": "變更調查地圖：", "en-US": "Change Map: ", "zh-CN": "变更调查地图：" };
 data["cannotgiveup"] = { "ja-JP": "調查宙域变更不可", "zh-TW": "無法變更該調查地圖", "en-US": "Cannot change current map", "zh-CN": "不能变更这张调查地图" };

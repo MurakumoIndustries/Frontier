@@ -50,8 +50,9 @@ var render = function (id) {
     //get data
     var map = Data.getMap(id);
 
-    var $mapinfo = $('<div>').
-        addClass('mapinfo-container');
+    var $mapinfo = $('<div>')
+    .        addClass('mapinfo-container')
+    .        addClass('p-1');
     $mapinfo.append('<div>' + map.hexList.length + "|" + map.name);
     if (map.canGiveUp) {
         $mapinfo.append('<div>' + Ui.getText("giveup") + '<i class="icon icon-gold"></i>' + map.giveUpCost);
