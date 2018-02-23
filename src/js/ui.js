@@ -33,6 +33,8 @@ data["giveup"] = { "ja-JP": "調查宙域变更：", "zh-TW": "變更調查地�
 data["cannotgiveup"] = { "ja-JP": "調查宙域变更不可", "zh-TW": "無法變更該調查地圖", "en-US": "Cannot change current map", "zh-CN": "不能变更这张调查地图" };
 data["total"] = { "ja-JP": "合計：", "zh-TW": "合計：", "en-US": "Total: ", "zh-CN": "合计：" };
 
+data["recomLv"] = { "ja-JP": "推奨Lv. ", "zh-TW": "推薦Lv. ", "en-US": "Recommend Lv. ", "zh-CN": "推荐Lv. " };
+
 data["currentversion"] = { "ja-JP": "バージョン：", "zh-TW": "當前版本：", "en-US": "Current Ver.:", "zh-CN": "当前版本：" };
 data["externallink"] = { "ja-JP": "外部リンク", "zh-TW": "外部鏈接", "en-US": "External Links", "zh-CN": "外部链接" };
 data["officalsite"] = { "ja-JP": "公式サイト", "zh-TW": "官網", "en-US": "Offical Site", "zh-CN": "官网" };

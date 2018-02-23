@@ -14,7 +14,6 @@ body {
 #main {
     height: calc(100% - 56px);
     overflow: auto;
-    position: relative;
 }
 
 .hex-table {
@@ -225,9 +224,8 @@ body {
 }
 
 .mapinfo-container {
-    position: absolute;
-    right: 0;
-    top: 0;
+    float: right;
+    z-index: 10;
     color: rgba(0, 0, 0, .5);
     text-align: right;
 }

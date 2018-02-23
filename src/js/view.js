@@ -94,8 +94,7 @@ var render = function (id) {
             .addClass("hex-content")
             .data('hex', hex)
             .attr("data-toggle", "popover")
-            .attr('tabindex', 0)
-            .attr("title", hex.name);
+            .attr('tabindex', 0);
         switch (hex.hexType) {
             case 20: {
                 $hex.addClass('hex-danger');
@@ -186,6 +185,16 @@ var render = function (id) {
         placement: 'auto',
         viewport: '#main',
         template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body px-0 py-1"></div></div>',
+        title: function () {
+            var $hexContent = $(this);
+            var hex = $hexContent.data('hex');
+            var $title = $('<div>')
+                .append($('<span>').text(hex.name));
+            if (hex.recomLv > 0) {
+                $title.append($('<span class="font-weight-light float-right">').text(Ui.getText('recomLv') + hex.recomLv));
+            }
+            return $title;
+        },
         content: function () {
             var $hexContent = $(this);
             var hex = $hexContent.data('hex');
