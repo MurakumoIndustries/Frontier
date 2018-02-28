@@ -4,6 +4,10 @@ import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
 
+import fontawesome from '@fortawesome/fontawesome'
+import faCommentAlt from '@fortawesome/fontawesome-free-solid/faCommentAlt'
+fontawesome.library.add(faCommentAlt)
+
 var activeMenu = "";
 var inited;
 
@@ -104,6 +108,10 @@ var render = function (id) {
                 $hex.addClass('hex-rare');
                 break;
             }
+            case 40: {
+                $hexContent.append('<div><i class="fas fa-comment-alt"></i></div>');
+                break;
+            }
             case 50: {
                 $hexContent.append('<div><i class="icon icon-chest"></i></div>');
                 _.each(hex.rewards, function (o, i) {
@@ -113,11 +121,9 @@ var render = function (id) {
                     }
                     if (reward.id == "ticket_010_01") {
                         $hexContent.append('<div><i class="icon icon-battery" />' + o.count);
-                        totalBattery += o.count;
                     }
                     else if (reward.id == "gacha_point") {
                         $hexContent.append('<div><i class="icon icon-gacha-point" />' + o.count);
-                        totalGachaPoint += o.count;
                     }
                     else if (reward.id == "gold") {
                         $hexContent.append('<div><i class="icon icon-gold" />' + o.count);
@@ -163,6 +169,15 @@ var render = function (id) {
                 break;
             }
         }
+        _.each(hex.rewards, function (o, i) {
+            var reward = o;
+            if (reward.id == "ticket_010_01") {
+                totalBattery += o.count;
+            }
+            else if (reward.id == "gacha_point") {
+                totalGachaPoint += o.count;
+            }
+        });
         var $hexTile = $('<div class="hex-tile">')
             .append('<div class="hex-tile-inner left">')
             .append('<div class="hex-tile-inner right">');
@@ -214,7 +229,7 @@ var render = function (id) {
                 $content.append($reward);
             }
 
-            var $drop = $('<li class="list-group-item p-1">');
+            /*var $drop = $('<li class="list-group-item p-1">');
             _.each(hex.drops, function (o, i) {
                 var drop = o;
                 if (drop.id) {
@@ -228,7 +243,7 @@ var render = function (id) {
             });
             if (hex.drops.length) {
                 $content.append($drop);
-            }
+            }*/
             return $content;
         }
     });

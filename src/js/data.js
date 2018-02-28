@@ -2,7 +2,7 @@ import $ from "jquery";
 
 var data = {};
 
-const version = 20402;
+const version = 20428;
 var getVersion = function () { return version; };
 
 var init = function (type) {
