@@ -88,6 +88,8 @@ var render = function (id) {
 
     var totalGachaPoint = 0;
     var totalBattery = 0;
+    var totalRare = 0;
+    var totalDanger = 0;
     $.each(map.hexList, function (i, hex) {
         var x = hex.x - minX;
         var y = hex.y - minY;
@@ -102,10 +104,12 @@ var render = function (id) {
         switch (hex.hexType) {
             case 20: {
                 $hex.addClass('hex-danger');
+                totalDanger++;
                 break;
             }
             case 30: {
                 $hex.addClass('hex-rare');
+                totalRare++;
                 break;
             }
             case 40: {
@@ -187,6 +191,9 @@ var render = function (id) {
     });
 
     $mapinfo.append('<div>' + Ui.getText("total")
+        + '<i class="icon icon-danger"></i>' + totalDanger
+        + '<i class="icon icon-rare"></i>' + totalRare
+        + '|'
         + '<i class="icon icon-gacha-point"></i>' + totalGachaPoint
         + '<i class="icon icon-battery"></i>' + totalBattery);
 

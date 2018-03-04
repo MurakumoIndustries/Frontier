@@ -210,6 +210,22 @@ body {
     height: 3rem;
 }
 
+.icon.icon-rare {
+    color: yellow;
+    width: auto;
+    font-style: normal;
+}
+
+.icon.icon-danger {
+    color: red;
+    width: auto;
+    font-style: normal;
+}
+
+.icon.icon-rare::before, .icon.icon-danger::before {
+    content: '⬣';
+}
+
 .item-container {
     display: inline-block;
     margin: 0 0.5rem;
