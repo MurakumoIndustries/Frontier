@@ -3,6 +3,7 @@ import _ from 'lodash';
 import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
+import NProgress from 'nprogress'
 
 import fontawesome from '@fortawesome/fontawesome'
 import faCommentAlt from '@fortawesome/fontawesome-free-solid/faCommentAlt'
@@ -23,9 +24,13 @@ var setActiveMenu = function (id) {
     //$('#class').text(current.text());
 };
 var init = function (id) {
+    NProgress.start();
     clear();
+    NProgress.set(0.3);
     initControl();
+    NProgress.set(0.6);
     render(id);
+    NProgress.done();
 };
 var clear = function () {
     //clear main
