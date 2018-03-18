@@ -55,7 +55,7 @@ var render = function (id) {
     }
     setActiveMenu(id);
     //get data
-    var map = Data.getMap(id);
+    var map = Data.get('maptable', id);
 
     var $mapinfo = $('<div>')
         .addClass('mapinfo-container')
@@ -126,7 +126,7 @@ var render = function (id) {
                 _.each(hex.rewards, function (o, i) {
                     var reward = o;
                     if (reward.id) {
-                        reward = _.extend(reward, Data.getItem(o.id));
+                        reward = _.extend(reward, Data.get('items', o.id));
                     }
                     if (reward.id == "ticket_010_01") {
                         $hexContent.append('<div><i class="icon icon-battery" />' + o.count);
@@ -204,7 +204,6 @@ var render = function (id) {
 
     $('#main').append($table);
 
-    var pathToItems = require.context('../img/item', true, /\.png$/);
     $('[data-toggle="popover"]').popover({
         html: true,
         trigger: 'hover focus',
@@ -230,10 +229,10 @@ var render = function (id) {
             _.each(hex.rewards, function (o, i) {
                 var reward = o;
                 if (reward.id) {
-                    reward = _.extend(reward, Data.getItem(o.id));
+                    reward = _.extend(reward, Data.get('items', o.id));
                 }
                 $reward.append('<div class="item-container">'
-                    + '<img src="' + pathToItems("./" + (reward.icon || "itm2_04_000_01") + ".png") + '" class="icon icon-item" />'
+                    + '<img src="' + 'img/items/' + (reward.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
                     + (reward.count > 1 ? ('<span class="item-count">' + reward.count + "<span>") : "")
                     + '</div>');
             });
@@ -245,10 +244,10 @@ var render = function (id) {
             _.each(hex.drops, function (o, i) {
                 var drop = o;
                 if (drop.id) {
-                    drop = _.extend(drop, Data.getItem(o.id));
+                    drop = _.extend(drop, Data.get('items',o.id));
                 }
                 $drop.append('<span class="item-container">'
-                    + '<div><img src="' + pathToItems("./" + (drop.icon || "itm2_04_000_01") + ".png") + '" class="icon icon-item" />'
+                    + '<div><img src="' + 'img/items/' +  (drop.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
                     + (drop.count > 1 ? ("*" + drop.count) : "") + '</div>'
                     + '<div>' + drop.rate / 100 + "%" + '</div>'
                     + '</span>');

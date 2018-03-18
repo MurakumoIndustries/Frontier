@@ -1,97 +1,109 @@
-import $ from "jquery";
+import localForage from "localforage";
 
 var data = {};
 
 const version = 20489;
 var getVersion = function () { return version; };
 
-var init = function (type) {
-    var dtd = $.Deferred();
-    if (!type) {
-        dtd.reject();
-        return dtd.promise();
-    }
-    var key = type;
-    var self = this;
-    return self.isDataTooOld().then(function (force) {
-        var json = localStorage.getItem(key);
-        if (json && !force) {
-            var jsondata = JSON.parse(json);
-            console.log("Get data from cache. ", key);
-            data[type] = jsondata;
-            dtd.resolve();
-            return dtd.promise();
+const baseKey = "MI_Frontier_";
+const lastUpdateKey = "lastUpdate_MI_Frontier";
+
+var init = function (forceInit) {
+    forceInit = !!forceInit;
+    return isDataOutdated().then(function (needForceUpdate) {
+        var promises = [];
+        if (!forceInit && !needForceUpdate) {
+            console.log("All data cached. ");
+            var loaddata = function (key) {
+                return localForage.getItem(baseKey + key).then(json => {
+                    data[key] = JSON.parse(json);
+                });
+            };
+            promises.push(loaddata('maptable'));
+            promises.push(loaddata('stage'));
+            promises.push(loaddata('items'));
+            promises.push(loaddata('enemy'));
+            return Promise.all(promises);
         }
-        else {
+        return localForage.clear().then(() => {
             var savedata = function (key, jsondata) {
-                localStorage[key] = JSON.stringify(jsondata);
-                console.log("Get data from web. ", key);
-                data[type] = jsondata;
+                return localForage.setItem(baseKey + key, JSON.stringify(jsondata), function () {
+                    console.log("Get data from web. ", key);
+                    data[key] = jsondata;
+                });
             }
-            switch (type.toLowerCase()) {
-                case "maptable":
-                    return import('../data/maptable.json').then(jsondata => {
-                        savedata(key, jsondata);
-                    });
-                    break;
-                case "items":
-                    return import('../data/items.json').then(jsondata => {
-                        savedata(key, jsondata);
-                    });
-                    break;
-                default:
-                    break;
-            }
-        }
+            promises.push(import(
+                /* webpackChunkName: "jsondata" */
+                '../data/maptable.json').then(jsondata => {
+                    return savedata('maptable', jsondata);
+                }));
+            promises.push(import(
+                /* webpackChunkName: "jsondata" */
+                '../data/stage.json').then(jsondata => {
+                    return savedata('stage', jsondata);
+                }));
+            promises.push(import(
+                /* webpackChunkName: "jsondata" */
+                '../data/items.json').then(jsondata => {
+                    return savedata('items', jsondata);
+                }));
+            promises.push(import(
+                /* webpackChunkName: "jsondata" */
+                '../data/enemy.json').then(jsondata => {
+                    return savedata('enemy', jsondata);
+                }));
+            return Promise.all(promises).then(() => {
+                return saveLastUpdate();
+            });
+        });
     });
 };
 
-var isLatest = null;
 var lastUpdate;
-const lastUpdateKey = "lastUpdate_MIF";
-var isDataTooOld = function () {
-    var dtd = $.Deferred();
-    if (isLatest !== null) {
-        dtd.resolve(isLatest == false);
-        return dtd.promise();
-    }
-    lastUpdate = localStorage.getItem(lastUpdateKey);
-    return import('../data/lastUpdate.json').then(data => {
-        var local = lastUpdate;
-        var remote = data;
-        isLatest = new Date(local).getTime() >= new Date(remote).getTime();
-        lastUpdate = remote;
-        if (!local) {
-            return true;
-        }
-        return isLatest == false;
+var isDataOutdated = function () {
+    return localForage.getItem(lastUpdateKey).then(function (data) {
+        lastUpdate = data;
+        return import('../data/lastUpdate.json').then(data => {
+            var local = lastUpdate;
+            var remote = data;
+            var isLatest = new Date(local).getTime() >= new Date(remote).getTime();
+            lastUpdate = remote;
+            if (!local) {
+                return true;
+            }
+            return isLatest == false;
+        });
     });
 };
 var saveLastUpdate = function () {
-    localStorage.setItem(lastUpdateKey, lastUpdate)
+    return localForage.setItem(lastUpdateKey, lastUpdate)
 };
 
-var getMap = function (id) {
-    return _.find(data["maptable"], function (o) { return o.id == id });
+var getAll = function (type) {
+    if (!data[type.toLowerCase()]) {
+        console.log("dirty data detected!");
+        location.hash = '#!/init/force';
+        return [];
+    }
+    return data[type.toLowerCase()];
 };
-
-var getItem = function (id) {
-    return _.find(data["items"], function (o) { return o.id == id });
+var get = function (type, id) {
+    return _.find(getAll(type), function (o) { return o.id == id });
 };
 
 export {
     getVersion,
     init,
-    isDataTooOld,
+    isDataOutdated,
     saveLastUpdate,
-    getMap,
-    getItem
+    getAll,
+    get
 };
 export default {
     getVersion,
     init,
-    isDataTooOld,
+    isDataOutdated,
     saveLastUpdate,
-    getMap,
-    getItem
+    getAll,
+    get
 };

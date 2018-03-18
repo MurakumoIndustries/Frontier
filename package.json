@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --progress --colors --watch",
-    "build": "webpack --progress --colors --display-error-details"
+    "watch": "webpack --env.production=false --progress --colors --watch",
+    "build": "webpack --env.production --progress --colors --display-error-details"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/MurakumoIndustries/Frontier#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.18",
+    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.9",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
@@ -36,6 +37,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.6",
     "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
+    "localforage": "^1.6.0",
     "lodash": "^4.17.5",
     "nprogress": "^0.2.0",
     "page": "^1.8.3",
