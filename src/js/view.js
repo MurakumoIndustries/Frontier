@@ -232,7 +232,7 @@ var render = function (id) {
                     reward = _.extend(reward, Data.get('items', o.id));
                 }
                 $reward.append('<div class="item-container">'
-                    + '<img src="' + 'img/items/' + (reward.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
+                    + '<img src="' + 'img/item/' + (reward.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
                     + (reward.count > 1 ? ('<span class="item-count">' + reward.count + "<span>") : "")
                     + '</div>');
             });
@@ -247,7 +247,7 @@ var render = function (id) {
                     drop = _.extend(drop, Data.get('items',o.id));
                 }
                 $drop.append('<span class="item-container">'
-                    + '<div><img src="' + 'img/items/' +  (drop.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
+                    + '<div><img src="' + 'img/item/' +  (drop.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
                     + (drop.count > 1 ? ("*" + drop.count) : "") + '</div>'
                     + '<div>' + drop.rate / 100 + "%" + '</div>'
                     + '</span>');
