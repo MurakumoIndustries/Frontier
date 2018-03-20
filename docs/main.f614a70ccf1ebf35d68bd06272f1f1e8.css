@@ -47,6 +47,7 @@ body {
     position: relative;
     /*fix hex under td*/
     z-index: 2;
+    cursor: pointer;
 }
 
 .hex-tile {
