@@ -1,0 +1,76 @@
+<div class="hex-detail" data-id="<%=hex.id %>">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div>
+                <span>
+                    <%=hex.name %>
+                </span>
+                <% if(hex.recomLv>0){ %>
+                    <span class="font-weight-light pl-3" style="color:#fffb">
+                        <%=Ui.getText('recomLv') + hex.recomLv %>
+                            <% } %>
+                    </span>
+            </div>
+        </li>
+        <% if (hex.questId) {
+            var stage = Data.get('stage', hex.questId); %>
+            <li class="list-group-item" style="white-space: nowrap;overflow: auto;">
+                <% _.each(stage.areaList, function (area, i) { %>
+                    <div class="stage-container">
+                        <div class="stage-label">AREA
+                            <%=i+1 %>
+                        </div>
+                        <div class="parallelogram">
+                            <img src='img/quest/<%=(area.icon || "stg2_999_01") + ".png" %>' />
+                            <div class="attr-subscript attr-<%= Data.convertAttr2nd(hex.zakoAttr.weakAttr) %>"></div>
+                        </div>
+                    </div>
+                    <% _.each(area.enemyList, function (enemyId, i) { 
+                        var enemy = Data.get('enemy', enemyId);
+                        if (enemy && enemy.icon && enemy.type >= 10) { %>
+                        <div class="stage-container enemy" data-id="<%=enemyId %>">
+                            <div class="parallelogram">
+                                <img src='img/quest/<%=(enemy.icon || "ene2_800_01") + ".png" %>' />
+                                <div class="attr-subscript attr-<%= Data.convertAttr2nd(enemy.type > 10?hex.bossAttr.weakAttr:255) %>"></div>
+                            </div>
+                            <div class="stage-label">
+                                <%=enemy.name %>
+                            </div>
+                        </div>
+                        <% }
+                    }); %>
+                            <% }); %>
+            </li>
+            <% } %>
+                <% if (subcontract > 0) { %>
+                    <li class="list-group-item">
+                        <div class="item-container">
+                            <span data-lang="subcontract">
+                                <%=Ui.getText('subcontract') %>
+                            </span>
+                            <i class="icon icon-gold"></i>
+                            <span>
+                                <%=subcontract %>
+                            </span>
+                        </div>
+                    </li>
+                    <% } %>
+                        <% if (hex.questId) { %>
+                            <li class="list-group-item">
+                                <% _.each(hex.rewards, function (reward, i) {                                     
+                                    if (reward.id) {
+                                        reward = _.extend(reward, Data.get('items', reward.id));
+                                    } %>
+                                    <div class="item-container">
+                                        <img src='img/item/<%=(reward.icon || "itm2_04_000_01") + ".png" %>' class="icon icon-item" />
+                                        <% if(reward.count > 1){ %>
+                                            <span class="item-count">
+                                                <%=reward.count %>
+                                                    <span>
+                                                        <% } %>
+                                    </div>
+                                    <% }); %>
+                            </li>
+                            <% } %>
+    </ul>
+</div>

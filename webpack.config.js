@@ -15,7 +15,8 @@ module.exports = env => {
     }),
     new ExtractTextPlugin("[name].[contenthash].css"),
     new CopyWebpackPlugin([
-      { from: 'src/img/item', to: 'img/item' }
+      { from: 'src/img/item', to: 'img/item' },
+      { from: 'src/img/quest', to: 'img/quest' }
     ]),
     new webpack.optimize.CommonsChunkPlugin({
       name: "data",
@@ -55,6 +56,20 @@ module.exports = env => {
               loader: 'url-loader',
               options: {
                 limit: 8192
+              }
+            }
+          ]
+        },
+        {
+          test: /\.(tpl|html)$/,
+          include: [
+            path.resolve(__dirname, "src/template")
+          ],
+          use: [
+            {
+              loader: 'underscore-template-loader',
+              options: {
+                globalLodash: true,
               }
             }
           ]

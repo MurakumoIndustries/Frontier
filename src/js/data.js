@@ -23,6 +23,7 @@ var init = function (forceInit) {
             promises.push(loaddata('stage'));
             promises.push(loaddata('items'));
             promises.push(loaddata('enemy'));
+            promises.push(loaddata('attrset'));
             return Promise.all(promises);
         }
         return localForage.clear().then(() => {
@@ -51,6 +52,11 @@ var init = function (forceInit) {
                 /* webpackChunkName: "jsondata" */
                 '../data/enemy.json').then(jsondata => {
                     return savedata('enemy', jsondata);
+                }));
+            promises.push(import(
+                /* webpackChunkName: "jsondata" */
+                '../data/attrset.json').then(jsondata => {
+                    return savedata('attrset', jsondata);
                 }));
             return Promise.all(promises).then(() => {
                 return saveLastUpdate();
@@ -90,6 +96,19 @@ var getAll = function (type) {
 var get = function (type, id) {
     return _.find(getAll(type), function (o) { return o.id == id });
 };
+var convertAttr2nd = function (attr) {
+    switch (attr) {
+        case 4: return "normal";
+        case 5: return "thunder";
+        case 6: return "gravity";
+        case 7: return "fire";
+        case 8: return "ice";
+        case 9: return "light";
+        case 10: return "collapse";
+        case 11: return "theory";
+        default: return "nothing";
+    }
+}
 
 export {
     getVersion,
@@ -97,7 +116,8 @@ export {
     isDataOutdated,
     saveLastUpdate,
     getAll,
-    get
+    get,
+    convertAttr2nd
 };
 export default {
     getVersion,
@@ -105,5 +125,6 @@ export default {
     isDataOutdated,
     saveLastUpdate,
     getAll,
-    get
+    get,
+    convertAttr2nd
 };

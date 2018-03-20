@@ -34,6 +34,7 @@ data["cannotgiveup"] = { "ja-JP": "調查宙域变更不可", "zh-TW": "無法�
 data["total"] = { "ja-JP": "合計：", "zh-TW": "合計：", "en-US": "Total: ", "zh-CN": "合计：" };
 
 data["recomLv"] = { "ja-JP": "推奨Lv. ", "zh-TW": "推薦Lv. ", "en-US": "Recommend Lv. ", "zh-CN": "推荐Lv. " };
+data["subcontract"] = { "ja-JP": "依頼：", "zh-TW": "依賴：", "en-US": "Subcontract:", "zh-CN": "依赖：" };
 
 data["currentversion"] = { "ja-JP": "バージョン：", "zh-TW": "當前版本：", "en-US": "Current Ver.:", "zh-CN": "当前版本：" };
 data["externallink"] = { "ja-JP": "外部リンク", "zh-TW": "外部鏈接", "en-US": "External Links", "zh-CN": "外部链接" };

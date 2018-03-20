@@ -28,6 +28,7 @@
     "html-webpack-plugin": "^2.30.1",
     "style-loader": "^0.20.2",
     "uglifyjs-webpack-plugin": "^1.1.8",
+    "underscore-template-loader": "^1.0.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.11.0"
   },

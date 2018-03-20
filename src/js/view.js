@@ -9,6 +9,8 @@ import fontawesome from '@fortawesome/fontawesome'
 import faCommentAlt from '@fortawesome/fontawesome-free-solid/faCommentAlt'
 fontawesome.library.add(faCommentAlt)
 
+import template from '../template/hexInfo.html';
+
 var activeMenu = "";
 var inited;
 
@@ -42,6 +44,7 @@ var initControl = function () {
     $('#version').text(Data.getVersion());
 
     $('.selectpicker').change(function (e) {
+        $(".navbar-collapse").collapse('hide');
         page.redirect('/map/' + $(this).val());
     });
 
@@ -95,26 +98,37 @@ var render = function (id) {
     var totalBattery = 0;
     var totalRare = 0;
     var totalDanger = 0;
+    var totalNormal = 0;
     $.each(map.hexList, function (i, hex) {
         var x = hex.x - minX;
         var y = hex.y - minY;
         var $td = $table.find('tr:eq(' + y + ') td:eq(' + x + ')');
         var $hex = $('<div>')
             .addClass('hex');
+                        
+        hex.zakoAttr = Data.get('attrset', hex.zakoAttr) || {};
+        hex.bossAttr = Data.get('attrset', hex.bossAttr) || {};
         var $hexContent = $('<a>')
             .addClass("hex-content")
             .data('hex', hex)
             .attr("data-toggle", "popover")
             .attr('tabindex', 0);
         switch (hex.hexType) {
+            case 10: {
+                totalNormal++;
+                $hexContent.data('subcontract', 1000 * map.subcontractRatio);
+                break;
+            }
             case 20: {
                 $hex.addClass('hex-danger');
                 totalDanger++;
+                $hexContent.data('subcontract', 3000 * map.subcontractRatio);
                 break;
             }
             case 30: {
                 $hex.addClass('hex-rare');
                 totalRare++;
+                $hexContent.data('subcontract', 2000 * map.subcontractRatio);
                 break;
             }
             case 40: {
@@ -196,8 +210,9 @@ var render = function (id) {
     });
 
     $mapinfo.append('<div>' + Ui.getText("total")
-        + '<i class="icon icon-danger"></i>' + totalDanger
-        + '<i class="icon icon-rare"></i>' + totalRare
+        + '<i class="icon icon-hex icon-hex-danger"></i>' + totalDanger
+        + '<i class="icon icon-hex icon-hex-rare"></i>' + totalRare
+        + '<i class="icon icon-hex"></i>' + totalNormal
         + '|'
         + '<i class="icon icon-gacha-point"></i>' + totalGachaPoint
         + '<i class="icon icon-battery"></i>' + totalBattery);
@@ -206,7 +221,7 @@ var render = function (id) {
 
     $('[data-toggle="popover"]').popover({
         html: true,
-        trigger: 'hover focus',
+        trigger: 'hover',
         delay: 100,
         placement: 'auto',
         template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body px-0 py-1"></div></div>',
@@ -216,7 +231,7 @@ var render = function (id) {
             var $title = $('<div>')
                 .append($('<span>').text(hex.name));
             if (hex.recomLv > 0) {
-                $title.append($('<span class="font-weight-light float-right">').text(Ui.getText('recomLv') + hex.recomLv));
+                $title.append($('<span class="font-weight-light float-right pl-3">').text(Ui.getText('recomLv') + hex.recomLv));
             }
             return $title;
         },
@@ -224,6 +239,35 @@ var render = function (id) {
             var $hexContent = $(this);
             var hex = $hexContent.data('hex');
             var $content = $('<ul class="list-group list-group-flush">');
+
+            /*if (hex.questId) {
+                var stage = Data.get('stage', hex.questId);
+                var $stage = $('<li class="list-group-item p-1" style="white-space:nowrap;overflow:auto;">');
+                _.each(stage.areaList, function (area, i) {
+                    $stage.append('<span class="stage-container">'
+                        + '<div class="parallelogram"><img src="' + 'img/quest/' + (area.icon || "stg2_999_01") + ".png" + '" />'
+                        + '</span>');
+                    _.each(area.enemyList, function (enemyId, i) {
+                        var enemy = Data.get('enemy', enemyId);
+                        if (enemy && enemy.icon && enemy.type >= 10) {
+                            $stage.append('<span class="stage-container enemy">'
+                                + '<div class="parallelogram"><img src="' + 'img/quest/' + (enemy.icon) + ".png" + '" />'
+                                + '</span>');
+                        }
+                    });
+                });
+                $content.append($stage);
+            }*/
+
+            var subcontract = $hexContent.data('subcontract') || 0;
+            if (subcontract > 0) {
+                var $subcontract = $('<li class="list-group-item p-1">');
+                $subcontract.append('<div class="item-container">'
+                    + '<span data-lang="subcontract">' + Ui.getText('subcontract') + '</span>'
+                    + '<i class="icon icon-gold"></i>' + subcontract
+                    + '</div>');
+                $content.append($subcontract);
+            }
 
             var $reward = $('<li class="list-group-item p-1">');
             _.each(hex.rewards, function (o, i) {
@@ -258,35 +302,35 @@ var render = function (id) {
             return $content;
         }
     });
-    /*$('#main').on('show.bs.popover', function (e) {
-        var $hexContent = $(e.target);
-        var hex = $hexContent.data("hex");
-        var $title = $('<div>')
-            .append($('<div>').text(hex.name))
-            .append('<button type="button" id="close" class="close" onclick="$(this).parents(&quot;.popover&quot;).popover(&quot;hide&quot;);">&times;</button>');
-        $hexContent.attr('data-original-title', $title.html());
-    });
-    $('#main').on('inserted.bs.popover', function (e) {
-        var z = 0;
-        $('.popover').each(function (i, o) {
-            if (z < parseInt($(o).css('z-index'))) {
-                z = parseInt($(o).css('z-index'));
-            }
+
+    $('.hex').click(function () {
+        var $hex = $(this);
+        var $hexContent = $hex.find('.hex-content');
+        var hex = $hexContent.data('hex');
+        var subcontract = $hexContent.data('subcontract') || 0;
+        var hexInfo = template({
+            hex: hex,
+            subcontract: subcontract,
+            Ui: Ui,
+            Data: Data,
         });
-        $(e.target.nextSibling)
-            .css('z-index', z + 1)
-            .off('mouseenter').off('click')
-            .on("mouseenter click", function () {
-                var zIndex = 0;
-                $('.popover').each(function (i, o) {
-                    if (zIndex < parseInt($(o).css('z-index'))) {
-                        zIndex = parseInt($(o).css('z-index'));
-                    }
-                })
-                $(this).css('z-index', zIndex + 1);
-                //console.log("current popover Z-Index", zIndex);
+        var $hexInfo = $(hexInfo);
+        $hexInfo.click(function () {
+            if (window.getSelection().toString().length) {
+                return;
+            }
+            $(this).fadeOut(500, function () {
+                $(this).remove();
+                $('body').removeClass('no-scroll');
+                $('[data-toggle="popover"]').popover('enable');
             });
-    });*/
+        })
+        $hexInfo.hide();
+        $('body').addClass('no-scroll');
+        $hexContent.popover('disable');
+        $('#main').append($hexInfo);
+        $hexInfo.fadeIn(500);
+    });
 
     setTimeout(function () {
         //a little delay to unveil for better unveil effect

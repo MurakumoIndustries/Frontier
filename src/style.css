@@ -7,6 +7,10 @@ body {
     height: 100%;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 .panel-heading {
     cursor: pointer;
 }
@@ -138,6 +142,106 @@ body {
     background-color: yellow;
 }
 
+/* hex info overlay */
+
+.hex-detail {
+    position: fixed;
+    top: 56px;
+    right: 0;
+    z-index: 1024;
+    background: linear-gradient(180deg, #000b, #000b 40%, #0004);
+    color: #fff;
+    width: 100%;
+    height: 100%;
+}
+
+.hex-detail .list-group-item {
+    background: transparent;
+    border-color: #fff4;
+}
+
+.stage-container {
+    display: inline-block;
+    margin: 0 0.1rem;
+    text-align: center;
+    position: relative;
+    vertical-align: top;
+}
+
+.stage-container:first-of-type {
+    margin-left: 0.5rem;
+}
+
+.stage-container .stage-label {
+    margin-left: -0.25rem;
+    font-size: 0.75rem;
+    text-align: left;
+}
+
+.stage-container.enemy .stage-label {
+    margin-left: 0.5rem;
+    width: 0;
+    overflow: visible;
+}
+
+.stage-container.enemy:nth-of-type(odd) .stage-label {
+    padding-top: 1rem;
+}
+
+.stage-container .parallelogram {
+    overflow: hidden;
+    border-radius: 0.5rem;
+    transform: skewX(10deg);
+    width: 4rem;
+    height: 5rem;
+    border: 1px solid white;
+}
+
+.stage-container .parallelogram img {
+    position: absolute;
+    left: -0.5rem;
+    width: 5rem;
+    height: 5rem;
+    transform: skewX(-10deg);
+}
+
+.stage-container.enemy .parallelogram {
+    margin-top: 2rem;
+}
+
+.stage-container .attr-subscript {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.stage-container .attr-subscript.attr-normal {}
+
+.stage-container .attr-subscript.attr-thunder {
+    background: linear-gradient(-50deg, #fad558 10%, transparent 20%);
+}
+
+.stage-container .attr-subscript.attr-gravity {
+    background: linear-gradient(-50deg, #c485fd 10%, transparent 20%);
+}
+
+.stage-container .attr-subscript.attr-fire {
+    background: linear-gradient(-50deg, #fe8691 10%, transparent 20%);
+}
+
+.stage-container .attr-subscript.attr-ice {
+    background: linear-gradient(-50deg, #92e8fe 10%, transparent 20%);
+}
+
+.stage-container .attr-subscript.attr-light {}
+
+.stage-container .attr-subscript.attr-collapse {}
+
+.stage-container .attr-subscript.attr-theory {}
+
 /* icons */
 
 .icon {
@@ -208,20 +312,22 @@ body {
     height: 3rem;
 }
 
-.icon.icon-rare {
-    color: yellow;
+.icon.icon-hex {
     width: auto;
     font-style: normal;
+    color: #ccc;
 }
 
-.icon.icon-danger {
-    color: red;
-    width: auto;
-    font-style: normal;
-}
-
-.icon.icon-rare::before, .icon.icon-danger::before {
+.icon.icon-hex::before {
     content: '⬣';
+}
+
+.icon.icon-hex.icon-hex-rare {
+    color: yellow;
+}
+
+.icon.icon-hex.icon-hex-danger {
+    color: red;
 }
 
 .item-container {
@@ -237,6 +343,8 @@ body {
     right: 0;
     padding-right: 0.25rem;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    color: #000;
+    font-size: 0.9rem;
 }
 
 .mapinfo-container {
