@@ -185,7 +185,7 @@ body {
     overflow: visible;
 }
 
-.stage-container.enemy:nth-of-type(odd) .stage-label {
+.stage-container.enemy .stage-label.stage-label-odd {
     padding-top: 1rem;
 }
 

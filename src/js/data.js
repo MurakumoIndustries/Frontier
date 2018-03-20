@@ -106,7 +106,8 @@ var convertAttr2nd = function (attr) {
         case 9: return "light";
         case 10: return "collapse";
         case 11: return "theory";
-        default: return "nothing";
+        case 255: return "nothing";
+        default: return "unknown" + attr;
     }
 }
 

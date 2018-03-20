@@ -25,21 +25,27 @@
                             <div class="attr-subscript attr-<%= Data.convertAttr2nd(hex.zakoAttr.weakAttr) %>"></div>
                         </div>
                     </div>
-                    <% _.each(area.enemyList, function (enemyId, i) { 
+                    <%
+                     var index=1;
+                    _.each(area.enemyList, function (enemyId, j) { 
                         var enemy = Data.get('enemy', enemyId);
-                        if (enemy && enemy.icon && enemy.type >= 10) { %>
+                        if (enemy && enemy.icon && enemy.type >= 10) {
+                            %>
                         <div class="stage-container enemy" data-id="<%=enemyId %>">
                             <div class="parallelogram">
                                 <img src='img/quest/<%=(enemy.icon || "ene2_800_01") + ".png" %>' />
                                 <div class="attr-subscript attr-<%= Data.convertAttr2nd(enemy.type > 10?hex.bossAttr.weakAttr:255) %>"></div>
                             </div>
-                            <div class="stage-label">
+                            <div class="stage-label <%=(index%2==0?'stage-label-odd':'') %>">
                                 <%=enemy.name %>
                             </div>
                         </div>
-                        <% }
-                    }); %>
-                            <% }); %>
+                        <% 
+                        index++;
+                        }
+                    }); 
+                 }); 
+                 %>
             </li>
             <% } %>
                 <% if (subcontract > 0) { %>
