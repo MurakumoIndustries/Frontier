@@ -332,7 +332,7 @@ var render = function (id) {
             }
             else {
                 $(this).parent().find('.stage-enemy-list').fadeOut(500);
-list.fadeIn(500);
+                list.fadeIn(500);
             }
             e.stopPropagation();
         })
