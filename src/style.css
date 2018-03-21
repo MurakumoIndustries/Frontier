@@ -167,6 +167,7 @@ body {
     text-align: center;
     position: relative;
     vertical-align: top;
+    cursor: pointer;
 }
 
 .stage-container:first-of-type {
@@ -179,6 +180,9 @@ body {
     text-align: left;
 }
 
+.stage-container.enemy{
+    cursor: initial;
+}
 .stage-container.enemy .stage-label {
     margin-left: 0.5rem;
     width: 0;
@@ -206,6 +210,13 @@ body {
     transform: skewX(-10deg);
 }
 
+.stage-container .stage-enemy-list {
+    padding-top: 2rem;
+    width: 0;
+    margin-left: -0.25rem;
+    display: none;
+}
+
 .stage-container.enemy .parallelogram {
     margin-top: 2rem;
 }
@@ -222,19 +233,19 @@ body {
 .stage-container .attr-subscript.attr-normal {}
 
 .stage-container .attr-subscript.attr-thunder {
-    background: linear-gradient(-50deg, #fad558 10%, transparent 20%);
+    background: linear-gradient(-50deg, #fad558 14%, white 15%, transparent 16%);
 }
 
 .stage-container .attr-subscript.attr-gravity {
-    background: linear-gradient(-50deg, #c485fd 10%, transparent 20%);
+    background: linear-gradient(-50deg, #c485fd 14%, white 15%, transparent 16%);
 }
 
 .stage-container .attr-subscript.attr-fire {
-    background: linear-gradient(-50deg, #fe8691 10%, transparent 20%);
+    background: linear-gradient(-50deg, #fe8691 14%, white 15%, transparent 16%);
 }
 
 .stage-container .attr-subscript.attr-ice {
-    background: linear-gradient(-50deg, #92e8fe 10%, transparent 20%);
+    background: linear-gradient(-50deg, #92e8fe 14%, white 15%, transparent 16%);
 }
 
 .stage-container .attr-subscript.attr-light {}

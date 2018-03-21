@@ -24,6 +24,18 @@
                             <img src='img/quest/<%=(area.icon || "stg2_999_01") + ".png" %>' />
                             <div class="attr-subscript attr-<%= Data.convertAttr2nd(hex.zakoAttr.weakAttr) %>"></div>
                         </div>
+                        <div class="stage-enemy-list">
+                            <% _.each(area.enemyList, function (enemyId, j) {
+                                var enemy = Data.get('enemy', enemyId); %>
+                                <div class="stage-label ml-1">
+                                    <span>
+                                        <%=enemy.name %>
+                                    </span>
+                                    <% }); %>
+                                        <% for(var j=0;j<area.enemyList.length;j++){ %>
+                                </div>
+                                <% } %>
+                        </div>
                     </div>
                     <%
                      var index=1;

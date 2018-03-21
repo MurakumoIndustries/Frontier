@@ -105,7 +105,7 @@ var render = function (id) {
         var $td = $table.find('tr:eq(' + y + ') td:eq(' + x + ')');
         var $hex = $('<div>')
             .addClass('hex');
-                        
+
         hex.zakoAttr = Data.get('attrset', hex.zakoAttr) || {};
         hex.bossAttr = Data.get('attrset', hex.bossAttr) || {};
         var $hexContent = $('<a>')
@@ -324,6 +324,17 @@ var render = function (id) {
                 $('body').removeClass('no-scroll');
                 $('[data-toggle="popover"]').popover('enable');
             });
+        })
+        $hexInfo.find('.stage-container').click(function (e) {
+            var list = $(this).find('.stage-enemy-list');
+            if (list.is(":visible")) {
+                list.fadeOut(500);
+            }
+            else {
+                $(this).parent().find('.stage-enemy-list').fadeOut(500);
+list.fadeIn(500);
+            }
+            e.stopPropagation();
         })
         $hexInfo.hide();
         $('body').addClass('no-scroll');
