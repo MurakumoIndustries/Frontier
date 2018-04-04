@@ -96,6 +96,8 @@ var render = function (id) {
 
     var totalGachaPoint = 0;
     var totalBattery = 0;
+    var totalGold = 0;
+    var totalEnergy = 0;
     var totalRare = 0;
     var totalDanger = 0;
     var totalNormal = 0;
@@ -200,6 +202,12 @@ var render = function (id) {
             else if (reward.id == "gacha_point") {
                 totalGachaPoint += o.count;
             }
+            else if (reward.id == "gold") {
+                totalGold += o.count;
+            }
+            else if (reward.id == "energy") {
+                totalEnergy += o.count;
+            }
         });
         var $hexTile = $('<div class="hex-tile">')
             .append('<div class="hex-tile-inner left">')
@@ -210,12 +218,20 @@ var render = function (id) {
     });
 
     $mapinfo.append('<div>' + Ui.getText("total")
+        + '<span>'
         + '<i class="icon icon-hex icon-hex-danger"></i>' + totalDanger
         + '<i class="icon icon-hex icon-hex-rare"></i>' + totalRare
         + '<i class="icon icon-hex"></i>' + totalNormal
-        + '|'
+        + '</span>'
+        + '<div>'
         + '<i class="icon icon-gacha-point"></i>' + totalGachaPoint
-        + '<i class="icon icon-battery"></i>' + totalBattery);
+        + '<i class="icon icon-battery"></i>' + totalBattery
+        + '</div>'
+        + '<div>'
+        + '<i class="icon icon-gold"></i>' + totalGold
+        + '<i class="icon icon-energy"></i>' + totalEnergy
+        + '</div>'
+    );
 
     $('#main').append($table);
 
@@ -326,6 +342,9 @@ var render = function (id) {
             });
         })
         $hexInfo.find('.stage-container').click(function (e) {
+            if (window.getSelection().toString().length) {
+                return;
+            }
             var list = $(this).find('.stage-enemy-list');
             if (list.is(":visible")) {
                 list.fadeOut(500);
