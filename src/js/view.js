@@ -118,19 +118,19 @@ var render = function (id) {
         switch (hex.hexType) {
             case 10: {
                 totalNormal++;
-                $hexContent.data('subcontract', 1000 * map.subcontractRatio);
+                //$hexContent.data('subcontract', 1000 * map.subcontractRatio);
                 break;
             }
             case 20: {
                 $hex.addClass('hex-danger');
                 totalDanger++;
-                $hexContent.data('subcontract', 3000 * map.subcontractRatio);
+                //$hexContent.data('subcontract', 3000 * map.subcontractRatio);
                 break;
             }
             case 30: {
                 $hex.addClass('hex-rare');
                 totalRare++;
-                $hexContent.data('subcontract', 2000 * map.subcontractRatio);
+                //$hexContent.data('subcontract', 2000 * map.subcontractRatio);
                 break;
             }
             case 40: {
@@ -275,12 +275,12 @@ var render = function (id) {
                 $content.append($stage);
             }*/
 
-            var subcontract = $hexContent.data('subcontract') || 0;
-            if (subcontract > 0) {
+            //var subcontract = $hexContent.data('subcontract') || 0;
+            if (hex.canGiveUp && hex.giveUpCost > 0) {
                 var $subcontract = $('<li class="list-group-item p-1">');
                 $subcontract.append('<div class="item-container">'
                     + '<span data-lang="subcontract">' + Ui.getText('subcontract') + '</span>'
-                    + '<i class="icon icon-gold"></i>' + subcontract
+                    + '<i class="icon icon-gold"></i>' + hex.giveUpCost
                     + '</div>');
                 $content.append($subcontract);
             }
@@ -323,10 +323,10 @@ var render = function (id) {
         var $hex = $(this);
         var $hexContent = $hex.find('.hex-content');
         var hex = $hexContent.data('hex');
-        var subcontract = $hexContent.data('subcontract') || 0;
+        //var subcontract = $hexContent.data('subcontract') || 0;
         var hexInfo = template({
             hex: hex,
-            subcontract: subcontract,
+            //subcontract: subcontract,
             Ui: Ui,
             Data: Data,
         });

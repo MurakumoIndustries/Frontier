@@ -60,7 +60,7 @@
                  %>
             </li>
             <% } %>
-                <% if (subcontract > 0) { %>
+                <% if (hex.canGiveUp && hex.giveUpCost > 0) { %>
                     <li class="list-group-item">
                         <div class="item-container">
                             <span data-lang="subcontract">
@@ -68,7 +68,7 @@
                             </span>
                             <i class="icon icon-gold"></i>
                             <span>
-                                <%=subcontract %>
+                                <%=hex.giveUpCost %>
                             </span>
                         </div>
                     </li>
