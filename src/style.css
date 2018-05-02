@@ -180,9 +180,10 @@ body {
     text-align: left;
 }
 
-.stage-container.enemy{
+.stage-container.enemy {
     cursor: initial;
 }
+
 .stage-container.enemy .stage-label {
     margin-left: 0.5rem;
     width: 0;
@@ -274,7 +275,15 @@ body {
 .icon.icon-chest {
     width: 1rem;
     height: 1rem;
+    vertical-align: middle;
     background-image: url(./img/chest.png);
+}
+
+.icon.icon-endless {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+    background-image: url(./img/endless.png);
 }
 
 .icon.icon-battery {
@@ -317,6 +326,36 @@ body {
 
 .icon.icon-PowDwnRwd {
     background-image: url(./img/frohexwinbuf_04_02.png);
+}
+
+.icon.icon-key {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+}
+
+.icon.icon-key-01-01 {
+    background-image: url(./img/frokey_01_01.png);
+}
+
+.icon.icon-key-01-02 {
+    background-image: url(./img/frokey_01_02.png);
+}
+
+.icon.icon-key-01-03 {
+    background-image: url(./img/frokey_01_03.png);
+}
+
+.icon.icon-key-01-04 {
+    background-image: url(./img/frokey_01_04.png);
+}
+
+.icon.icon-key-01-05 {
+    background-image: url(./img/frokey_01_05.png);
+}
+
+.icon.icon-key-01-06 {
+    background-image: url(./img/frokey_01_06.png);
 }
 
 .icon.icon-item {

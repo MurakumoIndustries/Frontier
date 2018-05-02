@@ -8,6 +8,8 @@ import NProgress from 'nprogress'
 import fontawesome from '@fortawesome/fontawesome'
 import faCommentAlt from '@fortawesome/fontawesome-free-solid/faCommentAlt'
 fontawesome.library.add(faCommentAlt)
+import faLock from '@fortawesome/fontawesome-free-solid/faLock'
+fontawesome.library.add(faLock)
 
 import template from '../template/hexInfo.html';
 
@@ -183,7 +185,36 @@ var render = function (id) {
                 $hexContent.append('<div><i class="icon icon-2x icon-PowDwnRwd" />');
                 break;
             }
+            case 90: {
+                $hexContent.append('<div><i class="icon icon-endless"></i></div>');
+                break;
+            }
         }
+
+        if (hex.itemHintIndexes.length) {
+            var $itemHint = $hexContent.find('div:first');
+            if (!$itemHint.length) {
+                $itemHint = $('<div>');
+                $hexContent.append($itemHint);
+            }
+            _.each(hex.itemHintIndexes, function (o, i) {
+                var str = "" + (o + 1);
+                $itemHint.append('<i class="icon icon-key icon-key-01-' + "00".substring(0, 2 - str.length) + str + '" />');
+            });
+            //$hexContent.append($itemHint);
+        }
+
+        if (hex.requireMapItems.length) {
+            $hexContent.append('<div><i class="fas fa-lock"></i></div>');
+            $itemHint = $('<div>');
+            $hexContent.append($itemHint);
+            _.each(hex.requireMapItems, function (o, i) {
+                if (o <= 0) { return; }
+                var str = "" + (i + 1);
+                $itemHint.append('<i class="icon icon-key icon-key-01-' + "00".substring(0, 2 - str.length) + str + '" />' + o);
+            });
+        }
+
         switch (hex.termType) {
             case 120: {
                 $hexContent.prepend('<div style="font-size: 1.5rem;">►');
