@@ -20,6 +20,10 @@ var setActiveMenu = function (id) {
     var $current = $(".map-list-container li a[data-map-id=" + id + "]");
     $current.parents('li:first').addClass('active');
     $('.map-list-container ul.collapse:not(:has(li.active))').collapse('hide');
+    //reset search
+    $('.map-list-search input').val('');
+    $('.map-list-container li').show();
+
     if ($('.sidebar-toggle').is(":visible")) {
         //hide sidebar when mobile
         $('.sidebar-collapsable').collapse('hide');
@@ -29,7 +33,7 @@ var setActiveMenu = function (id) {
         var scrollto = function () {
             var $scroll = $current.parents('ul:first').parent();
             $scroll.animate({
-                scrollTop: $scroll.scrollTop() + $current.position().top - 170
+                scrollTop: $scroll.scrollTop() + $current.position().top - 170  
             }, 300);
         }
         if ($current.is(":visible")) {
