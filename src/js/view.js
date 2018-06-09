@@ -5,12 +5,6 @@ import Ui from './ui.js';
 import Data from './data.js'
 import NProgress from 'nprogress'
 
-import fontawesome from '@fortawesome/fontawesome'
-import faCommentAlt from '@fortawesome/fontawesome-free-solid/faCommentAlt'
-fontawesome.library.add(faCommentAlt)
-import faLock from '@fortawesome/fontawesome-free-solid/faLock'
-fontawesome.library.add(faLock)
-
 import template from '../template/hexInfo.html';
 
 var activeMenu = "";
@@ -136,7 +130,7 @@ var render = function (id) {
                 break;
             }
             case 40: {
-                $hexContent.append('<div><i class="fas fa-comment-alt"></i></div>');
+                $hexContent.append('<div><i class="material-icons">chat</i></div>');
                 break;
             }
             case 50: {
@@ -205,7 +199,7 @@ var render = function (id) {
         }
 
         if (hex.requireMapItems.length) {
-            $hexContent.append('<div><i class="fas fa-lock"></i></div>');
+            $hexContent.append('<div><i class="material-icons">lock_outline</i></div>');
             $itemHint = $('<div>');
             $hexContent.append($itemHint);
             _.each(hex.requireMapItems, function (o, i) {

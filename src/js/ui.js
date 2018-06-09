@@ -81,25 +81,6 @@ var init = function () {
             $this.text(value);
         }
     });
-    //deal with bootstrap select
-    switch (currentLang) {
-        case "ja-JP": {
-            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-ja_JP');
-            break;
-        }
-        case "zh-TW": {
-            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-zh_TW');
-            break;
-        }
-        case "en-US": {
-            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-en_US');
-            break;
-        }
-        case "zh-CN": {
-            import('./lib/bootstrap-select-1.13.0-beta/js/i18n/defaults-zh_CN');
-            break;
-        }
-    }
 };
 
 export {
