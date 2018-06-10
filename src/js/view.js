@@ -4,7 +4,8 @@ import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
 import NProgress from 'nprogress'
-import 'dragscroll';
+//import 'dragscroll';
+import interact from 'interactjs'
 
 import template from '../template/hexInfo.html';
 
@@ -33,7 +34,7 @@ var setActiveMenu = function (id) {
         var scrollto = function () {
             var $scroll = $current.parents('ul:first').parent();
             $scroll.animate({
-                scrollTop: $scroll.scrollTop() + $current.position().top - 170  
+                scrollTop: $scroll.scrollTop() + $current.position().top - 170
             }, 300);
         }
         if ($current.is(":visible")) {
@@ -286,7 +287,48 @@ var render = function (id) {
         + '</div>'
     );
 
-    $('#main').append($table);
+    $('#main').append($('<div class="hex-table-container">').append($table));
+    //make map draggable && pinchable
+    function dragMoveListener(event) {
+        var target = event.target,
+            // keep the dragged position in the data-x/data-y attributes
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+        // translate the element
+        target.style.webkitTransform =
+            target.style.transform =
+            'translate(' + x + 'px, ' + y + 'px)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+    };
+    var scale = 1,
+        gestureArea = $table.parent()[0],
+        scaleElement = $table[0];
+
+    interact(gestureArea)
+        .gesturable({
+            onstart: function (event) {
+            },
+            onmove: function (event) {
+                scale = scale * (1 + event.ds);
+
+                scaleElement.style.webkitTransform =
+                    scaleElement.style.transform =
+                    'scale(' + scale + ')';
+
+                dragMoveListener(event);
+            },
+            onend: function (event) {
+            }
+        })
+        .draggable(
+            {
+                autoScroll: true,
+                onmove: dragMoveListener
+            });
 
     $('[data-toggle="popover"]').popover({
         html: true,
