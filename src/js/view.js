@@ -4,12 +4,8 @@ import page from 'page';
 import Ui from './ui.js';
 import Data from './data.js'
 import NProgress from 'nprogress'
-
-import fontawesome from '@fortawesome/fontawesome'
-import faCommentAlt from '@fortawesome/fontawesome-free-solid/faCommentAlt'
-fontawesome.library.add(faCommentAlt)
-import faLock from '@fortawesome/fontawesome-free-solid/faLock'
-fontawesome.library.add(faLock)
+//import 'dragscroll';
+import interact from 'interactjs'
 
 import template from '../template/hexInfo.html';
 
@@ -21,11 +17,34 @@ var getActiveMenu = function () {
 }
 var setActiveMenu = function (id) {
     activeMenu = id;
-    $("nav.navbar .active").removeClass('active');
-    //$("body>div[data-tab]").hide();
-    var current = $("nav.navbar [data-map-id=" + id + "]");
-    current.parents('li').addClass('active');
-    //$('#class').text(current.text());
+    $(".map-list-container li.active").removeClass('active');
+    var $current = $(".map-list-container li a[data-map-id=" + id + "]");
+    $current.parents('li:first').addClass('active');
+    $('.map-list-container ul.collapse:not(:has(li.active))').collapse('hide');
+    //reset search
+    $('.map-list-search input').val('');
+    $('.map-list-container li').show();
+
+    if ($('.sidebar-toggle').is(":visible")) {
+        //hide sidebar when mobile
+        $('.sidebar-collapsable').collapse('hide');
+    }
+    else {
+        //scroll to active
+        var scrollto = function () {
+            var $scroll = $current.parents('ul:first').parent();
+            $scroll.animate({
+                scrollTop: $scroll.scrollTop() + $current.position().top - 170
+            }, 300);
+        }
+        if ($current.is(":visible")) {
+            scrollto();
+        }
+        else {
+            $current.parents('ul:first').one('shown.bs.collapse', scrollto);
+            $current.parents('ul:first').collapse('show');
+        }
+    }
 };
 var init = function (id) {
     NProgress.start();
@@ -45,9 +64,18 @@ var initControl = function () {
     if (inited) { return; }
     $('#version').text(Data.getVersion());
 
-    $('.selectpicker').change(function (e) {
-        $(".navbar-collapse").collapse('hide');
-        page.redirect('/map/' + $(this).val());
+    $('.map-list-search input').on('input', function (e) {
+        $('.map-list-container ul.collapse').collapse('show');
+        $('.map-list-container li').show();
+
+        var input = $('.map-list-search input').val();
+        if (input !== "") {
+            $('.map-list-container ul>ul>li').each(function (i, o) {
+                if ($(o).text().indexOf(input) === -1) {
+                    $(o).hide();
+                }
+            });
+        }
     });
 
     inited = true;
@@ -61,18 +89,6 @@ var render = function (id) {
     setActiveMenu(id);
     //get data
     var map = Data.get('maptable', id);
-
-    var $mapinfo = $('<div>')
-        .addClass('mapinfo-container')
-        .addClass('p-1');
-    $mapinfo.append('<div>' + map.hexList.length + "|" + map.name);
-    if (map.canGiveUp) {
-        $mapinfo.append('<div>' + Ui.getText("giveup") + '<i class="icon icon-gold"></i>' + map.giveUpCost);
-    }
-    else {
-        $mapinfo.append('<div>' + Ui.getText("cannotgiveup"));
-    }
-    $('#main').append($mapinfo);
 
     var minX = _.minBy(map.hexList, function (o) { return o.x; }).x;
     var maxX = _.maxBy(map.hexList, function (o) { return o.x; }).x;
@@ -136,7 +152,7 @@ var render = function (id) {
                 break;
             }
             case 40: {
-                $hexContent.append('<div><i class="fas fa-comment-alt"></i></div>');
+                $hexContent.append('<div><i class="material-icons">chat</i></div>');
                 break;
             }
             case 50: {
@@ -205,7 +221,7 @@ var render = function (id) {
         }
 
         if (hex.requireMapItems.length) {
-            $hexContent.append('<div><i class="fas fa-lock"></i></div>');
+            $hexContent.append('<div><i class="material-icons">lock_outline</i></div>');
             $itemHint = $('<div>');
             $hexContent.append($itemHint);
             _.each(hex.requireMapItems, function (o, i) {
@@ -248,6 +264,15 @@ var render = function (id) {
         $td.append($hex);
     });
 
+    $('.map-name').text(map.hexList.length + "|" + map.name);
+    var $mapinfo = $('.map-info');
+    $mapinfo.empty();
+    if (map.canGiveUp) {
+        $mapinfo.append('<div>' + Ui.getText("giveup") + '<i class="icon icon-gold"></i>' + map.giveUpCost);
+    }
+    else {
+        $mapinfo.append('<div>' + Ui.getText("cannotgiveup"));
+    }
     $mapinfo.append('<div>' + Ui.getText("total")
         + '<span>'
         + '<i class="icon icon-hex icon-hex-danger"></i>' + totalDanger
@@ -257,14 +282,53 @@ var render = function (id) {
         + '<div>'
         + '<i class="icon icon-gacha-point"></i>' + totalGachaPoint
         + '<i class="icon icon-battery"></i>' + totalBattery
-        + '</div>'
-        + '<div>'
         + '<i class="icon icon-gold"></i>' + totalGold
         + '<i class="icon icon-energy"></i>' + totalEnergy
         + '</div>'
     );
 
-    $('#main').append($table);
+    $('#main').append($('<div class="hex-table-container">').append($table));
+    //make map draggable && pinchable
+    function dragMoveListener(event) {
+        var target = event.target,
+            // keep the dragged position in the data-x/data-y attributes
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+        // translate the element
+        target.style.webkitTransform =
+            target.style.transform =
+            'translate(' + x + 'px, ' + y + 'px)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+    };
+    var scale = 1,
+        gestureArea = $table.parent()[0],
+        scaleElement = $table[0];
+
+    interact(gestureArea)
+        .gesturable({
+            onstart: function (event) {
+            },
+            onmove: function (event) {
+                scale = scale * (1 + event.ds);
+
+                scaleElement.style.webkitTransform =
+                    scaleElement.style.transform =
+                    'scale(' + scale + ')';
+
+                dragMoveListener(event);
+            },
+            onend: function (event) {
+            }
+        })
+        .draggable(
+            {
+                autoScroll: true,
+                onmove: dragMoveListener
+            });
 
     $('[data-toggle="popover"]').popover({
         html: true,

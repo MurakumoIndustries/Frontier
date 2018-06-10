@@ -43,6 +43,13 @@ module.exports = env => {
     module: {
       rules: [
         {
+          test: /\.(ttf|eot|woff|woff2)$/,
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]',
+          },
+        },
+        {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
