@@ -13,7 +13,7 @@
             </div>
         </li>
         <% if (hex.questId) {
-            var stage = Data.get('stage', hex.questId); %>
+            var stage = hex.stage; %>
             <li class="list-group-item" style="white-space: nowrap;overflow: auto;">
                 <% _.each(stage.areaList, function (area, i) { %>
                     <div class="stage-container">

@@ -211,6 +211,13 @@ body {
     background-color: yellow;
 }
 
+.hex-content .hex-area-count {
+    position: absolute;
+    right: 1rem;
+    bottom: 0;
+    font-size: 0.75rem;
+}
+
 /* hex info overlay */
 
 .hex-detail {

@@ -128,6 +128,7 @@ var render = function (id) {
 
         hex.zakoAttr = Data.get('attrset', hex.zakoAttr) || {};
         hex.bossAttr = Data.get('attrset', hex.bossAttr) || {};
+        hex.stage = Data.get('stage', hex.questId) || {};
         var $hexContent = $('<a>')
             .addClass("hex-content")
             .data('hex', hex)
@@ -256,6 +257,13 @@ var render = function (id) {
                 totalEnergy += o.count;
             }
         });
+        if (hex.questId) {
+            var areaCount = (hex.stage.areaList || []).length;
+            if (areaCount) {
+                $hexContent.append('<div class="hex-area-count">' + areaCount);
+            }
+        }
+
         var $hexTile = $('<div class="hex-tile">')
             .append('<div class="hex-tile-inner left">')
             .append('<div class="hex-tile-inner right">');
