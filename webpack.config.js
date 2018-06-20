@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+//const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = env => {
   console.log('Production: ', env.production) // true
@@ -14,10 +14,10 @@ module.exports = env => {
       template: './src/index.html'
     }),
     new ExtractTextPlugin("[name].[contenthash].css"),
-    new CopyWebpackPlugin([
-      { from: 'src/img/item', to: 'img/item' },
-      { from: 'src/img/quest', to: 'img/quest' }
-    ]),
+    //new CopyWebpackPlugin([
+    //  { from: 'src/img/item', to: 'img/item' },
+    //  { from: 'src/img/quest', to: 'img/quest' }
+    //]),
     new webpack.optimize.CommonsChunkPlugin({
       name: "data",
     })

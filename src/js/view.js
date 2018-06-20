@@ -364,13 +364,13 @@ var render = function (id) {
                 var $stage = $('<li class="list-group-item p-1" style="white-space:nowrap;overflow:auto;">');
                 _.each(stage.areaList, function (area, i) {
                     $stage.append('<span class="stage-container">'
-                        + '<div class="parallelogram"><img src="' + 'img/quest/' + (area.icon || "stg2_999_01") + ".png" + '" />'
+                        + '<div class="parallelogram"><img src="' + '../img/quest/' + (area.icon || "stg2_999_01") + ".png" + '" />'
                         + '</span>');
                     _.each(area.enemyList, function (enemyId, i) {
                         var enemy = Data.get('enemy', enemyId);
                         if (enemy && enemy.icon && enemy.type >= 10) {
                             $stage.append('<span class="stage-container enemy">'
-                                + '<div class="parallelogram"><img src="' + 'img/quest/' + (enemy.icon) + ".png" + '" />'
+                                + '<div class="parallelogram"><img src="' + '../img/quest/' + (enemy.icon) + ".png" + '" />'
                                 + '</span>');
                         }
                     });
@@ -395,7 +395,7 @@ var render = function (id) {
                     reward = _.extend(reward, Data.get('items', o.id));
                 }
                 $reward.append('<div class="item-container">'
-                    + '<img src="' + 'img/item/' + (reward.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
+                    + '<img src="' + '../img/item/' + (reward.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
                     + (reward.count > 1 ? ('<span class="item-count">' + reward.count + "<span>") : "")
                     + '</div>');
             });
@@ -410,7 +410,7 @@ var render = function (id) {
                     drop = _.extend(drop, Data.get('items',o.id));
                 }
                 $drop.append('<span class="item-container">'
-                    + '<div><img src="' + 'img/item/' +  (drop.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
+                    + '<div><img src="' + '../img/item/' +  (drop.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
                     + (drop.count > 1 ? ("*" + drop.count) : "") + '</div>'
                     + '<div>' + drop.rate / 100 + "%" + '</div>'
                     + '</span>');
