@@ -27,6 +27,7 @@ data["search"] = { "ja-JP": "検索", "zh-TW": "搜尋", "en-US": "Search", "zh-
 data["maplist"] = { "ja-JP": "新米向けマップ", "zh-TW": "新手教程", "en-US": "Newbie Maps", "zh-CN": "新手教程" };
 data["maplistrandom"] = { "ja-JP": "ランダムマップ", "zh-TW": "隨機調查", "en-US": "Random Maps", "zh-CN": "随机调查" };
 data["maplistevent"] = { "ja-JP": "イベントマップ", "zh-TW": "活動調查", "en-US": "Event Maps", "zh-CN": "活动调查" };
+data["mapliststory"] = { "ja-JP": "ストーリーマップ", "zh-TW": "主線調查", "en-US": "Story Maps", "zh-CN": "主线调查" };
 
 data["giveup"] = { "ja-JP": "調查宙域变更：", "zh-TW": "變更調查地圖：", "en-US": "Change Map: ", "zh-CN": "变更调查地图：" };
 data["cannotgiveup"] = { "ja-JP": "調查宙域变更不可", "zh-TW": "無法變更該調查地圖", "en-US": "Cannot change current map", "zh-CN": "不能变更这张调查地图" };
