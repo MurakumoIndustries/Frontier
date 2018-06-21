@@ -73,22 +73,20 @@
                         </div>
                     </li>
                     <% } %>
-                        <% if (hex.questId) { %>
-                            <li class="list-group-item">
-                                <% _.each(hex.rewards, function (reward, i) {                                     
+                        <li class="list-group-item">
+                            <% _.each(hex.rewards, function (reward, i) {                                     
                                     if (reward.id) {
                                         reward = _.extend(reward, Data.get('items', reward.id));
                                     } %>
-                                    <div class="item-container">
-                                        <img src='../img/item/<%=(reward.icon || "itm2_04_000_01") + ".png" %>' class="icon icon-item" />
-                                        <% if(reward.count > 1){ %>
-                                            <span class="item-count">
-                                                <%=reward.count %>
-                                                    <span>
-                                                        <% } %>
-                                    </div>
-                                    <% }); %>
-                            </li>
-                            <% } %>
+                                <div class="item-container">
+                                    <img src='../img/item/<%=(reward.icon || "itm2_04_000_01") + ".png" %>' class="icon icon-item" />
+                                    <% if(reward.count > 1){ %>
+                                        <span class="item-count">
+                                            <%=reward.count %>
+                                                <span>
+                                                    <% } %>
+                                </div>
+                                <% }); %>
+                        </li>
     </ul>
 </div>

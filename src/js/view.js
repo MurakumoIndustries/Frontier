@@ -134,111 +134,103 @@ var render = function (id) {
             .data('hex', hex)
             .attr("data-toggle", "popover")
             .attr('tabindex', 0);
+        var $hexContentLine1 = $('<div>');
+        var $hexContentLine2 = $('<div>');
+        $hexContent.append($hexContentLine1).append($hexContentLine2);
         switch (hex.hexType) {
             case 10: {
                 totalNormal++;
-                //$hexContent.data('subcontract', 1000 * map.subcontractRatio);
                 break;
             }
             case 20: {
                 $hex.addClass('hex-danger');
                 totalDanger++;
-                //$hexContent.data('subcontract', 3000 * map.subcontractRatio);
                 break;
             }
             case 30: {
                 $hex.addClass('hex-rare');
                 totalRare++;
-                //$hexContent.data('subcontract', 2000 * map.subcontractRatio);
                 break;
             }
             case 40: {
-                $hexContent.append('<div><i class="material-icons">chat</i></div>');
+                $hexContentLine1.append('<i class="material-icons">chat</i>');
                 break;
             }
             case 50: {
-                $hexContent.append('<div><i class="icon icon-chest"></i></div>');
+                $hexContentLine1.append('<i class="icon icon-chest"></i>');
                 _.each(hex.rewards, function (o, i) {
                     var reward = o;
                     if (reward.id) {
                         reward = _.extend(reward, Data.get('items', o.id));
                     }
                     if (reward.id == "ticket_010_01") {
-                        $hexContent.append('<div><i class="icon icon-battery" />' + o.count);
+                        $hexContentLine2.append('<div><i class="icon icon-battery" />' + o.count);
                     }
                     else if (reward.id == "gacha_point") {
-                        $hexContent.append('<div><i class="icon icon-gacha-point" />' + o.count);
+                        $hexContentLine2.append('<div><i class="icon icon-gacha-point" />' + o.count);
                     }
                     else if (reward.id == "gold") {
-                        $hexContent.append('<div><i class="icon icon-gold" />' + o.count);
+                        $hexContentLine2.append('<div><i class="icon icon-gold" />' + o.count);
                     }
                     else if (reward.id == "energy") {
-                        $hexContent.append('<div><i class="icon icon-energy" />' + o.count);
+                        $hexContentLine2.append('<div><i class="icon icon-energy" />' + o.count);
                     }
                 });
                 break;
             }
             case 60: {
-                $hexContent.append('<div><i class="icon icon-2x icon-PowUpEne" />');
+                $hexContentLine1.append('<i class="icon icon-2x icon-PowUpEne" />');
                 break;
             }
             case 61: {
-                $hexContent.append('<div><i class="icon icon-2x icon-PowUpAct" />');
+                $hexContentLine1.append('<i class="icon icon-2x icon-PowUpAct" />');
                 break;
             }
             case 62: {
-                $hexContent.append('<div><i class="icon icon-2x icon-PowUpRwd" />');
+                $hexContentLine1.append('<i class="icon icon-2x icon-PowUpRwd" />');
                 break;
             }
             case 70: {
-                $hexContent.append('<div><i class="icon icon-2x icon-PowDwnEne" />');
+                $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnEne" />');
                 break;
             }
             case 71: {
-                $hexContent.append('<div><i class="icon icon-2x icon-PowDwnAct" />');
+                $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnAct" />');
                 break;
             }
             case 72: {
-                $hexContent.append('<div><i class="icon icon-2x icon-PowDwnRwd" />');
+                $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnRwd" />');
                 break;
             }
             case 90: {
-                $hexContent.append('<div><i class="icon icon-endless"></i></div>');
+                $hexContentLine1.append('<i class="icon icon-endless" />');
                 break;
             }
         }
 
         if (hex.itemHintIndexes.length) {
-            var $itemHint = $hexContent.find('div:first');
-            if (!$itemHint.length) {
-                $itemHint = $('<div>');
-                $hexContent.append($itemHint);
-            }
             _.each(hex.itemHintIndexes, function (o, i) {
                 var str = "" + (o + 1);
-                $itemHint.append('<i class="icon icon-key icon-key-01-' + "00".substring(0, 2 - str.length) + str + '" />');
+                $hexContentLine1.append('<i class="icon icon-key icon-key-01-' + "00".substring(0, 2 - str.length) + str + '" />');
             });
-            //$hexContent.append($itemHint);
         }
 
         if (hex.requireMapItems.length) {
-            $hexContent.append('<div><i class="material-icons">lock_outline</i></div>');
-            $itemHint = $('<div>');
-            $hexContent.append($itemHint);
+            $hexContentLine1.append('<i class="material-icons">lock_outline</i>');
             _.each(hex.requireMapItems, function (o, i) {
                 if (o <= 0) { return; }
                 var str = "" + (i + 1);
-                $itemHint.append('<i class="icon icon-key icon-key-01-' + "00".substring(0, 2 - str.length) + str + '" />' + o);
+                $hexContentLine2.append('<i class="icon icon-key icon-key-01-' + "00".substring(0, 2 - str.length) + str + '" />' + o);
             });
         }
 
         switch (hex.termType) {
             case 120: {
-                $hexContent.prepend('<div style="font-size: 1.5rem;">►');
+                $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">►');
                 break;
             }
             case 130: {
-                $hexContent.prepend('<div style="font-size: 1.5rem;">✓');
+                $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">✓');
                 break;
             }
         }
@@ -257,6 +249,7 @@ var render = function (id) {
                 totalEnergy += o.count;
             }
         });
+
         if (hex.questId) {
             var areaCount = (hex.stage.areaList || []).length;
             if (areaCount) {
@@ -343,7 +336,7 @@ var render = function (id) {
         trigger: 'hover',
         delay: 100,
         placement: 'auto',
-        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body px-0 py-1"></div></div>',
+        template: '<div class="popover" style="max-width:none;" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body px-0 py-1"></div></div>',
         title: function () {
             var $hexContent = $(this);
             var hex = $hexContent.data('hex');
