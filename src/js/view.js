@@ -77,6 +77,9 @@ var initControl = function () {
             });
         }
     });
+    if ($('.map-list-search input').val()) {
+        $('.map-list-search input').trigger('input');
+    }
 
     inited = true;
 };
@@ -138,74 +141,86 @@ var render = function (id) {
         var $hexContentLine2 = $('<div>');
         $hexContent.append($hexContentLine1).append($hexContentLine2);
         switch (hex.hexType) {
-            case 10: {
-                totalNormal++;
-                break;
-            }
-            case 20: {
-                $hex.addClass('hex-danger');
-                totalDanger++;
-                break;
-            }
-            case 30: {
-                $hex.addClass('hex-rare');
-                totalRare++;
-                break;
-            }
-            case 40: {
-                $hexContentLine1.append('<i class="material-icons">chat</i>');
-                break;
-            }
-            case 50: {
-                $hexContentLine1.append('<i class="icon icon-chest"></i>');
-                _.each(hex.rewards, function (o, i) {
-                    var reward = o;
-                    if (reward.id) {
-                        reward = _.extend(reward, Data.get('items', o.id));
-                    }
-                    if (reward.id == "ticket_010_01") {
-                        $hexContentLine2.append('<div><i class="icon icon-battery" />' + o.count);
-                    }
-                    else if (reward.id == "gacha_point") {
-                        $hexContentLine2.append('<div><i class="icon icon-gacha-point" />' + o.count);
-                    }
-                    else if (reward.id == "gold") {
-                        $hexContentLine2.append('<div><i class="icon icon-gold" />' + o.count);
-                    }
-                    else if (reward.id == "energy") {
-                        $hexContentLine2.append('<div><i class="icon icon-energy" />' + o.count);
-                    }
-                });
-                break;
-            }
-            case 60: {
-                $hexContentLine1.append('<i class="icon icon-2x icon-PowUpEne" />');
-                break;
-            }
-            case 61: {
-                $hexContentLine1.append('<i class="icon icon-2x icon-PowUpAct" />');
-                break;
-            }
-            case 62: {
-                $hexContentLine1.append('<i class="icon icon-2x icon-PowUpRwd" />');
-                break;
-            }
-            case 70: {
-                $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnEne" />');
-                break;
-            }
-            case 71: {
-                $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnAct" />');
-                break;
-            }
-            case 72: {
-                $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnRwd" />');
-                break;
-            }
-            case 90: {
-                $hexContentLine1.append('<i class="icon icon-endless" />');
-                break;
-            }
+            case 10:
+                {
+                    totalNormal++;
+                    break;
+                }
+            case 20:
+                {
+                    $hex.addClass('hex-danger');
+                    totalDanger++;
+                    break;
+                }
+            case 30:
+                {
+                    $hex.addClass('hex-rare');
+                    totalRare++;
+                    break;
+                }
+            case 40:
+                {
+                    $hexContentLine1.append('<i class="material-icons">chat</i>');
+                    break;
+                }
+            case 50:
+                {
+                    $hexContentLine1.append('<i class="icon icon-chest"></i>');
+                    _.each(hex.rewards, function (o, i) {
+                        var reward = o;
+                        if (reward.id) {
+                            reward = _.extend(reward, Data.get('items', o.id));
+                        }
+                        if (reward.id == "ticket_010_01") {
+                            $hexContentLine2.append('<div><i class="icon icon-battery" />' + o.count);
+                        }
+                        else if (reward.id == "gacha_point") {
+                            $hexContentLine2.append('<div><i class="icon icon-gacha-point" />' + o.count);
+                        }
+                        else if (reward.id == "gold") {
+                            $hexContentLine2.append('<div><i class="icon icon-gold" />' + o.count);
+                        }
+                        else if (reward.id == "energy") {
+                            $hexContentLine2.append('<div><i class="icon icon-energy" />' + o.count);
+                        }
+                    });
+                    break;
+                }
+            case 60:
+                {
+                    $hexContentLine1.append('<i class="icon icon-2x icon-PowUpEne" />');
+                    break;
+                }
+            case 61:
+                {
+                    $hexContentLine1.append('<i class="icon icon-2x icon-PowUpAct" />');
+                    break;
+                }
+            case 62:
+                {
+                    $hexContentLine1.append('<i class="icon icon-2x icon-PowUpRwd" />');
+                    break;
+                }
+            case 70:
+                {
+                    $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnEne" />');
+                    break;
+                }
+            case 71:
+                {
+                    $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnAct" />');
+                    break;
+                }
+            case 72:
+                {
+                    $hexContentLine1.append('<i class="icon icon-2x icon-PowDwnRwd" />');
+                    break;
+                }
+            case 90:
+                {
+                    $hexContentLine1.append('<i class="icon icon-endless" />');
+                    break;
+                }
         }
 
         if (hex.itemHintIndexes.length) {
@@ -225,14 +240,16 @@ var render = function (id) {
         }
 
         switch (hex.termType) {
-            case 120: {
-                $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">►');
-                break;
-            }
-            case 130: {
-                $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">✓');
-                break;
-            }
+            case 120:
+                {
+                    $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">►');
+                    break;
+                }
+            case 130:
+                {
+                    $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">✓');
+                    break;
+                }
         }
         _.each(hex.rewards, function (o, i) {
             var reward = o;
@@ -274,18 +291,18 @@ var render = function (id) {
     else {
         $mapinfo.append('<div>' + Ui.getText("cannotgiveup"));
     }
-    $mapinfo.append('<div>' + Ui.getText("total")
-        + '<span>'
-        + '<i class="icon icon-hex icon-hex-danger"></i>' + totalDanger
-        + '<i class="icon icon-hex icon-hex-rare"></i>' + totalRare
-        + '<i class="icon icon-hex"></i>' + totalNormal
-        + '</span>'
-        + '<div>'
-        + '<i class="icon icon-gacha-point"></i>' + totalGachaPoint
-        + '<i class="icon icon-battery"></i>' + totalBattery
-        + '<i class="icon icon-gold"></i>' + totalGold
-        + '<i class="icon icon-energy"></i>' + totalEnergy
-        + '</div>'
+    $mapinfo.append('<div>' + Ui.getText("total") +
+        '<span>' +
+        '<i class="icon icon-hex icon-hex-danger"></i>' + totalDanger +
+        '<i class="icon icon-hex icon-hex-rare"></i>' + totalRare +
+        '<i class="icon icon-hex"></i>' + totalNormal +
+        '</span>' +
+        '<div>' +
+        '<i class="icon icon-gacha-point"></i>' + totalGachaPoint +
+        '<i class="icon icon-battery"></i>' + totalBattery +
+        '<i class="icon icon-gold"></i>' + totalGold +
+        '<i class="icon icon-energy"></i>' + totalEnergy +
+        '</div>'
     );
 
     $('#main').append($('<div class="hex-table-container">').append($table));
@@ -311,8 +328,7 @@ var render = function (id) {
 
     interact(gestureArea)
         .gesturable({
-            onstart: function (event) {
-            },
+            onstart: function (event) {},
             onmove: function (event) {
                 scale = scale * (1 + event.ds);
 
@@ -322,14 +338,12 @@ var render = function (id) {
 
                 dragMoveListener(event);
             },
-            onend: function (event) {
-            }
+            onend: function (event) {}
         })
-        .draggable(
-            {
-                autoScroll: true,
-                onmove: dragMoveListener
-            });
+        .draggable({
+            autoScroll: true,
+            onmove: dragMoveListener
+        });
 
     $('[data-toggle="popover"]').popover({
         html: true,
@@ -374,10 +388,10 @@ var render = function (id) {
             //var subcontract = $hexContent.data('subcontract') || 0;
             if (hex.canGiveUp && hex.giveUpCost > 0) {
                 var $subcontract = $('<li class="list-group-item p-1">');
-                $subcontract.append('<div class="item-container">'
-                    + '<span data-lang="subcontract">' + Ui.getText('subcontract') + '</span>'
-                    + '<i class="icon icon-gold"></i>' + hex.giveUpCost
-                    + '</div>');
+                $subcontract.append('<div class="item-container">' +
+                    '<span data-lang="subcontract">' + Ui.getText('subcontract') + '</span>' +
+                    '<i class="icon icon-gold"></i>' + hex.giveUpCost +
+                    '</div>');
                 $content.append($subcontract);
             }
 
@@ -387,10 +401,10 @@ var render = function (id) {
                 if (reward.id) {
                     reward = _.extend(reward, Data.get('items', o.id));
                 }
-                $reward.append('<div class="item-container">'
-                    + '<img src="' + '../img/item/' + (reward.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />'
-                    + (reward.count > 1 ? ('<span class="item-count">' + reward.count + "<span>") : "")
-                    + '</div>');
+                $reward.append('<div class="item-container">' +
+                    '<img src="' + '../img/item/' + (reward.icon || "itm2_04_000_01") + ".png" + '" class="icon icon-item" />' +
+                    (reward.count > 1 ? ('<span class="item-count">' + reward.count + "<span>") : "") +
+                    '</div>');
             });
             if (_.some(hex.rewards)) {
                 $content.append($reward);
