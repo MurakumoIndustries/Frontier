@@ -23,6 +23,7 @@ var init = function (forceInit) {
             promises.push(loaddata('stage'));
             promises.push(loaddata('items'));
             promises.push(loaddata('enemy'));
+            promises.push(loaddata('enemybase'));
             promises.push(loaddata('attrset'));
             return Promise.all(promises);
         }
@@ -33,29 +34,40 @@ var init = function (forceInit) {
                     data[key] = jsondata;
                 });
             }
-            promises.push(import(
-                /* webpackChunkName: "jsondata" */
-                '../data/maptable.json').then(jsondata => {
+            promises.push(
+                import (
+                    /* webpackChunkName: "jsondata" */
+                    '../data/maptable.json').then(jsondata => {
                     return savedata('maptable', jsondata);
                 }));
-            promises.push(import(
-                /* webpackChunkName: "jsondata" */
-                '../data/stage.json').then(jsondata => {
+            promises.push(
+                import (
+                    /* webpackChunkName: "jsondata" */
+                    '../data/stage.json').then(jsondata => {
                     return savedata('stage', jsondata);
                 }));
-            promises.push(import(
-                /* webpackChunkName: "jsondata" */
-                '../data/items.json').then(jsondata => {
+            promises.push(
+                import (
+                    /* webpackChunkName: "jsondata" */
+                    '../data/items.json').then(jsondata => {
                     return savedata('items', jsondata);
                 }));
-            promises.push(import(
-                /* webpackChunkName: "jsondata" */
-                '../data/enemy.json').then(jsondata => {
+            promises.push(
+                import (
+                    /* webpackChunkName: "jsondata" */
+                    '../data/enemy.json').then(jsondata => {
                     return savedata('enemy', jsondata);
                 }));
-            promises.push(import(
-                /* webpackChunkName: "jsondata" */
-                '../data/attrset.json').then(jsondata => {
+            promises.push(
+                import (
+                    /* webpackChunkName: "jsondata" */
+                    '../data/enemybase.json').then(jsondata => {
+                    return savedata('enemybase', jsondata);
+                }));
+            promises.push(
+                import (
+                    /* webpackChunkName: "jsondata" */
+                    '../data/attrset.json').then(jsondata => {
                     return savedata('attrset', jsondata);
                 }));
             return Promise.all(promises).then(() => {
@@ -69,7 +81,7 @@ var lastUpdate;
 var isDataOutdated = function () {
     return localForage.getItem(lastUpdateKey).then(function (data) {
         lastUpdate = data;
-        return import('../data/lastUpdate.json').then(data => {
+        return import ('../data/lastUpdate.json').then(data => {
             var local = lastUpdate;
             var remote = data;
             var isLatest = new Date(local).getTime() >= new Date(remote).getTime();
@@ -98,16 +110,26 @@ var get = function (type, id) {
 };
 var convertAttr2nd = function (attr) {
     switch (attr) {
-        case 4: return "normal";
-        case 5: return "thunder";
-        case 6: return "gravity";
-        case 7: return "fire";
-        case 8: return "ice";
-        case 9: return "light";
-        case 10: return "collapse";
-        case 11: return "theory";
-        case 255: return "nothing";
-        default: return "unknown" + attr;
+        case 4:
+            return "normal";
+        case 5:
+            return "thunder";
+        case 6:
+            return "gravity";
+        case 7:
+            return "fire";
+        case 8:
+            return "ice";
+        case 9:
+            return "light";
+        case 10:
+            return "collapse";
+        case 11:
+            return "theory";
+        case 255:
+            return "nothing";
+        default:
+            return "unknown" + attr;
     }
 }
 

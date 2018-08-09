@@ -199,7 +199,8 @@ body {
     border-color: #f00;
 }
 
-.hex-danger .hex-tile .hex-tile-inner:before, .hex-danger .hex-tile .hex-tile-inner:after {
+.hex-danger .hex-tile .hex-tile-inner:before,
+.hex-danger .hex-tile .hex-tile-inner:after {
     background-color: #f00;
 }
 
@@ -207,7 +208,8 @@ body {
     border-color: yellow;
 }
 
-.hex-rare .hex-tile .hex-tile-inner:before, .hex-rare .hex-tile .hex-tile-inner:after {
+.hex-rare .hex-tile .hex-tile-inner:before,
+.hex-rare .hex-tile .hex-tile-inner:after {
     background-color: yellow;
 }
 
@@ -296,6 +298,7 @@ body {
 
 .stage-container.enemy .parallelogram {
     margin-top: 2rem;
+    margin-left: 0.25rem;
 }
 
 .stage-container .attr-subscript {

@@ -40,6 +40,11 @@
                     <%
                      var index=1;
                     _.each(area.enemyList, function (enemyId, j) { 
+                        var enemybase = Data.get('enemybase', enemyId);
+                        if (enemybase && hex.bossAttr.weakAttr && hex.bossAttr.weakAttr!=4 && hex.bossAttr.weakAttr!=255)
+                        {
+                            enemyId = enemybase.frontierChangeEnemyIds[hex.bossAttr.attribute2nd-5];
+                        }
                         var enemy = Data.get('enemy', enemyId);
                         if (enemy && enemy.icon && enemy.type >= 10) {
                             %>
