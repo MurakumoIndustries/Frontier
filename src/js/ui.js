@@ -25,6 +25,7 @@ var data = [];
 data["search"] = { "ja-JP": "検索", "zh-TW": "搜尋", "en-US": "Search", "zh-CN": "查询" };
 
 data["maplist"] = { "ja-JP": "新米向けマップ", "zh-TW": "新手教程", "en-US": "Newbie Maps", "zh-CN": "新手教程" };
+data["maplistold"] = { "ja-JP": "マップ（旧）", "zh-TW": "舊版調查", "en-US": "Not Used Maps", "zh-CN": "旧版调查" };
 data["maplistrandom"] = { "ja-JP": "ランダムマップ", "zh-TW": "隨機調查", "en-US": "Random Maps", "zh-CN": "随机调查" };
 data["maplistevent"] = { "ja-JP": "イベントマップ", "zh-TW": "活動調查", "en-US": "Event Maps", "zh-CN": "活动调查" };
 data["mapliststory"] = { "ja-JP": "ストーリーマップ", "zh-TW": "主線調查", "en-US": "Story Maps", "zh-CN": "主线调查" };
