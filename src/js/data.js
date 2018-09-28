@@ -83,7 +83,7 @@ var isDataOutdated = function () {
         lastUpdate = data;
         return import ('../data/lastUpdate.json').then(data => {
             var local = lastUpdate;
-            var remote = data;
+            var remote = data.default;
             var isLatest = new Date(local).getTime() >= new Date(remote).getTime();
             lastUpdate = remote;
             if (!local) {
