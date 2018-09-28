@@ -166,24 +166,6 @@ var render = function (id) {
             case 50:
                 {
                     $hexContentLine1.append('<i class="icon icon-chest"></i>');
-                    _.each(hex.rewards, function (o, i) {
-                        var reward = o;
-                        if (reward.id) {
-                            reward = _.extend(reward, Data.get('items', o.id));
-                        }
-                        if (reward.id == "ticket_010_01") {
-                            $hexContentLine2.append('<div><i class="icon icon-battery" />' + o.count);
-                        }
-                        else if (reward.id == "gacha_point") {
-                            $hexContentLine2.append('<div><i class="icon icon-gacha-point" />' + o.count);
-                        }
-                        else if (reward.id == "gold") {
-                            $hexContentLine2.append('<div><i class="icon icon-gold" />' + o.count);
-                        }
-                        else if (reward.id == "energy") {
-                            $hexContentLine2.append('<div><i class="icon icon-energy" />' + o.count);
-                        }
-                    });
                     break;
                 }
             case 60:
@@ -222,6 +204,28 @@ var render = function (id) {
                     break;
                 }
         }
+        _.each(hex.rewards, function (o, i) {
+            var reward = o;
+            if (reward.id) {
+                reward = _.extend(reward, Data.get('items', o.id));
+            }
+            if(hex.hexType==50)
+            {
+                if (reward.id == "ticket_010_01") {
+                    $hexContentLine2.append('<div><i class="icon icon-battery" />' + o.count);
+                }
+                else if (reward.id == "gold") {
+                    $hexContentLine2.append('<div><i class="icon icon-gold" />' + o.count);
+                }
+                else if (reward.id == "energy") {
+                    $hexContentLine2.append('<div><i class="icon icon-energy" />' + o.count);
+                }
+
+            }
+            if (reward.id == "gacha_point") {
+                $hexContentLine2.append('<div><i class="icon icon-gacha-point" />' + o.count);
+            }
+        });
 
         if (hex.itemHintIndexes.length) {
             _.each(hex.itemHintIndexes, function (o, i) {
