@@ -2,7 +2,7 @@ import localForage from "localforage";
 
 var data = {};
 
-const version = 21451;
+const version = 21478;
 var getVersion = function () { return version; };
 
 const baseKey = "MI_Frontier_";
@@ -38,37 +38,37 @@ var init = function (forceInit) {
                 import (
                     /* webpackChunkName: "jsondata" */
                     '../data/maptable.json').then(jsondata => {
-                    return savedata('maptable', jsondata);
+                    return savedata('maptable', jsondata.default);
                 }));
             promises.push(
                 import (
                     /* webpackChunkName: "jsondata" */
                     '../data/stage.json').then(jsondata => {
-                    return savedata('stage', jsondata);
+                    return savedata('stage', jsondata.default);
                 }));
             promises.push(
                 import (
                     /* webpackChunkName: "jsondata" */
                     '../data/items.json').then(jsondata => {
-                    return savedata('items', jsondata);
+                    return savedata('items', jsondata.default);
                 }));
             promises.push(
                 import (
                     /* webpackChunkName: "jsondata" */
                     '../data/enemy.json').then(jsondata => {
-                    return savedata('enemy', jsondata);
+                    return savedata('enemy', jsondata.default);
                 }));
             promises.push(
                 import (
                     /* webpackChunkName: "jsondata" */
                     '../data/enemybase.json').then(jsondata => {
-                    return savedata('enemybase', jsondata);
+                    return savedata('enemybase', jsondata.default);
                 }));
             promises.push(
                 import (
                     /* webpackChunkName: "jsondata" */
                     '../data/attrset.json').then(jsondata => {
-                    return savedata('attrset', jsondata);
+                    return savedata('attrset', jsondata.default);
                 }));
             return Promise.all(promises).then(() => {
                 return saveLastUpdate();

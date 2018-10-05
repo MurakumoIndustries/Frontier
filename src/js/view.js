@@ -209,8 +209,7 @@ var render = function (id) {
             if (reward.id) {
                 reward = _.extend(reward, Data.get('items', o.id));
             }
-            if(hex.hexType==50)
-            {
+            if (hex.hexType == 50) {
                 if (reward.id == "ticket_010_01") {
                     $hexContentLine2.append('<div><i class="icon icon-battery" />' + o.count);
                 }
