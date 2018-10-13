@@ -11,6 +11,7 @@ import template from '../template/hexInfo.html';
 
 var activeMenu = "";
 var inited;
+var initMapInteract = function () {};
 
 var getActiveMenu = function () {
     return activeMenu;
@@ -80,6 +81,12 @@ var initControl = function () {
     if ($('.map-list-search input').val()) {
         $('.map-list-search input').trigger('input');
     }
+
+    var initMapInteractTimeout;
+    $(window).resize(function () {
+        clearTimeout(initMapInteractTimeout);
+        initMapInteractTimeout = setTimeout(initMapInteract(), 500);
+    });
 
     inited = true;
 };
@@ -310,43 +317,74 @@ var render = function (id) {
 
     $('#main').append($('<div class="hex-table-container">').append($table));
     //make map draggable && pinchable
-    function dragMoveListener(event) {
-        var target = event.target,
-            // keep the dragged position in the data-x/data-y attributes
-            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+    initMapInteract = function (isFirstTime) {
+        var dragMoveListener = function (event) {
+            var target = event.target,
+                // keep the dragged position in the data-x/data-y attributes
+                x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-        // translate the element
-        target.style.webkitTransform =
-            target.style.transform =
-            'translate(' + x + 'px, ' + y + 'px)';
+            // translate the element
+            target.style.webkitTransform =
+                target.style.transform =
+                'translate(' + x + 'px, ' + y + 'px)';
 
-        // update the posiion attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
+            // update the posiion attributes
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        };
+        var scale = 1,
+            gestureArea = $table.parent()[0],
+            scaleElement = $table[0];
+
+        var cw = $table.parent().width();
+        var ch = $table.parent().height();
+        var ew = $table.parent().parent().width();
+        var eh = $table.parent().parent().height();
+        var restrict = {
+            restriction: 'parent',
+            endOnly: true,
+            elementRect: {
+                top: Math.max((ch - eh) / ch, 0),
+                left: Math.max((cw - ew) / cw, 0),
+                bottom: Math.min(eh / ch, 1),
+                right: Math.min(ew / cw, 1),
+            }
+        };
+
+        interact(gestureArea)
+            .gesturable({
+                inertia: true,
+                restrict: restrict,
+                onstart: function (event) {},
+                onmove: function (event) {
+                    scale = scale * (1 + event.ds);
+
+                    scaleElement.style.webkitTransform =
+                        scaleElement.style.transform =
+                        'scale(' + scale + ')';
+
+                    dragMoveListener(event);
+                },
+                onend: function (event) {}
+            })
+            .draggable({
+                inertia: true,
+                restrict: restrict,
+                autoScroll: true,
+                onmove: dragMoveListener
+            });
+
+        if (isFirstTime) {
+            //default move to start point
+            //gestureArea.style.webkitTransform = gestureArea.style.transform = 'translate(-50px, -50px)';
+            //gestureArea.setAttribute('data-x', -50);
+            //gestureArea.setAttribute('data-y', -50);
+        }
+
+        console.log('map interact inited');
     };
-    var scale = 1,
-        gestureArea = $table.parent()[0],
-        scaleElement = $table[0];
-
-    interact(gestureArea)
-        .gesturable({
-            onstart: function (event) {},
-            onmove: function (event) {
-                scale = scale * (1 + event.ds);
-
-                scaleElement.style.webkitTransform =
-                    scaleElement.style.transform =
-                    'scale(' + scale + ')';
-
-                dragMoveListener(event);
-            },
-            onend: function (event) {}
-        })
-        .draggable({
-            autoScroll: true,
-            onmove: dragMoveListener
-        });
+    initMapInteract(true);
 
     $('[data-toggle="popover"]').popover({
         html: true,
