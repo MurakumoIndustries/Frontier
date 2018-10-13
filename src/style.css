@@ -7,14 +7,13 @@ body {
 }
 
 .sidebar {
-    z-index: 2;
+    z-index: 16;
     background: white;
     border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 @media (max-width: 768px) {
     .sidebar {
-        position: absolute;
         border-right: none;
     }
 }
@@ -80,6 +79,14 @@ body {
 .sidebar .map-list-container ul>li.map-list-divider {
     background: rgba(0, 0, 0, 0.25);
     height: 1px;
+}
+
+@media (max-width: 768px) {
+    .sidebar+div {
+        top: -3rem;
+        /*rough fix for Chrome Android*/
+        bottom: -3rem;
+    }
 }
 
 #main {
