@@ -9,11 +9,13 @@ body {
 .sidebar {
     z-index: 2;
     background: white;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .sidebar {
-        border-right: 1px solid rgba(0, 0, 0, 0.25);
+        position: absolute;
+        border-right: none;
     }
 }
 
@@ -78,13 +80,6 @@ body {
 .sidebar .map-list-container ul>li.map-list-divider {
     background: rgba(0, 0, 0, 0.25);
     height: 1px;
-}
-
-@media (max-width: 768px) {
-    .sidebar+div {
-        top: -3rem;
-        bottom: 0;
-    }
 }
 
 #main {
