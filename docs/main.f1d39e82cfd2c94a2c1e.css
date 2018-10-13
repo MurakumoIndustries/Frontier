@@ -121,6 +121,7 @@ body {
 @media (max-width: 768px) {
     .sidebar+div {
         top: -3rem;
+        bottom: 0;
     }
 }
 
