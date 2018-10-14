@@ -104,6 +104,7 @@ var render = function (id) {
     var maxX = _.maxBy(map.hexList, function (o) { return o.x; }).x;
     var minY = _.minBy(map.hexList, function (o) { return o.y; }).y;
     var maxY = _.maxBy(map.hexList, function (o) { return o.y; }).y;
+    var realMinX = minX;
 
     //keep minX have same odd/even as x
     if (minX % 2 == 1) {
@@ -121,6 +122,8 @@ var render = function (id) {
         }
         $table.append($tr);
     }
+
+    var startHex = {};
 
     var totalGachaPoint = 0;
     var totalBattery = 0;
@@ -252,12 +255,13 @@ var render = function (id) {
         switch (hex.termType) {
             case 120:
                 {
-                    $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">►');
+                    $hexContentLine1.prepend('<i class="material-icons">play_arrow</i>');
+                    startHex = hex;
                     break;
                 }
             case 130:
                 {
-                    $hexContentLine1.prepend('<span style="line-height: 1.5rem;font-size: 1.5rem;">✓');
+                    $hexContentLine1.prepend('<i class="material-icons">flag</i>');
                     break;
                 }
         }
@@ -359,10 +363,16 @@ var render = function (id) {
                 onstart: function (event) {},
                 onmove: function (event) {
                     scale = scale * (1 + event.ds);
+                    if (scale < 0.4) {
+                        scale = 0.4;
+                    }
+                    if (scale > 2) {
+                        scale = 2;
+                    }
 
                     scaleElement.style.webkitTransform =
                         scaleElement.style.transform =
-                        'scale(' + scale + ')';
+                        'scale3d(' + scale + ',' + scale + ',1)';
 
                     dragMoveListener(event);
                 },
@@ -373,18 +383,59 @@ var render = function (id) {
                 restrict: restrict,
                 autoScroll: true,
                 onmove: dragMoveListener
+            })
+            .on('doubletap dblclick', function (event) {
+                scaleElement.style.webkitTransform =
+                    scaleElement.style.transform =
+                    '';
+                event.preventDefault();
             });
 
-        if (isFirstTime) {
-            //default move to start point
-            //gestureArea.style.webkitTransform = gestureArea.style.transform = 'translate(-50px, -50px)';
-            //gestureArea.setAttribute('data-x', -50);
-            //gestureArea.setAttribute('data-y', -50);
-        }
+        $(gestureArea).on('wheel', function (e) {
+            scale = scale * (1 - e.originalEvent.deltaY / 1000);
+            if (scale < 0.6) {
+                scale = 0.6;
+            }
+            if (scale > 1) {
+                scale = 1;
+            }
+
+            scaleElement.style.webkitTransform =
+                scaleElement.style.transform =
+                'scale(' + scale + ',' + scale + ')';
+        });
 
         console.log('map interact inited');
     };
-    initMapInteract(true);
+    setTimeout(function () {
+        initMapInteract();
+    }, 500);
+
+    //default move to start point
+    var spaceWidth = $table.parent().parent().width() - $table.parent().width();
+    var spaceHeight = $table.parent().parent().height() - $table.parent().height();
+    var padding = ($table.parent().width() - $table.width()) / 2;
+    var tdWidth = $table.find('div.hex:first').parent().width() + 2;
+    var tdHeight = $table.find('div.hex:first').parent().height() + 2;
+    var startX = $table.parent().parent().width() / 2 - ((startHex.x - realMinX) * tdWidth + padding + tdWidth / 2);
+    var startY = $table.parent().parent().height() / 2 - ((startHex.y - minY) * tdHeight + padding + tdHeight / 2 + ((startHex.x - minX+1) % 2) * tdHeight / 2);
+    console.log(startHex.x,minX,realMinX);
+    //manual restrict
+    //if (spaceWidth > 0) {
+    //    startX = Math.max(0, Math.min(startX, spaceWidth));
+    //}
+    //else {
+    //    startX = Math.max(spaceWidth, Math.min(startX, 0));
+    //}
+    //if (spaceHeight > 0) {
+    //    startY = Math.max(0, Math.min(startY, spaceHeight));
+    //}
+    //else {
+    //    startY = Math.max(spaceHeight, Math.min(startY, 0));
+    //}
+    $table.parent()[0].style.webkitTransform = $table.parent()[0].style.transform = 'translate(' + startX + 'px, ' + startY + 'px)';
+    $table.parent()[0].setAttribute('data-x', startX);
+    $table.parent()[0].setAttribute('data-y', startY);
 
     $('[data-toggle="popover"]').popover({
         html: true,
