@@ -22,7 +22,7 @@
                         </div>
                         <div class="parallelogram">
                             <img src='../img/quest/<%=(area.icon || "stg2_999_01") + ".png" %>' />
-                            <div class="attr-subscript attr-<%= Data.convertAttr2nd(hex.zakoAttr.weakAttr) %>"></div>
+                            <div class="attr-subscript attr-<%= Data.convertAttr2nd(hex.zakoAttr.weakAttr||area.weakAttr) %>"></div>
                         </div>
                         <div class="stage-enemy-list">
                             <% _.each(area.enemyList, function (enemyId, j) {
@@ -51,7 +51,7 @@
                         <div class="stage-container enemy" data-id="<%=enemyId %>">
                             <div class="parallelogram">
                                 <img src='../img/quest/<%=(enemy.icon || "ene2_800_01") + ".png" %>' />
-                                <div class="attr-subscript attr-<%= Data.convertAttr2nd(enemy.type > 10?hex.bossAttr.weakAttr:255) %>"></div>
+                                <div class="attr-subscript attr-<%= Data.convertAttr2nd(enemy.type > 10?hex.bossAttr.weakAttr||enemy.weakAttr:255) %>"></div>
                             </div>
                             <div class="stage-label <%=(index%2==0?'stage-label-odd':'') %>">
                                 <%=enemy.name %>
