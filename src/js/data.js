@@ -2,7 +2,7 @@ import localForage from "localforage";
 
 var data = {};
 
-const version = 21637;
+const version = 21856;
 var getVersion = function () { return version; };
 
 const baseKey = "MI_Frontier_";
