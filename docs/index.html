@@ -9,13 +9,16 @@
     <title>*α*MI|Frontier</title>
     <meta name="description" content="Murakumo Industries|Frontier Map Viewer" />
     <meta name="keywords" content="Alice Gear Aegis,Murakumo Industries,Frontier Map Viewer">
-<link href="main.847a84f967fa4ac79bcd.css" rel="stylesheet"></head>
+<link href="main.4cbc2c8c5b2ab25a35d5.css" rel="stylesheet"></head>
 
 <body class="h-100">
     <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
+        <a class="pr-2" href="../"><i class="icon icon-murakumo"></i></a>
         <a class="navbar-brand " title="Murakumo Industries Frontier Map Viewer" href="#">
-            <span class="d-none d-lg-inline-block">Murakumo Industries</span>
-            <span class="d-lg-none">MI</span>
+            <span class="d-none d-xl-inline-block">Murakumo Industries</span>
+            <span class="d-none d-lg-inline-block d-xl-none">MI</span>
+            <span class="d-none d-sm-inline-block d-md-inline-block d-lg-none">Murakumo Industries</span>
+            <span class="d-sm-none">MI</span>
             <span>Frontier</span>
             <span class="d-none d-sm-inline-block">Map Viewer</span>
             <sup>α</sup>
@@ -32,9 +35,14 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle py-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="icon icon-version"></i>
-                        <span id="version"></span>
+                        <div class="d-inline-block" style="vertical-align: middle;">
+                            <div id="server"></div>
+                            <div class="m-0" style="font-size: 0.75rem;line-height:0.75rem;" id="version"></div>
+                        </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
+                        <h6 class="dropdown-header" data-lang="server">Server</h6>
+                        <div class="dropdown-divider" id="serverDivider"></div>
                         <h6 class="dropdown-header" data-lang="externallink">Link</h6>
                         <a class="dropdown-item" href="https://colopl.co.jp/alicegearaegis/" target="_blank" data-lang="officalsite">OfficalSite</a>
                         <a class="dropdown-item" href="https://alice.colopl.jp/news/show" target="_blank" data-lang="officalannouncement">Offical Announcement</a>
@@ -50,19 +58,6 @@
                         <a class="dropdown-item" href="#!/lang/zh-TW">正體中文</a>
                         <a class="dropdown-item" href="#!/lang/en-US">English</a>
                         <a class="dropdown-item" href="#!/lang/zh-CN">简体中文</a>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown" style="display:none">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class='glyphicon glyphicon-file'></span>
-                        <span data-lang="data">Data</span>
-                        <span id="currentDataLang"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <a class="dropdown-item" href="#!/lang/data/ja-JP">日本語</a>
-                        <a class="dropdown-item" href="#!/lang/data/zh-TW">正體中文</a>
-                        <a class="dropdown-item" href="#!/lang/data/en-US">English</a>
-                        <a class="dropdown-item" href="#!/lang/data/zh-CN">简体中文</a>
                     </ul>
                 </li>
             </ul>
@@ -283,6 +278,6 @@
 
         gtag('config', 'UA-114331235-1');
     </script>
-<script type="text/javascript" src="data.dd6b02b783b23fcad2c1.js"></script><script type="text/javascript" src="main.a8d0c08a687a16f2ebee.js"></script></body>
+<script type="text/javascript" src="data.195e1bb9479d1b0cd3b7.js"></script><script type="text/javascript" src="main.42aaf6d695ca80f4fd11.js"></script></body>
 
 </html>

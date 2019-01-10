@@ -1,21 +1,38 @@
 import localForage from "localforage";
+import serverList from "../data/serverList.json";
+
+const baseKey = "MI_Frontier_";
+const lastUpdateKey = baseKey + "LastUpdate";
+const serverKey = baseKey + "Server";
 
 var data = {};
 
-const version = 21996;
-var getVersion = function () { return version; };
-
-const baseKey = "MI_Frontier_";
-const lastUpdateKey = "lastUpdate_MI_Frontier";
+var getAllServers = function () {
+    return serverList;
+}
+var getDefaultServer = function () {
+    return _.find(getAllServers(), function (o) { return o.isDefault });
+}
+var getCurrentServer = function () {
+    return JSON.parse(localStorage.getItem(serverKey) || JSON.stringify(getDefaultServer()));
+}
+var setCurrentServer = function (id) {
+    var server = getAllServers()[id] || getDefaultServer();
+    localStorage.setItem(serverKey, JSON.stringify(server));
+}
 
 var init = function (forceInit) {
     forceInit = !!forceInit;
+    var folder = getCurrentServer().folder;
+    var store = localForage.createInstance({
+        name: baseKey + folder
+    });
     return isDataOutdated().then(function (needForceUpdate) {
         var promises = [];
         if (!forceInit && !needForceUpdate) {
-            console.log("All data cached. ");
+            console.log("All data cached. ", folder);
             var loaddata = function (key) {
-                return localForage.getItem(baseKey + key).then(json => {
+                return store.getItem(baseKey + key).then(json => {
                     data[key] = JSON.parse(json);
                 });
             };
@@ -27,51 +44,51 @@ var init = function (forceInit) {
             promises.push(loaddata('attrset'));
             return Promise.all(promises);
         }
-        return localForage.clear().then(() => {
-            var savedata = function (key, jsondata) {
-                return localForage.setItem(baseKey + key, JSON.stringify(jsondata), function () {
-                    console.log("Get data from web. ", key);
+        return store.clear().then(() => {
+            var savedata = function (key, server, jsondata) {
+                return store.setItem(baseKey + key, JSON.stringify(jsondata), function () {
+                    console.log("Get data from web. ", server, key);
                     data[key] = jsondata;
                 });
             }
             promises.push(
-                import (
+                import(
                     /* webpackChunkName: "jsondata" */
-                    '../data/maptable.json').then(jsondata => {
-                    return savedata('maptable', jsondata.default);
+                    '../data/' + folder + '/maptable.json').then(jsondata => {
+                    return savedata('maptable', folder, jsondata.default);
                 }));
             promises.push(
-                import (
+                import(
                     /* webpackChunkName: "jsondata" */
-                    '../data/stage.json').then(jsondata => {
-                    return savedata('stage', jsondata.default);
+                    '../data/' + folder + '/stage.json').then(jsondata => {
+                    return savedata('stage', folder, jsondata.default);
                 }));
             promises.push(
-                import (
+                import(
                     /* webpackChunkName: "jsondata" */
-                    '../data/items.json').then(jsondata => {
-                    return savedata('items', jsondata.default);
+                    '../data/' + folder + '/items.json').then(jsondata => {
+                    return savedata('items', folder, jsondata.default);
                 }));
             promises.push(
-                import (
+                import(
                     /* webpackChunkName: "jsondata" */
-                    '../data/enemy.json').then(jsondata => {
-                    return savedata('enemy', jsondata.default);
+                    '../data/' + folder + '/enemy.json').then(jsondata => {
+                    return savedata('enemy', folder, jsondata.default);
                 }));
             promises.push(
-                import (
+                import(
                     /* webpackChunkName: "jsondata" */
-                    '../data/enemybase.json').then(jsondata => {
-                    return savedata('enemybase', jsondata.default);
+                    '../data/' + folder + '/enemybase.json').then(jsondata => {
+                    return savedata('enemybase', folder, jsondata.default);
                 }));
             promises.push(
-                import (
+                import(
                     /* webpackChunkName: "jsondata" */
-                    '../data/attrset.json').then(jsondata => {
-                    return savedata('attrset', jsondata.default);
+                    '../data/' + folder + '/attrset.json').then(jsondata => {
+                    return savedata('attrset', folder, jsondata.default);
                 }));
             return Promise.all(promises).then(() => {
-                return saveLastUpdate();
+                return store.setItem(lastUpdateKey, lastUpdate)
             });
         });
     });
@@ -79,9 +96,13 @@ var init = function (forceInit) {
 
 var lastUpdate;
 var isDataOutdated = function () {
-    return localForage.getItem(lastUpdateKey).then(function (data) {
+    var folder = getCurrentServer().folder;
+    var store = localForage.createInstance({
+        name: baseKey + folder
+    });
+    return store.getItem(lastUpdateKey).then(function (data) {
         lastUpdate = data;
-        return import ('../data/lastUpdate.json').then(data => {
+        return import('../data/' + folder + '/lastUpdate.json').then(data => {
             var local = lastUpdate;
             var remote = data.default;
             var isLatest = new Date(local).getTime() >= new Date(remote).getTime();
@@ -92,9 +113,6 @@ var isDataOutdated = function () {
             return isLatest == false;
         });
     });
-};
-var saveLastUpdate = function () {
-    return localForage.setItem(lastUpdateKey, lastUpdate)
 };
 
 var getAll = function (type) {
@@ -133,21 +151,15 @@ var convertAttr2nd = function (attr) {
     }
 }
 
-export {
-    getVersion,
+const Data = {
+    getAllServers,
+    getCurrentServer,
+    setCurrentServer,
     init,
-    isDataOutdated,
-    saveLastUpdate,
     getAll,
     get,
     convertAttr2nd
 };
-export default {
-    getVersion,
-    init,
-    isDataOutdated,
-    saveLastUpdate,
-    getAll,
-    get,
-    convertAttr2nd
-};
+
+export { Data };
+export default Data;

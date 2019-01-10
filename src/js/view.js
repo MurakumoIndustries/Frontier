@@ -2,7 +2,7 @@ import $ from "jquery";
 import _ from 'lodash';
 import page from 'page';
 import Ui from './ui.js';
-import Data from './data.js'
+import { Data } from './data.js'
 import NProgress from 'nprogress'
 //import 'dragscroll';
 import interact from 'interactjs'
@@ -63,7 +63,15 @@ var clear = function () {
 };
 var initControl = function () {
     if (inited) { return; }
-    $('#version').text(Data.getVersion());
+    //$('#version').text(Data.getVersion());
+
+    var currentServer = Data.getCurrentServer();
+    $('#server').text(currentServer.name);
+    $('#version').text(currentServer.version);
+    $.each(Data.getAllServers(), function (i, o) {
+        $('#serverDivider').before('<a class="dropdown-item ' + (i == currentServer.id ? 'active' : '') + '" href="#!/server/' + i + '">' + o.name +
+            '<p class="m-0" style="font-size:0.75rem;line-height:0.75rem;">' + o.version + '</p>' + '</a>');
+    });
 
     $('.map-list-search input').on('input', function (e) {
         $('.map-list-container ul.collapse').collapse('show');
@@ -418,8 +426,8 @@ var render = function (id) {
     var tdWidth = $table.find('div.hex:first').parent().width() + 2;
     var tdHeight = $table.find('div.hex:first').parent().height() + 2;
     var startX = $table.parent().parent().width() / 2 - ((startHex.x - realMinX) * tdWidth + padding + tdWidth / 2);
-    var startY = $table.parent().parent().height() / 2 - ((startHex.y - minY) * tdHeight + padding + tdHeight / 2 + ((startHex.x - minX+1) % 2) * tdHeight / 2);
-    console.log(startHex.x,minX,realMinX);
+    var startY = $table.parent().parent().height() / 2 - ((startHex.y - minY) * tdHeight + padding + tdHeight / 2 + ((startHex.x - minX + 1) % 2) * tdHeight / 2);
+    console.log(startHex.x, minX, realMinX);
     //manual restrict
     //if (spaceWidth > 0) {
     //    startX = Math.max(0, Math.min(startX, spaceWidth));
