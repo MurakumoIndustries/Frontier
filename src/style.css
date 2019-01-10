@@ -19,6 +19,12 @@ body {
     }
 }
 
+@media (min-width: 768px) {
+    .sidebar {
+        height: 100%;
+    }
+}
+
 .sidebar .map-info-container {
     min-height: 3rem;
     color: rgba(0, 0, 0, .5);
