@@ -297,8 +297,7 @@ var render = function (id) {
         }
 
         var $hexTile = $('<div class="hex-tile">')
-            .append('<div class="hex-tile-inner left">')
-            .append('<div class="hex-tile-inner right">');
+            .append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-10,-10,260,180" preserveAspectRatio="xMidYMid meet"><polygon points="0,80 64,0 176,0 240,80 176,160 64,160"></polygon></svg>')
         $hex.append($hexTile)
             .append($hexContent);
         $td.append($hex);
