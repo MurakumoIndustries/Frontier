@@ -47,6 +47,7 @@ var init = function (forceInit) {
             promises.push(loaddata('enemy'));
             promises.push(loaddata('enemybase'));
             promises.push(loaddata('attrset'));
+            promises.push(loaddata('buff'));
             return Promise.all(promises);
         }
         return store.clear().then(() => {
@@ -91,6 +92,12 @@ var init = function (forceInit) {
                     /* webpackChunkName: "jsondata" */
                     '../data/' + folder + '/attrset.json').then(jsondata => {
                     return savedata('attrset', folder, jsondata.default);
+                }));
+            promises.push(
+                import(
+                    /* webpackChunkName: "jsondata" */
+                    '../data/' + folder + '/buff.json').then(jsondata => {
+                    return savedata('buff', folder, jsondata.default);
                 }));
             return Promise.all(promises).then(() => {
                 return store.setItem(lastUpdateKey, lastUpdate)

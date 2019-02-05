@@ -494,6 +494,48 @@ var render = function (id) {
                 $content.append($subcontract);
             }
 
+            var $lockBuffs = $('<li class="list-group-item p-1">');
+            _.each(hex.lockBuffs, function (o, i) {
+                if (o) {
+                    var buff = Data.get('buff', o);
+                    $lockBuffs.append('<div class="item-container">' +
+                        '<img src="' + '../img/quest/' + buff.icon + ".png" + '" class="icon icon-item" />' +
+                        '<span class="item-count">' + buff.value + "<span>" +
+                        '</div>');
+                }
+            });
+            if (_.some(hex.lockBuffs)) {
+                $content.append($lockBuffs);
+            }
+
+            var $unlockBuffs = $('<li class="list-group-item p-1">');
+            _.each(hex.unlockBuffs, function (o, i) {
+                if (o) {
+                    var buff = Data.get('buff', o);
+                    $unlockBuffs.append('<div class="item-container">' +
+                        '<img src="' + '../img/quest/' + buff.icon + ".png" + '" class="icon icon-item" />' +
+                        '<span class="item-count">' + buff.value + "<span>" +
+                        '</div>');
+                }
+            });
+            if (_.some(hex.unlockBuffs)) {
+                $content.append($unlockBuffs);
+            }
+
+            var $clearBuffs = $('<li class="list-group-item p-1">');
+            _.each(hex.clearBuffs, function (o, i) {
+                if (o) {
+                    var buff = Data.get('buff', o);
+                    $clearBuffs.append('<div class="item-container">' +
+                        '<img src="' + '../img/quest/' + buff.icon + ".png" + '" class="icon icon-item" />' +
+                        '<span class="item-count">' + buff.value + "<span>" +
+                        '</div>');
+                }
+            });
+            if (_.some(hex.clearBuffs)) {
+                $content.append($clearBuffs);
+            }
+
             var $reward = $('<li class="list-group-item p-1">');
             _.each(hex.rewards, function (o, i) {
                 var reward = o;

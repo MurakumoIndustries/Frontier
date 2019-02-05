@@ -159,7 +159,7 @@ body {
 }
 
 .hex-table td:nth-child(odd) .hex {
-    top: 39px;
+    top: 35.5px;
 }
 
 .hex {
@@ -170,8 +170,8 @@ body {
 }
 
 .hex-tile {
-    width: 120px;
-    margin: -3px -18px;
+    width: 108px;
+    margin: -3px -16.5px;
 }
 
 .hex-tile>svg {}
