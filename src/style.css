@@ -80,8 +80,13 @@ body {
     white-space: nowrap;
 }
 
+.sidebar .map-list-container ul>li a>.hex-info-count {
+    display: inline-block;
+    min-width: 2.5rem;
+}
+
 .sidebar .map-list-container ul>ul>li {
-    margin: 0 0 0 0.75rem;
+    margin: 0 0 0 0rem;
 }
 
 .sidebar .map-list-container ul>li.map-list-divider {
