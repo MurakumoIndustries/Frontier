@@ -81,18 +81,6 @@ module.exports = env => {
                         extractCSS: true,
                         // other vue-loader options go here
                     }
-                },
-                {
-                    test: /\.(tpl|html)$/,
-                    include: [
-                        path.resolve(__dirname, "src/template")
-                    ],
-                    use: [{
-                        loader: 'underscore-template-loader',
-                        options: {
-                            globalLodash: true,
-                        }
-                    }]
                 }
             ]
         },

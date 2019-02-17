@@ -1,5 +1,8 @@
 <template>
-    <div v-bind:class="['hex',{'hex-danger':hex.hexType==20},{'hex-rare':hex.hexType==30}]">
+    <div
+        v-bind:class="['hex',{'hex-danger':hex.hexType==20},{'hex-rare':hex.hexType==30}]"
+        @click="showHexInfo(hex)"
+    >
         <div class="hex-tile" v-html="hexsvg"></div>
         <a class="hex-content" data-toggle="popover" tabindex="0">
             <div class="d-flex justify-content-center align-items-center">
@@ -60,6 +63,8 @@
 import hexsvg from "../img/hex.svg";
 
 import { Data } from "../js/data.js";
+import { Event } from "../js/event.js";
+
 export default {
     props: {
         hex: Object
@@ -69,7 +74,11 @@ export default {
             hexsvg: hexsvg
         };
     },
-    methods: {},
+    methods: {
+        showHexInfo: function(hex) {
+            Event.$emit("show-hex-info", hex);
+        }
+    },
     computed: {
         zakoAttr: function() {
             return Data.get("attrset", this.hex.zakoAttr) || {};
@@ -100,4 +109,75 @@ export default {
     }
 };
 </script>
+<style>
+.hex-tile > svg {
+}
+
+.hex-tile > svg > polygon {
+    stroke: #ccc;
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    fill: #fff;
+}
+
+.hex-danger svg > polygon {
+    stroke: #f00;
+    stroke-width: 6px;
+}
+
+.hex-rare svg > polygon {
+    stroke: yellow;
+    stroke-width: 6px;
+}
+</style>
+
+<style scoped>
+.hex {
+    position: relative;
+    /*fix hex under td*/
+    z-index: 2;
+    cursor: pointer;
+}
+
+.hex-tile {
+    width: 108px;
+    margin: -3px -16.5px;
+}
+
+.hex-content {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #212529;
+}
+
+.hex-content:hover {
+    color: #212529;
+    text-decoration: none;
+}
+
+.hex-content:focus {
+    outline: none;
+}
+
+.hex-content * {
+    pointer-events: none;
+}
+
+.hex-content .hex-area-count {
+    position: absolute;
+    right: 1rem;
+    bottom: 0.25rem;
+    font-size: 0.75rem;
+}
+</style>
 

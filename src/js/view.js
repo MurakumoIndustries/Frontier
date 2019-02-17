@@ -9,8 +9,6 @@ import interact from 'interactjs'
 
 import { Event } from "../js/event.js"
 
-import template from '../template/hexInfo.html';
-
 import App from '../App.vue'
 
 import hexsvg from '../img/hex.svg';

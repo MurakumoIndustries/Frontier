@@ -9,10 +9,12 @@
                 </tr>
             </table>
         </div>
+        <HexInfo/>
     </div>
 </template>
 <script>
 import Hex from "./Hex.vue";
+import HexInfo from "./HexInfo.vue";
 import { Data } from "../js/data.js";
 import interact from "interactjs";
 
@@ -215,8 +217,45 @@ export default {
         }
     },
     components: {
-        Hex
+        Hex,
+        HexInfo
     }
 };
 </script>
 
+<style scoped>
+#main {
+    overflow: hidden;
+    height: 100%;
+    background-color: #eee;
+}
+
+.hex-table-container {
+    -ms-touch-action: none;
+    touch-action: none;
+    display: inline-block;
+    background-color: white;
+}
+
+.hex-table {
+    padding: 5rem;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+@media (min-width: 768px) {
+    .hex-table {
+        transition: transform 0.2s ease;
+    }
+}
+
+.hex-table td {
+    border-collapse: collapse;
+    position: relative;
+}
+
+.hex-table td:nth-child(odd) .hex {
+    top: 35.5px;
+}
+</style>

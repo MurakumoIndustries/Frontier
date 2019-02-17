@@ -3342,14 +3342,6 @@ uglifyjs-webpack-plugin@^1.2.4:
     webpack-sources "^1.1.0"
     worker-farm "^1.5.2"
 
-underscore-template-loader@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/underscore-template-loader/-/underscore-template-loader-1.0.0.tgz#e0853ee4850d22e00897c4638f36036ac08c0d7e"
-  integrity sha512-4tzm3DY8nLD6mKCQmPk51vu5HW8T61fSGpfkUrlrwF0oOPTinL8Zk7W08xHOmCZ2Sh9bZHVMzVgr/DUM+10iUA==
-  dependencies:
-    fastparse "^1.1.1"
-    loader-utils "^0.2.11"
-
 union-value@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/union-value/-/union-value-1.0.0.tgz#5c71c34cb5bad5dcebe3ea0cd08207ba5aa1aea4"

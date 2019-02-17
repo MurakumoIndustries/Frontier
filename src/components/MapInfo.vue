@@ -112,9 +112,6 @@ export default {
     stroke: none;
     fill: #ccc;
 }
-.icon-hex-tile > svg {
-    width: 2.25rem;
-}
 
 .icon-hex-tile.icon-hex-danger {
     fill: #f00;
