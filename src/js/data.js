@@ -41,6 +41,7 @@ var init = function (forceInit) {
                     data[key] = JSON.parse(json);
                 });
             };
+            promises.push(loaddata('maplist'));
             promises.push(loaddata('maptable'));
             promises.push(loaddata('stage'));
             promises.push(loaddata('items'));
@@ -57,6 +58,12 @@ var init = function (forceInit) {
                     data[key] = jsondata;
                 });
             }
+            promises.push(
+                import(
+                    /* webpackChunkName: "jsondata" */
+                    '../data/' + folder + '/maplist.json').then(jsondata => {
+                    return savedata('maplist', folder, jsondata.default);
+                }));
             promises.push(
                 import(
                     /* webpackChunkName: "jsondata" */
