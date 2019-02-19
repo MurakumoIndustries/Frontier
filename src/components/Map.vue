@@ -10,11 +10,13 @@
             </table>
         </div>
         <HexInfo/>
+        <HexPopper/>
     </div>
 </template>
 <script>
 import Hex from "./Hex.vue";
 import HexInfo from "./HexInfo.vue";
+import HexPopper from "./HexPopper.vue";
 import { Data } from "../js/data.js";
 import interact from "interactjs";
 
@@ -218,7 +220,8 @@ export default {
     },
     components: {
         Hex,
-        HexInfo
+        HexInfo,
+        HexPopper
     }
 };
 </script>
