@@ -298,6 +298,31 @@
 }
 
 
+.fade-enter-active[data-v-78649ca7],
+.fade-leave-active[data-v-78649ca7] {
+    transition: opacity 0.25s;
+}
+.fade-enter[data-v-78649ca7], .fade-leave-to[data-v-78649ca7] /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+.hex-popper[data-v-78649ca7] {
+    background: white;
+    z-index: 99999;
+}
+.hex-popper .popover-header[data-v-78649ca7] {
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+}
+.bs-popover-auto[x-placement^="bottom"] > .arrow[data-v-78649ca7],
+.bs-popover-auto[x-placement^="top"] > .arrow[data-v-78649ca7] {
+    left: calc(50% - 13px);
+}
+.bs-popover-auto[x-placement^="left"] > .arrow[data-v-78649ca7],
+.bs-popover-auto[x-placement^="right"] > .arrow[data-v-78649ca7] {
+    top: calc(50% - 13px);
+}
+
+
 #main[data-v-3074bd5c] {
     overflow: hidden;
     height: 100%;

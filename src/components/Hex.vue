@@ -74,6 +74,16 @@ export default {
             hexsvg: hexsvg
         };
     },
+    mounted: function() {
+        var $vm = this;
+        var $target = $vm.$el.getElementsByClassName("hex-content")[0];        
+        $target.addEventListener("mouseenter", function() {
+            Event.$emit("show-popover", $target, $vm.hex);
+        });
+        $target.addEventListener("mouseleave", function() {
+            Event.$emit("hide-popover", $target, $vm.hex);
+        });
+    },
     methods: {
         showHexInfo: function(hex) {
             Event.$emit("show-hex-info", hex);
