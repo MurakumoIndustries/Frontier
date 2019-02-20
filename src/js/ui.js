@@ -60,6 +60,14 @@ var getLang = function () {
     }
     return currentLang;
 };
+var getLangText = function () {
+    if (!currentLang) {
+        setLang();
+    }
+    return _.find(supportedLang, function (o) {
+        return o.key == currentLang;
+    }).text;
+};
 var setLang = function (lang) {
     lang = lang || localStorage["uilang"] || navigator.language || navigator.browserLanguage;
     if (_.some(supportedLang, function (o) { return o.key == lang }) == false) {
@@ -67,9 +75,6 @@ var setLang = function (lang) {
     }
     currentLang = lang;
     localStorage["uilang"] = lang;
-    $('#currentLang').text(_.find(supportedLang, function (o) {
-        return o.key == lang;
-    }).text);
 };
 var init = function () {
     $('[data-lang]').each(function () {
@@ -86,17 +91,14 @@ var init = function () {
     });
 };
 
-export {
+const Ui = {
     supportedLang,
     getText,
     getLang,
+    getLangText,
     setLang,
     init
 };
-export default {
-    supportedLang,
-    getText,
-    getLang,
-    setLang,
-    init
-};
+
+export { Ui };
+export default Ui;
