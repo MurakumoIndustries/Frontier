@@ -3,11 +3,18 @@
         <Collapse>
             <div class="map-list-search p-2 sidebar-collapsable" v-show="isShowSidebar">
                 <div class="input-group">
-                    <input type="number" class="form-control w-25" v-model.trim="searchNumber">
+                    <input
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="form-control w-50"
+                        v-bind:placeholder="Ui.getText('searchhexcount')"
+                        v-model.trim="searchNumber"
+                    >
                     <input
                         type="text"
-                        class="form-control w-75"
-                        v-bind:placeholder="Ui.getText('search')"
+                        class="form-control w-50"
+                        v-bind:placeholder="Ui.getText('searchmapname')"
                         v-model.trim="searchText"
                     >
                 </div>

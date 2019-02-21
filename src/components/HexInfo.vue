@@ -125,6 +125,7 @@ export default {
     created: function() {
         var $vm = this;
         Event.$on("show-hex-info", function(hex) {
+            Event.$emit("disable-popover");
             $vm.hex = hex;
             $vm.isShow = true;
         });
@@ -166,6 +167,7 @@ export default {
                 return;
             }
             this.isShow = false;
+            Event.$emit("enable-popover");
         },
         convertAttr2nd: function(attr) {
             return Data.convertAttr2nd(attr);
@@ -176,18 +178,19 @@ export default {
             });
         },
         enemysWithIcon: function(area) {
+            var $vm = this;
             return _.chain(area.enemyList)
                 .map(function(enemyId) {
                     var enemybase = Data.get("enemybase", enemyId);
                     if (
                         enemybase &&
-                        hex.bossAttr.weakAttr &&
-                        hex.bossAttr.weakAttr != 4 &&
-                        hex.bossAttr.weakAttr != 255
+                        $vm.hex.bossAttr.weakAttr &&
+                        $vm.hex.bossAttr.weakAttr != 4 &&
+                        $vm.hex.bossAttr.weakAttr != 255
                     ) {
                         enemyId =
                             enemybase.frontierChangeEnemyIds[
-                                hex.bossAttr.attribute2nd - 5
+                                $vm.hex.bossAttr.attribute2nd - 5
                             ];
                     }
                     var enemy = Data.get("enemy", enemyId);

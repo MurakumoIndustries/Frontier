@@ -81,7 +81,7 @@ export default {
             Event.$emit("show-popover", $target, $vm.hex);
         });
         $target.addEventListener("mouseleave", function() {
-            Event.$emit("hide-popover", $target, $vm.hex);
+            Event.$emit("hide-popover");
         });
     },
     methods: {

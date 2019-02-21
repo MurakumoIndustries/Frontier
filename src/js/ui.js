@@ -23,6 +23,8 @@ var currentLang = '';
 var data = [];
 //navbar
 data["search"] = { "ja-JP": "検索", "zh-TW": "搜尋", "en-US": "Search", "zh-CN": "查询" };
+data["searchhexcount"] = { "ja-JP": "ヘクス数", "zh-TW": "Hex數", "en-US": "HexCnt", "zh-CN": "Hex数" };
+data["searchmapname"] = { "ja-JP": "マップ名", "zh-TW": "地圖名稱", "en-US": "Map Name", "zh-CN": "地图名称" };
 
 data["maplist"] = { "ja-JP": "新米向けマップ", "zh-TW": "新手教程", "en-US": "Newbie Maps", "zh-CN": "新手教程" };
 data["maplistold"] = { "ja-JP": "マップ（旧）", "zh-TW": "舊版調查", "en-US": "Not Used Maps", "zh-CN": "旧版调查" };

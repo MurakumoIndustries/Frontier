@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade">
+    <transition v-if="isEnable" name="fade">
         <div v-show="isShow" class="popover hex-popper bs-popover-auto" style="max-width:none;">
             <div class="arrow"></div>
             <h3 class="popover-header">
@@ -77,6 +77,7 @@ import { Event } from "../js/event.js";
 export default {
     data: function() {
         return {
+            isEnable: true,
             isShow: false,
             hex: {}
         };
@@ -96,9 +97,14 @@ export default {
                 });
             });
         });
-        Event.$on("hide-popover", function($ref, hex) {
+        Event.$on("hide-popover", function() {
             $vm.isShow = false;
-            $vm.$nextTick(function() {});
+        });
+        Event.$on("enable-popover", function() {
+            $vm.isEnable = true;
+        });
+        Event.$on("disable-popover", function() {
+            $vm.isEnable = false;
         });
     },
     computed: {
