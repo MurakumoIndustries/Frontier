@@ -119,19 +119,15 @@ export default {
 .sidebar {
     z-index: 16;
     background: white;
-    border-right: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        position: absolute;
-        border-right: none;
-    }
+    border-right: none;
+    position: absolute;
 }
 
 @media (min-width: 768px) {
     .sidebar {
+        position: initial;
         height: 100%;
+        border-right: 1px solid rgba(0, 0, 0, 0.25);
     }
 }
 </style>
