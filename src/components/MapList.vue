@@ -181,7 +181,8 @@ export default {
 }
 
 .map-list-container > ul {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin-bottom: 0;
 }
 

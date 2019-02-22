@@ -78,7 +78,8 @@
     overflow: hidden;
 }
 .map-list-container > ul[data-v-85dd5dcc] {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin-bottom: 0;
 }
 @media (min-width: 768px) {
