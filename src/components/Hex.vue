@@ -22,7 +22,7 @@
                     v-bind:key="index"
                     v-bind:class="['icon','icon-key','icon-key-01-' + '00'.substring(0, 2 - String(index+1).length) + String(index+1)]"
                 />
-                <i class="material-icons" v-if="hex.requireMapItems.length">lock_outline</i>
+                <i class="material-icons" v-if="requireMapItems.length">lock_outline</i>
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 <div class="d-inline-flex" v-for="reward in rewards" v-bind:key="reward.id">

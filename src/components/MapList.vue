@@ -41,15 +41,10 @@
                                     v-for="map in group.maps"
                                     v-show="isShow(map)"
                                     v-bind:key="map.id"
-                                    v-bind:class="[{'active':activeMapId==map.id},
-                            {'map-list-divider':!isForceShowAllGroup&&
-                                                 (map.id=='3074294833'
-                                                ||map.id=='3196602394'
-                                                ||map.id=='1795557279'
-                                                ||map.id=='3331758729'
-                                                ||map.id=='1247514767'
-                                                ||map.id=='3859376046'
-                                                ||map.id=='79899309')}]"
+                                    v-bind:class="[
+                                        {'active':activeMapId==map.id},
+                                        {'map-list-divider':!isForceShowAllGroup && dividerList.indexOf(map.id)>=0}
+                                    ]"
                                 >
                                     <a
                                         v-bind:data-map-id-string="map.idString"
@@ -148,6 +143,21 @@ export default {
         }
     },
     computed: {
+        dividerList: function() {
+            return [
+                3074294833,
+                3196602394,
+                1795557279,
+                3331758729, //newbie
+                1247514767,
+                3859376046,
+                79899309, //oldrandom
+                3787645706,
+                3701656250,
+                3743323759,
+                3799957471 //event
+            ];
+        },
         isForceShowAllGroup: function() {
             return this.searchNumber || this.searchText;
         }

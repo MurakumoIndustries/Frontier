@@ -96,12 +96,8 @@
                         <span class="item-count">{{buff.value}}</span>
                     </div>
                 </li>
-                <li class="list-group-item" v-if="hex.requireMapItems.length">
-                    <i
-                        class="material-icons"
-                        style="margin:0.75rem 0;"
-                        v-if="hex.requireMapItems.length"
-                    >lock_outline</i>
+                <li class="list-group-item" v-if="requireMapItems.length">
+                    <i class="material-icons" style="margin:0.75rem 0;">lock_outline</i>
                     <div
                         class="item-container"
                         v-for="item in requireMapItems"
