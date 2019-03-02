@@ -1,7 +1,7 @@
 <template>
     <div
         v-bind:class="['hex',{'hex-danger':hex.hexType==20},{'hex-rare':hex.hexType==30}]"
-        @click="showHexInfo(hex)"
+        @click="showHexInfo()"
     >
         <div class="hex-tile" v-html="hexsvg"></div>
         <a class="hex-content" data-toggle="popover" tabindex="0">
@@ -43,16 +43,12 @@
                         {{reward.count}}
                     </div>
                 </div>
-                <div
-                    class="d-inline-flex"
-                    v-for="(count,index) in filterRequireMapItems"
-                    v-bind:key="index"
-                >
+                <div class="d-inline-flex" v-for="item in requireMapItems" v-bind:key="item.index">
                     <i
                         v-bind:class="['icon','icon-key',
-                        'icon-key-01-' + '00'.substring(0, 2 - String(index+1).length) + String(index+1)]"
+                        'icon-key-01-' + '00'.substring(0, 2 - String(item.index+1).length) + String(item.index+1)]"
                     />
-                    {{count}}
+                    {{item.count}}
                 </div>
             </div>
             <div class="hex-area-count" v-if="areaCount>0">{{areaCount}}</div>
@@ -67,7 +63,8 @@ import { Event } from "../js/event.js";
 
 export default {
     props: {
-        hex: Object
+        hex: Object,
+        map: Object
     },
     data: function() {
         return {
@@ -76,17 +73,17 @@ export default {
     },
     mounted: function() {
         var $vm = this;
-        var $target = $vm.$el.getElementsByClassName("hex-content")[0];        
+        var $target = $vm.$el.getElementsByClassName("hex-content")[0];
         $target.addEventListener("mouseenter", function() {
-            Event.$emit("show-popover", $target, $vm.hex);
+            Event.$emit("show-popover", $target, $vm.hex, $vm.map);
         });
         $target.addEventListener("mouseleave", function() {
             Event.$emit("hide-popover");
         });
     },
     methods: {
-        showHexInfo: function(hex) {
-            Event.$emit("show-hex-info", hex);
+        showHexInfo: function() {
+            Event.$emit("show-hex-info", this.hex, this.map);
         }
     },
     computed: {
@@ -111,10 +108,17 @@ export default {
         areaCount: function() {
             return (this.stage.areaList || []).length;
         },
-        filterRequireMapItems: function() {
-            return _.filter(this.hex.requireMapItems, function(o) {
-                return o > 0;
+        requireMapItems: function() {
+            var result = [];
+            _.each(this.hex.requireMapItems, function(count, index) {
+                if (count) {
+                    result.push({
+                        index: index,
+                        count: count
+                    });
+                }
             });
+            return result;
         }
     }
 };

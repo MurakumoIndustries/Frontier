@@ -96,6 +96,43 @@
                         <span class="item-count">{{buff.value}}</span>
                     </div>
                 </li>
+                <li class="list-group-item" v-if="hex.requireMapItems.length">
+                    <i
+                        class="material-icons"
+                        style="margin:0.75rem 0;"
+                        v-if="hex.requireMapItems.length"
+                    >lock_outline</i>
+                    <div
+                        class="item-container"
+                        v-for="item in requireMapItems"
+                        v-bind:key="item.index"
+                    >
+                        <img
+                            v-bind:src="'../img/item/'+(map.itemList[item.index].icon || 'itm2_04_000_01') + '.png'"
+                            class="icon icon-item"
+                            v-bind:title="map.itemList[item.index].name"
+                        >
+                        <span class="item-count" v-if="item.count>1">{{item.count}}</span>
+                    </div>
+                </li>
+                <li class="list-group-item" v-if="hex.itemHintIndexes.length">
+                    <i
+                        class="material-icons"
+                        style="margin:0.75rem 0;"
+                        v-if="hex.itemHintIndexes.length"
+                    >vpn_key</i>
+                    <div
+                        class="item-container"
+                        v-for="index in hex.itemHintIndexes"
+                        v-bind:key="index"
+                    >
+                        <img
+                            v-bind:src="'../img/item/'+(map.itemList[index].icon || 'itm2_04_000_01') + '.png'"
+                            class="icon icon-item"
+                            v-bind:title="map.itemList[index].name"
+                        >
+                    </div>
+                </li>
                 <li class="list-group-item">
                     <div class="item-container" v-for="reward in rewards" v-bind:key="reward.id">
                         <img
@@ -119,14 +156,16 @@ export default {
         return {
             isShow: false,
             hex: {},
+            map: {},
             currentAreaIdForEnemyList: 0
         };
     },
     created: function() {
         var $vm = this;
-        Event.$on("show-hex-info", function(hex) {
+        Event.$on("show-hex-info", function(hex, map) {
             Event.$emit("disable-popover");
             $vm.hex = hex;
+            $vm.map = map;
             $vm.isShow = true;
         });
     },
@@ -159,6 +198,18 @@ export default {
             return _.map(this.hex.rewards, function(reward) {
                 return _.extend(reward, Data.get("items", reward.id));
             });
+        },
+        requireMapItems: function() {
+            var result = [];
+            _.each(this.hex.requireMapItems, function(count, index) {
+                if (count) {
+                    result.push({
+                        index: index,
+                        count: count
+                    });
+                }
+            });
+            return result;
         }
     },
     methods: {

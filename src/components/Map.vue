@@ -4,7 +4,7 @@
             <table class="hex-table">
                 <tr v-for="y in Yrange" v-bind:key="y">
                     <td v-for="x in Xrange" v-bind:key="x">
-                        <Hex v-if="hex(x,y)" v-bind:hex="hex(x,y)"/>
+                        <Hex v-if="hex(x,y)" v-bind:hex="hex(x,y)" v-bind:map="map"/>
                     </td>
                 </tr>
             </table>
