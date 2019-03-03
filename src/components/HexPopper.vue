@@ -89,7 +89,7 @@
                             v-bind:key="reward.id"
                         >
                             <img
-                                v-bind:src="'../img/item/'+(reward.icon || 'itm2_04_000_01') + '.png'"
+                                v-bind:src="rewardIconSrc(reward.icon)"
                                 class="icon icon-item"
                                 v-bind:title="reward.name"
                             >
@@ -174,6 +174,14 @@ export default {
                 }
             });
             return result;
+        }
+    },
+    methods: {
+        rewardIconSrc: function(icon) {
+            if (icon.indexOf("chr4") == 0) {
+                return "../img/chara/" + icon + ".png";
+            }
+            return "../img/item/" + (icon || "itm2_04_000_01") + ".png";
         }
     }
 };
