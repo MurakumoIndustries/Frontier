@@ -64,6 +64,7 @@
                                 <div
                                     v-bind:class="['attr-subscript','attr-'+ convertAttr2nd(enemy.type > 10?bossAttr.weakAttr||enemy.weakAttr:255)]"
                                 ></div>
+                                <span class="enemy-count" v-if="enemy.count>1">{{enemy.count}}</span>
                             </div>
                             <div
                                 v-bind:class="['stage-label',{'stage-label-odd':index%2!=0}]"
@@ -220,14 +221,14 @@ export default {
             return Data.convertAttr2nd(attr);
         },
         enemys: function(area) {
-            return _.map(area.enemyList, function(enemyId) {
+            return _.map(area.enemyList, function(count, enemyId) {
                 return Data.get("enemy", enemyId);
             });
         },
         enemysWithIcon: function(area) {
             var $vm = this;
             return _.chain(area.enemyList)
-                .map(function(enemyId) {
+                .map(function(count, enemyId) {
                     var enemybase = Data.get("enemybase", enemyId);
                     if (
                         enemybase &&
@@ -242,6 +243,7 @@ export default {
                     }
                     var enemy = Data.get("enemy", enemyId);
                     if (enemy && enemy.icon && enemy.type >= 10) {
+                        enemy.count = count;
                         return enemy;
                     }
                     return null;
@@ -355,6 +357,17 @@ export default {
 .stage-container.enemy .parallelogram {
     margin-top: 2rem;
     margin-left: 0.25rem;
+}
+
+.stage-container.enemy .parallelogram .enemy-count {
+    position: absolute;
+    transform: skewX(-10deg);
+    left: 0;
+    top: 0;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    color: #000;
+    font-size: 0.9rem;
+    padding-left: 0.25rem;
 }
 
 .stage-container .attr-subscript {
