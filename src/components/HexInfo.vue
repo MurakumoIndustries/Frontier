@@ -89,13 +89,13 @@
                                             v-bind:key="i"
                                         ></span>
                                     </div>
-                                    <div>
+                                    <div style="position:relative;">
                                         <span>ATK {{calcRising(enemy.lv,enemy.attack[0],enemy.attack[1])}}</span>
                                         <span
                                             v-bind:class="['attr-text','attr-'+ convertAttr2nd(bossAttr.attribute2nd||enemy.attribute2nd)]"
                                         >{{calcRising(enemy.lv,enemy.attrAttack[0],enemy.attrAttack[1])}}</span>
                                         <span
-                                            style="float:right"
+                                            style="position:absolute;right:0;"
                                         >DEF {{calcRising(enemy.lv,enemy.defence[0],enemy.defence[1])}}</span>
                                     </div>
                                 </div>
