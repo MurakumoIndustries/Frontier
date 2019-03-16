@@ -64,12 +64,11 @@
                             <span class="item-count" v-if="item.count>1">{{item.count}}</span>
                         </div>
                     </li>
-                    <li class="list-group-item p-1" v-if="hex.itemHintIndexes.length">
-                        <i
-                            class="material-icons"
-                            style="margin:0.75rem 0;"
-                            v-if="hex.itemHintIndexes.length"
-                        >vpn_key</i>
+                    <li
+                        class="list-group-item p-1"
+                        v-if="hex.itemHintIndexes&&hex.itemHintIndexes.length"
+                    >
+                        <i class="material-icons" style="margin:0.75rem 0;">vpn_key</i>
                         <div
                             class="item-container"
                             v-for="index in hex.itemHintIndexes"
@@ -144,28 +143,28 @@ export default {
     },
     computed: {
         lockBuffs: function() {
-            return _.map(this.hex.lockBuffs, function(o) {
+            return _.map(this.hex.lockBuffs || [], function(o) {
                 return Data.get("buff", o);
             });
         },
         unlockBuffs: function() {
-            return _.map(this.hex.unlockBuffs, function(o) {
+            return _.map(this.hex.unlockBuffs || [], function(o) {
                 return Data.get("buff", o);
             });
         },
         clearBuffs: function() {
-            return _.map(this.hex.clearBuffs, function(o) {
+            return _.map(this.hex.clearBuffs || [], function(o) {
                 return Data.get("buff", o);
             });
         },
         rewards: function() {
-            return _.map(this.hex.rewards, function(reward) {
+            return _.map(this.hex.rewards || [], function(reward) {
                 return _.extend(reward, Data.get("items", reward.id));
             });
         },
         requireMapItems: function() {
             var result = [];
-            _.each(this.hex.requireMapItems, function(count, index) {
+            _.each(this.hex.requireMapItems || [], function(count, index) {
                 if (count) {
                     result.push({
                         index: index,

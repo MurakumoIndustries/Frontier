@@ -22,7 +22,7 @@
                         v-for="(area,i) in stage.areaList"
                         v-bind:key="area.id"
                     >
-                        <div class="stage-container" @click.stop="toggleEnemyList(area.id)">
+                        <div class="stage-container" @click.stop="toggleExtraInfo('Area_'+area.id)">
                             <div class="stage-label">
                                 AREA
                                 {{i+1}}
@@ -38,7 +38,7 @@
                             <transition name="fade">
                                 <div
                                     class="stage-enemy-list"
-                                    v-show="currentAreaIdForEnemyList==area.id"
+                                    v-show="currentExtraInfoID=='Area_'+area.id"
                                 >
                                     <div
                                         class="stage-label"
@@ -55,7 +55,7 @@
                             class="stage-container enemy"
                             v-for="(enemy,index) in enemysWithIcon(area)"
                             v-bind:key="enemy.id"
-                            @click.stop
+                            @click.stop="toggleExtraInfo('Enemy_'+enemy.id)"
                         >
                             <div class="parallelogram">
                                 <img
@@ -69,6 +69,37 @@
                             <div
                                 v-bind:class="['stage-label',{'stage-label-odd':index%2!=0}]"
                             >{{enemy.name}}</div>
+                            <transition name="fade">
+                                <div
+                                    v-bind:class="['boss-hp-bar','stage-label',{'stage-label-odd':index%2==0}]"
+                                    v-show="currentExtraInfoID=='Enemy_'+enemy.id"
+                                >
+                                    <div>LV.{{enemy.lv}}</div>
+                                    <div class="progress">
+                                        <div
+                                            class="progress-bar bg-warning"
+                                            role="progressbar"
+                                            style="width: 100%;"
+                                        >{{calcRising(enemy.lv,enemy.hp[0],enemy.hp[1])}}</div>
+                                    </div>
+                                    <div style="line-height:0;">
+                                        <span
+                                            class="boss-hp-bar-extra bg-warning"
+                                            v-for="i in countHpExtra(calcRising(enemy.lv,enemy.hp[0],enemy.hp[1]))"
+                                            v-bind:key="i"
+                                        ></span>
+                                    </div>
+                                    <div>
+                                        <span>ATK {{calcRising(enemy.lv,enemy.attack[0],enemy.attack[1])}}</span>
+                                        <span
+                                            v-bind:class="['attr-text','attr-'+ convertAttr2nd(bossAttr.attribute2nd||enemy.attribute2nd)]"
+                                        >{{calcRising(enemy.lv,enemy.attrAttack[0],enemy.attrAttack[1])}}</span>
+                                        <span
+                                            style="float:right"
+                                        >DEF {{calcRising(enemy.lv,enemy.defence[0],enemy.defence[1])}}</span>
+                                    </div>
+                                </div>
+                            </transition>
                         </div>
                     </div>
                 </li>
@@ -112,12 +143,8 @@
                         <span class="item-count" v-if="item.count>1">{{item.count}}</span>
                     </div>
                 </li>
-                <li class="list-group-item" v-if="hex.itemHintIndexes.length">
-                    <i
-                        class="material-icons"
-                        style="margin:0.75rem 0;"
-                        v-if="hex.itemHintIndexes.length"
-                    >vpn_key</i>
+                <li class="list-group-item" v-if="hex.itemHintIndexes&&hex.itemHintIndexes.length">
+                    <i class="material-icons" style="margin:0.75rem 0;">vpn_key</i>
                     <div
                         class="item-container"
                         v-for="index in hex.itemHintIndexes"
@@ -154,7 +181,7 @@ export default {
             isShow: false,
             hex: {},
             map: {},
-            currentAreaIdForEnemyList: 0
+            currentExtraInfoID: ""
         };
     },
     created: function() {
@@ -177,28 +204,28 @@ export default {
             return Data.get("stage", this.hex.questId) || {};
         },
         lockBuffs: function() {
-            return _.map(this.hex.lockBuffs, function(o) {
+            return _.map(this.hex.lockBuffs || [], function(o) {
                 return Data.get("buff", o);
             });
         },
         unlockBuffs: function() {
-            return _.map(this.hex.unlockBuffs, function(o) {
+            return _.map(this.hex.unlockBuffs || [], function(o) {
                 return Data.get("buff", o);
             });
         },
         clearBuffs: function() {
-            return _.map(this.hex.clearBuffs, function(o) {
+            return _.map(this.hex.clearBuffs || [], function(o) {
                 return Data.get("buff", o);
             });
         },
         rewards: function() {
-            return _.map(this.hex.rewards, function(reward) {
+            return _.map(this.hex.rewards || [], function(reward) {
                 return _.extend(reward, Data.get("items", reward.id));
             });
         },
         requireMapItems: function() {
             var result = [];
-            _.each(this.hex.requireMapItems, function(count, index) {
+            _.each(this.hex.requireMapItems || [], function(count, index) {
                 if (count) {
                     result.push({
                         index: index,
@@ -215,6 +242,7 @@ export default {
                 return;
             }
             this.isShow = false;
+            this.currentExtraInfoID = "";
             Event.$emit("enable-popover");
         },
         convertAttr2nd: function(attr) {
@@ -244,6 +272,12 @@ export default {
                     var enemy = Data.get("enemy", enemyId);
                     if (enemy && enemy.icon && enemy.type >= 10) {
                         enemy.count = count;
+                        enemy.lv = Math.max(
+                            1,
+                            enemy.type > 10
+                                ? area.bossLevel + $vm.hex.bossLevelOffset
+                                : area.zakoLevel + $vm.hex.zakoLevelOffset
+                        );
                         return enemy;
                     }
                     return null;
@@ -251,11 +285,11 @@ export default {
                 .compact()
                 .value();
         },
-        toggleEnemyList: function(areaid) {
-            if (this.currentAreaIdForEnemyList == areaid) {
-                this.currentAreaIdForEnemyList = 0;
+        toggleExtraInfo: function(key) {
+            if (this.currentExtraInfoID == key) {
+                this.currentExtraInfoID = "";
             } else {
-                this.currentAreaIdForEnemyList = areaid;
+                this.currentExtraInfoID = key;
             }
         },
         rewardIconSrc: function(icon) {
@@ -263,6 +297,21 @@ export default {
                 return "../img/chara/" + icon + ".png";
             }
             return "../img/item/" + (icon || "itm2_04_000_01") + ".png";
+        },
+        calcRising: function(lv, base, rising) {
+            return Math.round(base + lv * rising);
+        },
+        countHpExtra: function(hp) {
+            var gap = 50000,
+                newGap = gap,
+                base = gap;
+            var count = 0;
+            while (base < hp) {
+                newGap += gap;
+                base += newGap;
+                count++;
+            }
+            return Math.min(11, count);
         }
     }
 };
@@ -420,6 +469,51 @@ export default {
 .stage-container .attr-subscript.attr-collapse {
 }
 .stage-container .attr-subscript.attr-theory {
+}
+
+.attr-text.attr-normal {
+}
+
+.attr-text.attr-thunder {
+    color: #fad558;
+}
+
+.attr-text.attr-gravity {
+    color: #c485fd;
+}
+
+.attr-text.attr-fire {
+    color: #fe8691;
+}
+
+.attr-text.attr-ice {
+    color: #92e8fe;
+}
+
+.attr-text.attr-light {
+}
+
+.attr-text.attr-collapse {
+}
+
+.attr-text.attr-theory {
+}
+
+.boss-hp-bar > * {
+    width: 10rem;
+}
+.boss-hp-bar .progress {
+    height: 0.75rem;
+    border-radius: 0;
+}
+.boss-hp-bar .progress .progress-bar.bg-warning {
+    color: black;
+}
+.boss-hp-bar .boss-hp-bar-extra {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+    display: inline-block;
 }
 </style>
 
