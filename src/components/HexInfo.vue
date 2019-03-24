@@ -260,13 +260,13 @@ export default {
                     var enemybase = Data.get("enemybase", enemyId);
                     if (
                         enemybase &&
-                        $vm.hex.bossAttr.weakAttr &&
-                        $vm.hex.bossAttr.weakAttr != 4 &&
-                        $vm.hex.bossAttr.weakAttr != 255
+                        $vm.bossAttr.weakAttr &&
+                        $vm.bossAttr.weakAttr != 4 &&
+                        $vm.bossAttr.weakAttr != 255
                     ) {
                         enemyId =
                             enemybase.frontierChangeEnemyIds[
-                                $vm.hex.bossAttr.attribute2nd - 5
+                                $vm.bossAttr.attribute2nd - 5
                             ];
                     }
                     var enemy = Data.get("enemy", enemyId);
