@@ -42,6 +42,10 @@ module.exports = env => {
         plugins.push(new OfflinePlugin({
             appShell: '/Frontier/',
             autoUpdate: true,
+            ServiceWorker: {
+                cacheName: "MI_Frontier",
+                events: true,
+            }
         }));
     }
 
