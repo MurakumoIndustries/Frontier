@@ -29,7 +29,7 @@ module.exports = env => {
     if (env.NODE_ENV === 'production') {
         plugins.push(
             new WebpackPwaManifest({
-                short_name: "MI|Frontier",
+                name: "MI|Frontier",
                 short_name: "MI|Frontier",
                 theme_color: "#FAFAFA",
                 background_color: '#FAFAFA',
