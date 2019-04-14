@@ -46,6 +46,8 @@
     "page": "^1.8.6",
     "popper.js": "^1.14.7",
     "vue": "^2.6.6",
-    "vue-scrollto": "^2.13.0"
+    "vue-scrollto": "^2.13.0",
+    "workbox-routing": "^4.2.0",
+    "workbox-strategies": "^4.2.0"
   }
 }
