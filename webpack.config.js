@@ -25,30 +25,27 @@ module.exports = env => {
             filename: "[name].[contenthash].css",
             chunkFilename: "[id].[contenthash].css"
         }),
-    ];
-    if (env.NODE_ENV === 'production') {
-        plugins.push(
-            new WebpackPwaManifest({
-                name: "MI|Frontier",
-                short_name: "MI|Frontier",
-                theme_color: "#FAFAFA",
-                background_color: '#FAFAFA',
-                icons: [{
-                    src: path.resolve('./src/img/murakumo.png'),
-                    sizes: [96, 128, 192, 256, 384, 512, 1024] // multiple sizes
-                }]
-            })
-        );
-        plugins.push(new OfflinePlugin({
+        new WebpackPwaManifest({
+            name: "MI|Frontier",
+            short_name: "MI|Frontier",
+            theme_color: "#FAFAFA",
+            background_color: '#FAFAFA',
+            icons: [{
+                src: path.resolve('./src/img/murakumo.png'),
+                sizes: [96, 128, 192, 256, 384, 512, 1024] // multiple sizes
+            }]
+        }),
+        new OfflinePlugin({
             appShell: '/Frontier/',
             autoUpdate: true,
             ServiceWorker: {
                 cacheName: "MI_Frontier",
                 events: true,
                 entry: path.join(__dirname, './src/js/sw-img.js')
-            }
-        }));
-    }
+            },
+            AppCache: false,
+        })
+    ];
 
     return {
         mode: env.NODE_ENV || 'production',

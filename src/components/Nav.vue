@@ -87,6 +87,12 @@
                                 style="position:absolute;right:1rem;"
                             >open_in_new</i>
                         </a>
+                        <div class="dropdown-divider"></div>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click="toggleCache()"
+                        >{{Ui.getText(cacheDisabled?"enablecache":"disablecache")}}</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -99,13 +105,16 @@
                         aria-expanded="false"
                     >
                         <i class="material-icons">language</i>
-                        <span id="currentLang">{{Ui.getLangText()}}</span>
+                        <span id="currentLang">{{langText}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#!/lang/ja-JP">日本語</a>
-                        <a class="dropdown-item" href="#!/lang/zh-TW">正體中文</a>
-                        <a class="dropdown-item" href="#!/lang/en-US">English</a>
-                        <a class="dropdown-item" href="#!/lang/zh-CN">简体中文</a>
+                        <a
+                            v-for="lang in Ui.supportedLang"
+                            v-bind:key="lang.key"
+                            class="dropdown-item"
+                            v-bind:href="'#!/lang/'+lang.key"
+                            @click="langText=lang.text"
+                        >{{lang.text}}</a>
                     </ul>
                 </li>
             </ul>
@@ -115,18 +124,48 @@
 
 <script>
 import { Data } from "../js/data.js";
+import { Ui } from "../js/ui.js";
 
 export default {
     data: function() {
-        return {};
+        var langText = Ui.getLangText();
+        return {
+            langText: langText,
+            gearType: ""
+        };
     },
-    methods: {},
+    methods: {
+        toggleCache: function() {
+            if (this.cacheDisabled) {
+                localStorage["MI_Frontier_Disable_Cache"] = false;
+                location.reload();
+                return;
+            }
+            if (!confirm(Ui.getText("disablecachewarning"))) {
+                return;
+            }
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker
+                    .getRegistration()
+                    .then(function(registration) {
+                        registration &&
+                            registration.unregister().then(function(r) {
+                                localStorage["MI_Frontier_Disable_Cache"] = true;
+                                location.reload();
+                            });
+                    });
+            }
+        }
+    },
     computed: {
         currentServer: function() {
             return Data.getCurrentServer();
         },
         allServers: function() {
             return Data.getAllServers();
+        },
+        cacheDisabled: function() {
+            return localStorage["MI_Frontier_Disable_Cache"] === "true";
         }
     }
 };
