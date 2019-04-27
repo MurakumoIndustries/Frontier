@@ -286,6 +286,9 @@ export default {
                 .value();
         },
         toggleExtraInfo: function(key) {
+            if (window.getSelection().toString().length) {
+                return;
+            }
             if (this.currentExtraInfoID == key) {
                 this.currentExtraInfoID = "";
             } else {
