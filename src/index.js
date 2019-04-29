@@ -24,7 +24,11 @@ NProgress.set(0.3);
 Data.init().then(function () {
     NProgress.set(0.6);
     if (localStorage["MI_Frontier_Disable_Cache"] !== "true") {
-        OfflinePluginRuntime.install();
+        OfflinePluginRuntime.install({
+            onUpdateReady: function () {
+                OfflinePluginRuntime.applyUpdate();
+            }
+        });
         console.log('PWA Enabled!');
     }
     NProgress.set(0.9);
