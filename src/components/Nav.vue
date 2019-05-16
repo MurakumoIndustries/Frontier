@@ -4,8 +4,8 @@
             <i class="icon icon-murakumo"></i>
         </a>
         <a class="navbar-brand" title="Murakumo Industries Frontier Map Viewer" href="#">
-            <span class="d-none d-lg-inline-block">Murakumo Industries</span>
-            <span class="d-lg-none">MI</span>
+            <span class="d-none d-md-inline-block">Murakumo Industries</span>
+            <span class="d-md-none">MI</span>
             <span>Frontier</span>
             <span class="d-none d-sm-inline-block">Map Viewer</span>
             <sup>α</sup>
