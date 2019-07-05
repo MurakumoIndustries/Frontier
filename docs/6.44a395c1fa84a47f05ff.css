@@ -215,9 +215,6 @@
     font-size: 0.75rem;
     text-align: left;
 }
-.stage-container.enemy[data-v-02493be9] {
-    cursor: initial;
-}
 .stage-container.enemy .stage-label[data-v-02493be9] {
     margin-left: 0.5rem;
     width: 0;

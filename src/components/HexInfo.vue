@@ -369,10 +369,6 @@ export default {
     text-align: left;
 }
 
-.stage-container.enemy {
-    cursor: initial;
-}
-
 .stage-container.enemy .stage-label {
     margin-left: 0.5rem;
     width: 0;
