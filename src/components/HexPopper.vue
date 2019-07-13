@@ -13,7 +13,7 @@
                 <ul class="list-group list-group-flush">
                     <li v-if="hex.canGiveUp && hex.giveUpCost > 0" class="list-group-item p-1">
                         <div class="item-container">
-                            <span data-lang="subcontract">{{Ui.getText('subcontract') }}</span>
+                            <span>{{Ui.getText('subcontract') }}</span>
                             <i class="icon icon-gold"></i>
                             {{hex.giveUpCost}}
                         </div>
@@ -23,7 +23,7 @@
                             <img
                                 v-bind:src="'../img/quest/'+buff.icon + '.png'"
                                 class="icon icon-item"
-                            >
+                            />
                             <span class="item-count">{{buff.value}}</span>
                         </div>
                     </li>
@@ -36,7 +36,7 @@
                             <img
                                 v-bind:src="'../img/quest/'+buff.icon + '.png'"
                                 class="icon icon-item"
-                            >
+                            />
                             <span class="item-count">{{buff.value}}</span>
                         </div>
                     </li>
@@ -45,7 +45,7 @@
                             <img
                                 v-bind:src="'../img/quest/'+buff.icon + '.png'"
                                 class="icon icon-item"
-                            >
+                            />
                             <span class="item-count">{{buff.value}}</span>
                         </div>
                     </li>
@@ -60,7 +60,7 @@
                                 v-bind:src="'../img/item/'+(map.itemList[item.index].icon || 'itm2_04_000_01') + '.png'"
                                 class="icon icon-item"
                                 v-bind:title="map.itemList[item.index].name"
-                            >
+                            />
                             <span class="item-count" v-if="item.count>1">{{item.count}}</span>
                         </div>
                     </li>
@@ -78,7 +78,7 @@
                                 v-bind:src="'../img/item/'+(map.itemList[index].icon || 'itm2_04_000_01') + '.png'"
                                 class="icon icon-item"
                                 v-bind:title="map.itemList[index].name"
-                            >
+                            />
                         </div>
                     </li>
                     <li class="list-group-item p-1" v-if="hex.rewards&&hex.rewards.length">
@@ -91,7 +91,7 @@
                                 v-bind:src="rewardIconSrc(reward.icon)"
                                 class="icon icon-item"
                                 v-bind:title="reward.name"
-                            >
+                            />
                             <span class="item-count" v-if="reward.count>1">{{reward.count}}</span>
                         </div>
                     </li>

@@ -1,17 +1,11 @@
 import $ from "jquery";
 import _ from 'lodash';
-import page from 'page';
-import Ui from './ui.js';
-import { Data } from './data.js'
 import NProgress from 'nprogress'
 import Vue from 'vue'
-import interact from 'interactjs'
 
 import { Event } from "../js/event.js"
 
 import App from '../App.vue'
-
-import hexsvg from '../img/hex.svg';
 
 var inited;
 

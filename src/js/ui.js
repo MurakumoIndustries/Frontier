@@ -1,4 +1,3 @@
-import $ from "jquery";
 import _ from 'lodash';
 
 var supportedLang = [
@@ -86,28 +85,13 @@ var setLang = function (lang) {
     currentLang = lang;
     localStorage["uilang"] = lang;
 };
-var init = function () {
-    $('[data-lang]').each(function () {
-        var $this = $(this);
-        var key = $this.data("lang");
-        var value = getText(key);
-        var target = $this.data("lang-target");
-        if (target) {
-            $this.attr(target, value);
-        }
-        else {
-            $this.text(value);
-        }
-    });
-};
 
 const Ui = {
     supportedLang,
     getText,
     getLang,
     getLangText,
-    setLang,
-    init
+    setLang
 };
 
 export { Ui };

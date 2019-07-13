@@ -30,7 +30,7 @@
                             <div class="parallelogram">
                                 <img
                                     v-bind:src="'../img/quest/'+(area.icon || 'stg2_999_01') + '.png'"
-                                >
+                                />
                                 <div
                                     v-bind:class="['attr-subscript','attr-'+ convertAttr2nd(zakoAttr.weakAttr||area.weakAttr)]"
                                 ></div>
@@ -60,7 +60,7 @@
                             <div class="parallelogram">
                                 <img
                                     v-bind:src="'../img/quest/'+(enemy.icon || 'ene2_800_01') + '.png'"
-                                >
+                                />
                                 <div
                                     v-bind:class="['attr-subscript','attr-'+ convertAttr2nd(enemy.type > 10?bossAttr.weakAttr||enemy.weakAttr:255)]"
                                 ></div>
@@ -105,26 +105,26 @@
                 </li>
                 <li class="list-group-item" v-if="hex.canGiveUp && hex.giveUpCost > 0">
                     <div class="item-container">
-                        <span data-lang="subcontract">{{Ui.getText('subcontract')}}</span>
+                        <span>{{Ui.getText('subcontract')}}</span>
                         <i class="icon icon-gold"></i>
                         <span>{{hex.giveUpCost}}</span>
                     </div>
                 </li>
                 <li class="list-group-item" v-if="hex.lockBuffs&&hex.lockBuffs.length">
                     <div class="item-container" v-for="buff in lockBuffs" v-bind:key="buff.id">
-                        <img v-bind:src="'../img/quest/'+buff.icon + '.png'" class="icon icon-item">
+                        <img v-bind:src="'../img/quest/'+buff.icon + '.png'" class="icon icon-item" />
                         <span class="item-count">{{buff.value}}</span>
                     </div>
                 </li>
                 <li class="list-group-item" v-if="hex.unlockBuffs&&hex.unlockBuffs.length">
                     <div class="item-container" v-for="buff in unlockBuffs" v-bind:key="buff.id">
-                        <img v-bind:src="'../img/quest/'+buff.icon + '.png'" class="icon icon-item">
+                        <img v-bind:src="'../img/quest/'+buff.icon + '.png'" class="icon icon-item" />
                         <span class="item-count">{{buff.value}}</span>
                     </div>
                 </li>
                 <li class="list-group-item" v-if="hex.clearBuffs&&hex.clearBuffs.length">
                     <div class="item-container" v-for="buff in clearBuffs" v-bind:key="buff.id">
-                        <img v-bind:src="'../img/quest/'+buff.icon + '.png'" class="icon icon-item">
+                        <img v-bind:src="'../img/quest/'+buff.icon + '.png'" class="icon icon-item" />
                         <span class="item-count">{{buff.value}}</span>
                     </div>
                 </li>
@@ -139,7 +139,7 @@
                             v-bind:src="'../img/item/'+(map.itemList[item.index].icon || 'itm2_04_000_01') + '.png'"
                             class="icon icon-item"
                             v-bind:title="map.itemList[item.index].name"
-                        >
+                        />
                         <span class="item-count" v-if="item.count>1">{{item.count}}</span>
                     </div>
                 </li>
@@ -154,7 +154,7 @@
                             v-bind:src="'../img/item/'+(map.itemList[index].icon || 'itm2_04_000_01') + '.png'"
                             class="icon icon-item"
                             v-bind:title="map.itemList[index].name"
-                        >
+                        />
                     </div>
                 </li>
                 <li class="list-group-item">
@@ -163,7 +163,7 @@
                             v-bind:src="rewardIconSrc(reward.icon)"
                             class="icon icon-item"
                             v-bind:title="reward.name"
-                        >
+                        />
                         <span class="item-count" v-if="reward.count>1">{{reward.count}}</span>
                     </div>
                 </li>
