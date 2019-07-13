@@ -30,6 +30,7 @@
                         <span>{{totalRare}}</span>
                         <span class="icon-hex-tile" v-html="hexsvg"></span>
                         <span>{{totalNormal}}</span>
+                        <span v-if="totalEndless>0">(+{{totalEndless}})</span>
                     </div>
                     <div class="d-flex">
                         <i class="icon icon-gacha-point"></i>
@@ -63,6 +64,7 @@ export default {
         totalDanger: Number,
         totalRare: Number,
         totalNormal: Number,
+        totalEndless: Number,
         totalGachaPoint: Number,
         totalBattery: Number,
         totalGold: Number,
@@ -110,7 +112,7 @@ export default {
     margin: 0;
     line-height: 1.25rem;
     stroke: none;
-    fill: #ccc;
+    fill: #8cd;
 }
 
 .icon-hex-tile.icon-hex-danger {
@@ -118,6 +120,6 @@ export default {
 }
 
 .icon-hex-tile.icon-hex-rare {
-    fill: yellow;
+    fill: #ff0;
 }
 </style>

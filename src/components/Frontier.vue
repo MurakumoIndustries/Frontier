@@ -10,15 +10,16 @@
                     v-bind:totalDanger="total.danger"
                     v-bind:totalRare="total.rare"
                     v-bind:totalNormal="total.normal"
+                    v-bind:totalEndless="total.endless"
                     v-bind:totalGachaPoint="total.gachaPoint"
                     v-bind:totalBattery="total.battery"
                     v-bind:totalGold="total.gold"
                     v-bind:totalEnergy="total.energy"
                 />
-                <MapList v-bind:isShowSidebar="isShowSidebar"/>
+                <MapList v-bind:isShowSidebar="isShowSidebar" />
             </div>
             <div class="col-12 col-md-8 col-xl-9 p-0 h-100">
-                <Map v-if="map.id" v-bind:map="map"/>
+                <Map v-if="map.id" v-bind:map="map" />
             </div>
         </div>
     </div>
@@ -68,6 +69,7 @@ export default {
                 danger: 0,
                 rare: 0,
                 normal: 0,
+                endless: 0,
                 gachaPoint: 0,
                 battery: 0,
                 gold: 0,
@@ -85,6 +87,10 @@ export default {
                     }
                     case 30: {
                         result.rare++;
+                        break;
+                    }
+                    case 90: {
+                        result.endless++;
                         break;
                     }
                 }
