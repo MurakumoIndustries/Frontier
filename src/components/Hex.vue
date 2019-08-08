@@ -55,8 +55,9 @@
                 </div>
             </div>
             <div class="hex-area-count" v-if="areaCount>0">{{areaCount}}</div>
-            <div class="hex-is-hard" v-if="isHard">
-                <i class="material-icons">warning</i>
+            <div class="hex-is-hard">
+                <i class="material-icons" v-if="isHard">warning</i>
+                <i class="material-icons" v-if="[10,20,30,90].indexOf(hex.hexType)>=0&&hex.supportType==0">person_add_disabled</i>
             </div>
         </a>
     </div>
@@ -228,7 +229,7 @@ export default {
 .hex-content .hex-is-hard {
     position: absolute;
     left: 0.25rem;
-    top: 0.5rem;
+    top: 0.25rem;
     color: red;
     z-index: 12;
 }
