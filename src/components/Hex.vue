@@ -55,6 +55,9 @@
                 </div>
             </div>
             <div class="hex-area-count" v-if="areaCount>0">{{areaCount}}</div>
+            <div class="hex-is-hard" v-if="isHard">
+                <i class="material-icons">warning</i>
+            </div>
         </a>
     </div>
 </template>
@@ -134,6 +137,9 @@ export default {
         },
         areaCount: function() {
             return (this.stage.areaList || []).length;
+        },
+        isHard: function() {
+            return this.stage.highDifficulty == 1;
         },
         requireMapItems: function() {
             var result = [];
@@ -216,6 +222,14 @@ export default {
     right: 1rem;
     bottom: 0.25rem;
     font-size: 0.75rem;
+    z-index: 12;
+}
+
+.hex-content .hex-is-hard {
+    position: absolute;
+    left: 0.25rem;
+    top: 0.5rem;
+    color: red;
     z-index: 12;
 }
 

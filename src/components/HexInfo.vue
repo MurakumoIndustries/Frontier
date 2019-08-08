@@ -37,16 +37,28 @@
                             </div>
                             <transition name="fade">
                                 <div
-                                    class="stage-enemy-list"
+                                    class="stage-label-list"
                                     v-show="currentExtraInfoID=='Area_'+area.id"
                                 >
-                                    <div
-                                        class="stage-label"
-                                        v-bind:style="{'margin-left':(i+1)*0.25+'rem'}"
-                                        v-for="(enemy,i) in enemys(area)"
-                                        v-bind:key="enemy.id"
-                                    >
-                                        <span>{{enemy.name}}</span>
+                                    <div class="stage-bgm-list">
+                                        <div
+                                            class="stage-label"
+                                            v-bind:style="{'margin-left':(i+1)*0.25+'rem'}"
+                                            v-for="(bgm,i) in area.bgmList"
+                                            v-bind:key="bgm+i"
+                                        >
+                                            <span>{{bgm}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="stage-enemy-list">
+                                        <div
+                                            class="stage-label"
+                                            v-bind:style="{'margin-left':(i+1)*0.25+'rem'}"
+                                            v-for="(enemy,i) in enemys(area)"
+                                            v-bind:key="enemy.id"
+                                        >
+                                            <span>{{enemy.name}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </transition>
@@ -396,8 +408,11 @@ export default {
     transform: skewX(-10deg);
 }
 
-.stage-container .stage-enemy-list {
+.stage-container .stage-label-list {
     padding-top: 2rem;
+}
+.stage-container .stage-label-list .stage-bgm-list,
+.stage-container .stage-label-list .stage-enemy-list {
     width: 0;
     margin-left: -0.25rem;
 }
