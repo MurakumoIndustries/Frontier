@@ -4,6 +4,7 @@ import NProgress from 'nprogress'
 import Vue from 'vue'
 
 import { Event } from "../js/event.js"
+import { Ui } from '../js/ui.js';
 
 import App from '../App.vue'
 
@@ -27,6 +28,8 @@ var clear = function () {
 };
 var initControl = function () {
     if (inited) { return; }
+
+    $('body').attr('lang', Ui.getLang());
 
     new Vue({
         el: '#app',
