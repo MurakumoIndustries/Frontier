@@ -179,9 +179,6 @@
     color: red;
     z-index: 12;
 }
-.all-content-v-middle *[data-v-2f39b39b] {
-    vertical-align: middle !important;
-}
 
 
 .fade-enter-active[data-v-02493be9],

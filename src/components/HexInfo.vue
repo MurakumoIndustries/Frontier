@@ -3,13 +3,23 @@
         <div class="hex-info" v-bind:data-id="hex.id" v-if="hex.id&&isShow" @click="hide">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <div>
+                    <div class="item-container">
                         <span>{{hex.name}}</span>
                         <span
                             v-if="hex.recomLv>0"
                             class="font-weight-light pl-3"
                             style="color:#fffb"
                         >{{Ui.getText('recomLv') + hex.recomLv}}</span>
+                    </div>
+                    <div class="item-container">
+                        <span class="px-1" v-if="isHighDifficulty">
+                            <i class="material-icons" style="color:red;">warning</i>
+                            <span>{{Ui.getText('highdifficulty')}}</span>
+                        </span>
+                        <span class="px-1" v-if="isNoSupport">
+                            <i class="material-icons" style="color:red;">person_add_disabled</i>
+                            <span>{{Ui.getText('nosupport')}}</span>
+                        </span>
                     </div>
                 </li>
                 <li
@@ -234,6 +244,15 @@ export default {
             return _.map(this.hex.rewards || [], function(reward) {
                 return _.extend(reward, Data.get("items", reward.id));
             });
+        },
+        isHighDifficulty: function() {
+            return this.stage.highDifficulty == 1;
+        },
+        isNoSupport: function() {
+            return (
+                [10, 20, 30, 90].indexOf(this.hex.hexType) >= 0 &&
+                this.hex.supportType == 0
+            );
         },
         requireMapItems: function() {
             var result = [];

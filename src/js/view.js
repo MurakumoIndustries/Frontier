@@ -29,7 +29,7 @@ var clear = function () {
 var initControl = function () {
     if (inited) { return; }
 
-    $('body').attr('lang', Ui.getLang());
+    document.getElementsByTagName('body')[0].setAttribute('lang', Ui.getLang());
 
     new Vue({
         el: '#app',

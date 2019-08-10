@@ -27,7 +27,7 @@
                 />
                 <i class="material-icons" v-if="requireMapItems.length">lock_outline</i>
             </div>
-            <div class="d-flex justify-content-center align-items-center all-content-v-middle">
+            <div class="d-flex justify-content-center align-items-center">
                 <div class="d-inline-flex" v-for="reward in rewards" v-bind:key="reward.id">
                     <div class="d-inline-flex" v-if="hex.hexType==50&&reward.id == 'ticket_010_01'">
                         <i class="icon icon-battery" />
@@ -56,8 +56,8 @@
             </div>
             <div class="hex-area-count" v-if="areaCount>0">{{areaCount}}</div>
             <div class="hex-is-hard">
-                <i class="material-icons" v-if="isHard">warning</i>
-                <i class="material-icons" v-if="[10,20,30,90].indexOf(hex.hexType)>=0&&hex.supportType==0">person_add_disabled</i>
+                <i class="material-icons" v-if="isHighDifficulty">warning</i>
+                <i class="material-icons" v-if="isNoSupport">person_add_disabled</i>
             </div>
         </a>
     </div>
@@ -139,8 +139,14 @@ export default {
         areaCount: function() {
             return (this.stage.areaList || []).length;
         },
-        isHard: function() {
+        isHighDifficulty: function() {
             return this.stage.highDifficulty == 1;
+        },
+        isNoSupport: function() {
+            return (
+                [10, 20, 30, 90].indexOf(this.hex.hexType) >= 0 &&
+                this.hex.supportType == 0
+            );
         },
         requireMapItems: function() {
             var result = [];
@@ -232,10 +238,6 @@ export default {
     top: 0.25rem;
     color: red;
     z-index: 12;
-}
-
-.all-content-v-middle * {
-    vertical-align: middle !important;
 }
 </style>
 

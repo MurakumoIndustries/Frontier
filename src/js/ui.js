@@ -37,6 +37,8 @@ data["total"] = { "ja-JP": "合計：", "zh-TW": "合計：", "en-US": "Total: "
 
 data["recomLv"] = { "ja-JP": "推奨Lv. ", "zh-TW": "推薦Lv. ", "en-US": "Recommend Lv. ", "zh-CN": "推荐Lv. " };
 data["subcontract"] = { "ja-JP": "依頼：", "zh-TW": "依賴：", "en-US": "Subcontract:", "zh-CN": "依赖：" };
+data["highdifficulty"] = { "ja-JP": "高難度", "zh-TW": "高難度", "en-US": "High Difficulty", "zh-CN": "高难度" };
+data["nosupport"] = { "ja-JP": "サポート不可", "zh-TW": "無法支援幫手", "en-US": "No Support", "zh-CN": "禁用支援" };
 
 data["currentversion"] = { "ja-JP": "バージョン：", "zh-TW": "當前版本：", "en-US": "Current Ver.:", "zh-CN": "当前版本：" };
 data["externallink"] = { "ja-JP": "外部リンク", "zh-TW": "外部鏈接", "en-US": "External Links", "zh-CN": "外部链接" };
