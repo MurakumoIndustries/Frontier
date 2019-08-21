@@ -59,6 +59,9 @@
                 <i class="material-icons" v-if="isHighDifficulty">warning</i>
                 <i class="material-icons" v-if="isNoSupport">person_add_disabled</i>
             </div>
+            <div class="hex-hitokoe" v-if="hex.hitokoeId>0">
+                <!-- <i class="material-icons">warning</i> -->
+            </div>
         </a>
     </div>
 </template>
@@ -228,6 +231,14 @@ export default {
     position: absolute;
     right: 1rem;
     bottom: 0.25rem;
+    font-size: 0.75rem;
+    z-index: 12;
+}
+
+.hex-content .hex-hitokoe {
+    position: absolute;
+    right: 1rem;
+    top: 0.25rem;
     font-size: 0.75rem;
     z-index: 12;
 }
