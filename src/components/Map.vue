@@ -4,13 +4,13 @@
             <table class="hex-table">
                 <tr v-for="y in Yrange" v-bind:key="y">
                     <td v-for="x in Xrange" v-bind:key="x">
-                        <Hex v-if="hex(x,y)" v-bind:hex="hex(x,y)" v-bind:map="map"/>
+                        <Hex v-if="hex(x,y)" v-bind:hex="hex(x,y)" v-bind:map="map" />
                     </td>
                 </tr>
             </table>
         </div>
-        <HexInfo/>
-        <HexPopper/>
+        <HexInfo />
+        <HexPopper />
     </div>
 </template>
 <script>
@@ -57,7 +57,12 @@ export default {
             interactable = interact(gestureArea)
                 .gesturable({
                     inertia: true,
-                    restrict: $vm.getRestrict(),
+                    modifiers: [
+                        interact.modifiers.restrictRect({
+                            restriction: "parent",
+                            endOnly: true
+                        })
+                    ],
                     onstart: function(event) {},
                     onmove: function(event) {
                         scale = scale * (1 + event.ds);
@@ -77,7 +82,12 @@ export default {
                 })
                 .draggable({
                     inertia: true,
-                    restrict: $vm.getRestrict(),
+                    modifiers: [
+                        interact.modifiers.restrictRect({
+                            restriction: "parent",
+                            endOnly: true
+                        })
+                    ],
                     autoScroll: true,
                     onmove: dragMoveListener
                 })
@@ -109,13 +119,6 @@ export default {
     },
     updated: function() {
         this.$nextTick(function() {
-            interactable
-                .gesturable({
-                    restrict: this.getRestrict()
-                })
-                .draggable({
-                    restrict: this.getRestrict()
-                });
             this.moveToStart();
         });
     },
@@ -156,28 +159,6 @@ export default {
                 "translate(" + startX + "px, " + startY + "px)";
             $vm.$el.children[0].setAttribute("data-x", startX);
             $vm.$el.children[0].setAttribute("data-y", startY);
-        },
-        getRestrict: function() {
-            var $vm = this;
-            var scale = 1,
-                gestureArea = $vm.$el.children[0],
-                scaleElement = $vm.$el.children[0].children[0];
-
-            var cw = $vm.$el.children[0].clientWidth;
-            var ch = $vm.$el.children[0].clientHeight;
-            var ew = $vm.$el.clientWidth;
-            var eh = $vm.$el.clientHeight;
-            var restrict = {
-                restriction: "parent",
-                endOnly: true,
-                elementRect: {
-                    top: Math.max((ch - eh) / ch, 0),
-                    left: Math.max((cw - ew) / cw, 0),
-                    bottom: Math.min(eh / ch, 1),
-                    right: Math.min(ew / cw, 1)
-                }
-            };
-            return restrict;
         }
     },
     computed: {
