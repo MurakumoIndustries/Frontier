@@ -60,7 +60,7 @@
                 <i class="material-icons" v-if="isNoSupport">person_add_disabled</i>
             </div>
             <div class="hex-hitokoe" v-if="hex.hitokoeId>0">
-                <!-- <i class="material-icons">warning</i> -->
+                <i class="material-icons">question_answer</i>
             </div>
         </a>
     </div>
@@ -235,20 +235,24 @@ export default {
     z-index: 12;
 }
 
-.hex-content .hex-hitokoe {
-    position: absolute;
-    right: 1rem;
-    top: 0.25rem;
-    font-size: 0.75rem;
-    z-index: 12;
-}
-
 .hex-content .hex-is-hard {
     position: absolute;
     left: 0.25rem;
     top: 0.25rem;
     color: red;
     z-index: 12;
+}
+
+.hex-content .hex-hitokoe {
+    position: absolute;
+    left: 1rem;
+    bottom: 0.25rem;
+    font-size: 0;
+    z-index: 12;
+}
+
+.hex-content .hex-hitokoe * {
+    font-size: 0.75rem;
 }
 </style>
 
