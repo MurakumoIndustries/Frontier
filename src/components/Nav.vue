@@ -149,17 +149,17 @@ export default {
             isUpdateReady: false
         };
     },
-    mounted: function() {
-        var $this = this;
+    created: function() {
+        var $vm = this;
         Event.$on("new-version-updating", function() {
             console.log("new-version-updating");
-            $this.isUpdating = true;
-            $this.isUpdateReady = false;
+            $vm.isUpdating = true;
+            $vm.isUpdateReady = false;
         });
         Event.$on("new-version-update-ready", function() {
             console.log("new-version-update-ready");
-            $this.isUpdating = false;
-            $this.isUpdateReady = true;
+            $vm.isUpdating = false;
+            $vm.isUpdateReady = true;
         });
     },
     methods: {
