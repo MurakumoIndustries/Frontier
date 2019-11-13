@@ -1,6 +1,8 @@
 <template>
     <div class="hex" @click="showHexInfo()">
-        <div class="hex-tile" v-html="hexSvg"></div>
+        <div class="hex-tile">
+            <img :src="hexSvg" />
+        </div>
         <a class="hex-content" data-toggle="popover" tabindex="0">
             <div class="hex-background">
                 <i
@@ -66,12 +68,13 @@
     </div>
 </template>
 <script>
-import hexDefault_svg from "../img/hexDefault.svg";
-import hexEnemy_svg from "../img/hexEnemy.svg";
-import hexRare_svg from "../img/hexRare.svg";
-import hexDanger_svg from "../img/hexDanger.svg";
-import hexBonus_svg from "../img/hexBonus.svg";
-import hexBuff_svg from "../img/hexBuff.svg";
+import hexDefault_svg from "../img/hexTile/hexDefault.svg";
+import hexEnemy_svg from "../img/hexTile/hexEnemy.svg";
+import hexRare_svg from "../img/hexTile/hexRare.svg";
+import hexDanger_svg from "../img/hexTile/hexDanger.svg";
+import hexBonus_svg from "../img/hexTile/hexBonus.svg";
+import hexBuff_svg from "../img/hexTile/hexBuff.svg";
+import hexHeal_svg from "../img/hexTile/hexHeal.svg";
 
 import { Data } from "../js/data.js";
 import { Event } from "../js/event.js";
@@ -110,6 +113,8 @@ export default {
                     return hexDefault_svg;
                 case 50:
                     return hexBonus_svg;
+                case 200:
+                    return hexHeal_svg;
                 case 60:
                 case 61:
                 case 62:
@@ -176,6 +181,7 @@ export default {
 
 .hex-tile {
     width: 108px;
+    height: 75px;
     margin: -3px -16.5px;
 }
 

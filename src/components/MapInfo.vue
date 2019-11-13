@@ -21,14 +21,17 @@
                     <div class="d-flex" v-else>{{Ui.getText("cannotgiveup")}}</div>
                     <div class="d-flex">
                         {{Ui.getText("total")}}
-                        <span
-                            class="icon-hex-tile icon-hex-danger"
-                            v-html="hexsvg"
-                        ></span>
+                        <span class="icon-hex-tile">
+                            <img :src="hexDanger" />
+                        </span>
                         <span>{{totalDanger}}</span>
-                        <span class="icon-hex-tile icon-hex-rare" v-html="hexsvg"></span>
+                        <span class="icon-hex-tile">
+                            <img :src="hexRare" />
+                        </span>
                         <span>{{totalRare}}</span>
-                        <span class="icon-hex-tile" v-html="hexsvg"></span>
+                        <span class="icon-hex-tile">
+                            <img :src="hexNormal" />
+                        </span>
                         <span>{{totalNormal}}</span>
                         <span v-if="totalEndless>0">(+{{totalEndless}})</span>
                     </div>
@@ -49,7 +52,9 @@
 </template>
 
 <script>
-import hexsvg from "../img/hex.svg";
+import hexNormal from "../img/hexNormal.svg";
+import hexRare from "../img/hexRare.svg";
+import hexDanger from "../img/hexDanger.svg";
 
 import Collapse from "./Collapse.vue";
 
@@ -72,7 +77,9 @@ export default {
     },
     data: function() {
         return {
-            hexsvg: hexsvg
+            hexNormal: hexNormal,
+            hexRare: hexRare,
+            hexDanger: hexDanger
         };
     },
     methods: {
@@ -111,15 +118,5 @@ export default {
     width: 1.25rem;
     margin: 0;
     line-height: 1.25rem;
-    stroke: none;
-    fill: #8cd;
-}
-
-.icon-hex-tile.icon-hex-danger {
-    fill: #f00;
-}
-
-.icon-hex-tile.icon-hex-rare {
-    fill: #ff0;
 }
 </style>
