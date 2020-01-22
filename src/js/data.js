@@ -4,6 +4,17 @@ import serverList from "../data/serverList.json";
 const baseKey = "MI_Frontier_";
 const lastUpdateKey = baseKey + "LastUpdate";
 const serverKey = baseKey + "Server";
+const filelist = [
+    'maplist',
+    'maptable',
+    'stage',
+    'items',
+    'enemy',
+    'enemybase',
+    'attrset',
+    'buff',
+    'hitokoe'
+];
 
 var data = {};
 
@@ -41,14 +52,9 @@ var init = function (forceInit) {
                     data[key] = JSON.parse(json);
                 });
             };
-            promises.push(loaddata('maplist'));
-            promises.push(loaddata('maptable'));
-            promises.push(loaddata('stage'));
-            promises.push(loaddata('items'));
-            promises.push(loaddata('enemy'));
-            promises.push(loaddata('enemybase'));
-            promises.push(loaddata('attrset'));
-            promises.push(loaddata('buff'));
+            _.each(filelist, function (o, i) {
+                promises.push(loaddata(o));
+            });
             return Promise.all(promises);
         }
         return store.clear().then(() => {
@@ -58,54 +64,14 @@ var init = function (forceInit) {
                     data[key] = jsondata;
                 });
             }
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/maplist.json').then(jsondata => {
-                    return savedata('maplist', folder, jsondata.default);
-                }));
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/maptable.json').then(jsondata => {
-                    return savedata('maptable', folder, jsondata.default);
-                }));
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/stage.json').then(jsondata => {
-                    return savedata('stage', folder, jsondata.default);
-                }));
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/items.json').then(jsondata => {
-                    return savedata('items', folder, jsondata.default);
-                }));
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/enemy.json').then(jsondata => {
-                    return savedata('enemy', folder, jsondata.default);
-                }));
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/enemybase.json').then(jsondata => {
-                    return savedata('enemybase', folder, jsondata.default);
-                }));
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/attrset.json').then(jsondata => {
-                    return savedata('attrset', folder, jsondata.default);
-                }));
-            promises.push(
-                import(
-                    /* webpackChunkName: "jsondata" */
-                    '../data/' + folder + '/buff.json').then(jsondata => {
-                    return savedata('buff', folder, jsondata.default);
-                }));
+            _.each(filelist, function (o, i) {
+                promises.push(
+                    import(
+                        /* webpackChunkName: "jsondata" */
+                        '../data/' + folder + '/' + o + '.json').then(jsondata => {
+                        return savedata(o, folder, jsondata.default);
+                    }));
+            });
             return Promise.all(promises).then(() => {
                 return store.setItem(lastUpdateKey, lastUpdate)
             });

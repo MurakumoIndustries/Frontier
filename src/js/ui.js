@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
-var supportedLang = [
-    {
+var supportedLang = [{
         key: 'ja-JP',
         text: '日本語'
     },
@@ -51,7 +50,7 @@ data["data"] = { "ja-JP": "", "zh-TW": "資料語言", "en-US": "Data", "zh-CN":
 data["server"] = { "ja-JP": "サーバー", "zh-TW": "伺服器", "en-US": "Server", "zh-CN": "服务器" };
 data["disablecache"] = { "ja-JP": "キャッシュを無効化", "zh-TW": "停用快取", "en-US": "Disable Cache", "zh-CN": "禁用缓存", };
 data["enablecache"] = { "ja-JP": "キャッシュを有効化", "zh-TW": "啟用快取", "en-US": "Enable Cache", "zh-CN": "启用缓存", };
-data["disablecachewarning"]={
+data["disablecachewarning"] = {
     "ja-JP": "キャッシュを無効化にすると、ページの読み込みが遅くなります。無効化にしますか？",
     "zh-TW": "停用快取會使網頁載入變慢，是否確認停用？",
     "en-US": "Disabling caching will cause the page to load slowly, CONFIRM?",
@@ -87,13 +86,20 @@ var setLang = function (lang) {
     currentLang = lang;
     localStorage["uilang"] = lang;
 };
+var renderDesc = function (text) {
+    if (!text) {
+        return text;
+    }
+    return text.replace(/\n/g, '<br />');
+};
 
 const Ui = {
     supportedLang,
     getText,
     getLang,
     getLangText,
-    setLang
+    setLang,
+    renderDesc
 };
 
 export { Ui };

@@ -1,6 +1,12 @@
 <template>
     <transition name="fade">
-        <div class="hex-info" v-bind:data-id="hex.id" v-if="hex.id&&isShow" @click="hide">
+        <div
+            class="hex-info"
+            style="overflow-y:auto;"
+            v-bind:data-id="hex.id"
+            v-if="hex.id&&isShow"
+            @click="hide"
+        >
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <div class="item-container">
@@ -189,6 +195,26 @@
                         <span class="item-count" v-if="reward.count>1">{{reward.count}}</span>
                     </div>
                 </li>
+                <li class="list-group-item" v-if="hex.hitokoeId">
+                    <div
+                        class="hitokoe-container media mb-2"
+                        v-for="hitokoe in hitokoeList"
+                        v-bind:key="hitokoe.id"
+                    >
+                        <img
+                            class="icon icon-hitokoe mr-2"
+                            v-bind:src="hitokoeIconSrc(hitokoe.icon)"
+                        />
+                        <div class="media-body">
+                            <p
+                                v-for="(message,i) in hitokoe.message"
+                                :key="i+message"
+                                v-html="Ui.renderDesc(message)"
+                                class="mb-2"
+                            ></p>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </transition>
@@ -265,6 +291,19 @@ export default {
                 }
             });
             return result;
+        },
+        hitokoeList: function() {
+            var result = [];
+            var hitokoe = Data.get("hitokoe", this.hex.hitokoeId);
+            if (hitokoe == null) {
+                return result;
+            }
+            result.push(hitokoe);
+            while (hitokoe && hitokoe.nextId) {
+                hitokoe = Data.get("hitokoe", hitokoe.nextId);
+                result.push(hitokoe);
+            }
+            return result;
         }
     },
     methods: {
@@ -332,6 +371,12 @@ export default {
             }
             return "../img/item/" + (icon || "itm2_04_000_01") + ".png";
         },
+        hitokoeIconSrc: function(icon) {
+            if (icon.indexOf("chr") == 0) {
+                return "../img/chara/" + icon + ".png";
+            }
+            return "../img/scenarioicon/" + (icon || "npc1_998_01") + ".png";
+        },
         calcRising: function(lv, base, rising) {
             return Math.round(base + lv * rising);
         },
@@ -372,7 +417,7 @@ export default {
     );
     color: #fff;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 56px);
     cursor: default;
 }
 
@@ -552,6 +597,11 @@ export default {
     height: 0.5rem;
     margin: 0.25rem 0.25rem 0.25rem 0;
     display: inline-block;
+}
+
+.icon-hitokoe {
+    width: 4rem;
+    height: 4rem;
 }
 </style>
 
