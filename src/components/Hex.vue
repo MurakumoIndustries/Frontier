@@ -5,11 +5,7 @@
         </div>
         <a class="hex-content" data-toggle="popover" tabindex="0">
             <div class="hex-background">
-                <i
-                    class="material-icons"
-                    style="font-size: 3.5rem;"
-                    v-if="hex.termType==120"
-                >play_arrow</i>
+                <i class="icon icon-start" v-if="hex.termType==120" />
                 <i class="material-icons" style="font-size: 3.5rem;" v-if="hex.termType==130">flag</i>
             </div>
             <div class="d-flex justify-content-center align-items-center">

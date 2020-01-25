@@ -1,9 +1,11 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Yu Gothic", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 body:lang(zh-TW) {
     font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Microsoft JhengHei", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 body:lang(zh-CN) {
     font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Microsoft YaHei", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -41,6 +43,13 @@ input[type=number]::-webkit-outer-spin-button {
     background-image: url(./img/chest.png);
 }
 
+.icon.icon-start {
+    width: auto;
+    height: 3.5rem;
+    opacity: 0.2;
+    background-image: url(./img/aegis.png);
+}
+
 .icon.icon-endless {
     width: 1.25rem;
     height: 1.25rem;
@@ -66,27 +75,27 @@ input[type=number]::-webkit-outer-spin-button {
 /*power up & down*/
 
 .icon.icon-PowUpEne {
-    background-image: url(./img/frohexwinbuf_03_01.png);
+    background-image: url(./img/buff/frohexwinbuf_03_01.png);
 }
 
 .icon.icon-PowUpAct {
-    background-image: url(./img/frohexwinbuf_02_01.png);
+    background-image: url(./img/buff/frohexwinbuf_02_01.png);
 }
 
 .icon.icon-PowUpRwd {
-    background-image: url(./img/frohexwinbuf_04_01.png);
+    background-image: url(./img/buff/frohexwinbuf_04_01.png);
 }
 
 .icon.icon-PowDwnEne {
-    background-image: url(./img/frohexwinbuf_03_02.png);
+    background-image: url(./img/buff/frohexwinbuf_03_02.png);
 }
 
 .icon.icon-PowDwnAct {
-    background-image: url(./img/frohexwinbuf_02_02.png);
+    background-image: url(./img/buff/frohexwinbuf_02_02.png);
 }
 
 .icon.icon-PowDwnRwd {
-    background-image: url(./img/frohexwinbuf_04_02.png);
+    background-image: url(./img/buff/frohexwinbuf_04_02.png);
 }
 
 .icon.icon-key {
@@ -95,27 +104,27 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .icon.icon-key-01-01 {
-    background-image: url(./img/frokey_01_01.png);
+    background-image: url(./img/key/frokey_01_01.png);
 }
 
 .icon.icon-key-01-02 {
-    background-image: url(./img/frokey_01_02.png);
+    background-image: url(./img/key/frokey_01_02.png);
 }
 
 .icon.icon-key-01-03 {
-    background-image: url(./img/frokey_01_03.png);
+    background-image: url(./img/key/frokey_01_03.png);
 }
 
 .icon.icon-key-01-04 {
-    background-image: url(./img/frokey_01_04.png);
+    background-image: url(./img/key/frokey_01_04.png);
 }
 
 .icon.icon-key-01-05 {
-    background-image: url(./img/frokey_01_05.png);
+    background-image: url(./img/key/frokey_01_05.png);
 }
 
 .icon.icon-key-01-06 {
-    background-image: url(./img/frokey_01_06.png);
+    background-image: url(./img/key/frokey_01_06.png);
 }
 
 .icon.icon-item {
