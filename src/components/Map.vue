@@ -239,6 +239,11 @@ export default {
     position: relative;
 }
 
+.hex-table td:empty {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
 .hex-table td:nth-child(odd) .hex {
     top: 35.5px;
 }
