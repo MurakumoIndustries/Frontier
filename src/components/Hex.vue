@@ -19,6 +19,11 @@
                 <i class="icon icon-2x icon-PowDwnRwd" v-if="hex.hexType==72" />
                 <i class="icon icon-endless" v-if="hex.hexType==90" />
                 <i
+                    class="material-icons"
+                    style="font-size: 2.5rem;    color: #ff9999;"
+                    v-if="hex.hexType==200"
+                >favorite</i>
+                <i
                     v-for="index in hex.itemHintIndexes"
                     v-bind:key="index"
                     v-bind:class="['icon','icon-key','icon-key-01-' + '00'.substring(0, 2 - String(index+1).length) + String(index+1)]"
@@ -70,7 +75,6 @@ import hexRare_svg from "../img/hexTile/hexRare.svg";
 import hexDanger_svg from "../img/hexTile/hexDanger.svg";
 import hexBonus_svg from "../img/hexTile/hexBonus.svg";
 import hexBuff_svg from "../img/hexTile/hexBuff.svg";
-import hexHeal_svg from "../img/hexTile/hexHeal.svg";
 
 import { Data } from "../js/data.js";
 import { Event } from "../js/event.js";
@@ -109,8 +113,6 @@ export default {
                     return hexDefault_svg;
                 case 50:
                     return hexBonus_svg;
-                case 200:
-                    return hexHeal_svg;
                 case 60:
                 case 61:
                 case 62:
