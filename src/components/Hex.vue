@@ -10,6 +10,7 @@
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 <i class="material-icons" v-if="hex.hexType==40">chat</i>
+                <i class="material-icons" v-if="hex.hexType==41">videogame_asset</i>
                 <i class="icon icon-chest" v-if="hex.hexType==50" />
                 <i class="icon icon-2x icon-PowUpEne" v-if="hex.hexType==60" />
                 <i class="icon icon-2x icon-PowUpAct" v-if="hex.hexType==61" />
