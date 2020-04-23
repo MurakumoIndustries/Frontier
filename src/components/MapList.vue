@@ -157,7 +157,8 @@ export default {
                 3787645706,
                 3701656250,
                 3743323759,
-                3799957471 //event
+                3799957471,
+                2463518890 //event
             ];
         },
         isForceShowAllGroup: function() {
