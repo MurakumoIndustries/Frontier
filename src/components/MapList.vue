@@ -10,13 +10,13 @@
                         class="form-control w-50"
                         v-bind:placeholder="Ui.getText('searchhexcount')"
                         v-model.trim="searchNumber"
-                    >
+                    />
                     <input
                         type="text"
                         class="form-control w-50"
                         v-bind:placeholder="Ui.getText('searchmapname')"
                         v-model.trim="searchText"
-                    >
+                    />
                 </div>
             </div>
         </Collapse>
@@ -79,6 +79,47 @@ export default {
         Event.$on("set-active-map", function(id) {
             $vm.setActiveMap(id);
         });
+
+        var list = Data.getAll("maplist");
+        for (var i = 0; i < list.length; i++) {
+            switch (i) {
+                case 2: {
+                    list[i].maps = _.orderBy(list[i].maps, [
+                        function(input) {
+                            return input.idString.length;
+                        },
+                        "idString"
+                    ]);
+                    break;
+                }
+                case 3: {
+                    list[i].maps = _.orderBy(list[i].maps, [
+                        function(input) {
+                            return (
+                                input.name == "リビュイ宙域" ||
+                                input.name == "雙魚宙域"
+                            );
+                        },
+                        function(input) {
+                            return input.idString.indexOf("_re");
+                        },
+                        function(input) {
+                            return input.isHard;
+                        },
+                        function(input) {
+                            return input.idString.length;
+                        },
+                        "idString"
+                    ]);
+                    break;
+                }
+                default: {
+                    list[i].maps = _.orderBy(list[i].maps, "idString");
+                    break;
+                }
+            }
+        }
+        $vm.maplist = list;
     },
     props: {
         isShowSidebar: Boolean
@@ -87,7 +128,7 @@ export default {
         return {
             searchNumber: "",
             searchText: "",
-            maplist: Data.getAll("maplist"),
+            maplist: [],
             activeMapId: ""
         };
     },
@@ -145,20 +186,24 @@ export default {
     computed: {
         dividerList: function() {
             return [
+                //newbie
                 3074294833,
                 3196602394,
                 1795557279,
-                3331758729, //newbie
-                241529832,  //hardrandom
+                3331758729,
+                //hardrandom
+                241529832,
+                //oldrandom
                 1247514767,
                 3859376046,
-                79899309, //oldrandom
-                1012372809,
-                3787645706,
-                3701656250,
+                79899309,
+                //event
+                //event-hard
                 3743323759,
-                3799957471,
-                2463518890 //event
+                //event-re
+                379346512,
+                //event-newbie
+                3787645706
             ];
         },
         isForceShowAllGroup: function() {
