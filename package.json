@@ -37,7 +37,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "interactjs": "^1.8.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",
     "material-design-icons-iconfont": "^5.0.1",
