@@ -5,65 +5,75 @@
         </div>
         <a class="hex-content" data-toggle="popover" tabindex="0">
             <div class="hex-background">
-                <i class="icon icon-start" v-if="hex.termType==120" />
-                <i class="material-icons" style="font-size: 3.5rem;" v-if="hex.termType==130">flag</i>
+                <i class="icon icon-start" v-if="hex.termType == 120" />
+                <i class="material-icons" style="font-size: 3.5rem" v-if="hex.termType == 130">flag</i>
             </div>
             <div class="d-flex justify-content-center align-items-center">
-                <i class="material-icons" v-if="hex.hexType==40">chat</i>
-                <i class="material-icons" v-if="hex.hexType==41">videogame_asset</i>
-                <i class="icon icon-chest" v-if="hex.hexType==50" />
-                <i class="icon icon-2x icon-PowUpEne" v-if="hex.hexType==60" />
-                <i class="icon icon-2x icon-PowUpAct" v-if="hex.hexType==61" />
-                <i class="icon icon-2x icon-PowUpRwd" v-if="hex.hexType==62" />
-                <i class="icon icon-2x icon-PowDwnEne" v-if="hex.hexType==70" />
-                <i class="icon icon-2x icon-PowDwnAct" v-if="hex.hexType==71" />
-                <i class="icon icon-2x icon-PowDwnRwd" v-if="hex.hexType==72" />
-                <i class="icon icon-endless" v-if="hex.hexType==90" />
+                <i class="material-icons" v-if="hex.hexType == 40">chat</i>
+                <i class="material-icons" v-if="hex.hexType == 41">videogame_asset</i>
+                <i class="icon icon-chest" v-if="hex.hexType == 50" />
+                <i class="icon icon-2x icon-PowUpEne" v-if="hex.hexType == 60" />
+                <i class="icon icon-2x icon-PowUpAct" v-if="hex.hexType == 61" />
+                <i class="icon icon-2x icon-PowUpRwd" v-if="hex.hexType == 62" />
+                <i class="icon icon-2x icon-PowDwnEne" v-if="hex.hexType == 70" />
+                <i class="icon icon-2x icon-PowDwnAct" v-if="hex.hexType == 71" />
+                <i class="icon icon-2x icon-PowDwnRwd" v-if="hex.hexType == 72" />
                 <i
-                    class="material-icons"
-                    style="font-size: 2.5rem;    color: #ff9999;"
-                    v-if="hex.hexType==200"
-                >favorite</i>
+                    class="icon icon-endless"
+                    v-if="hex.hexType == 90 || hex.hexType == 91 || hex.hexType == 92 || hex.hexType == 93"
+                />
+                <i class="material-icons" style="font-size: 2.5rem; color: #ff9999" v-if="hex.hexType == 200"
+                    >favorite</i
+                >
                 <i
                     v-for="index in hex.itemHintIndexes"
                     v-bind:key="index"
-                    v-bind:class="['icon','icon-key','icon-key-01-' + '00'.substring(0, 2 - String(index+1).length) + String(index+1)]"
+                    v-bind:class="[
+                        'icon',
+                        'icon-key',
+                        'icon-key-01-' + '00'.substring(0, 2 - String(index + 1).length) + String(index + 1),
+                    ]"
                 />
                 <i class="material-icons" v-if="requireMapItems.length">lock_outline</i>
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 <div class="d-inline-flex" v-for="reward in rewards" v-bind:key="reward.id">
-                    <div class="d-inline-flex" v-if="hex.hexType==50&&reward.id == 'ticket_010_01'">
+                    <div class="d-inline-flex" v-if="hex.hexType == 50 && reward.id == 'ticket_010_01'">
                         <i class="icon icon-battery" />
-                        {{reward.count}}
+                        {{ reward.count }}
                     </div>
-                    <div class="d-inline-flex" v-if="hex.hexType==50&&reward.id == 'gold'">
+                    <div class="d-inline-flex" v-if="hex.hexType == 50 && reward.id == 'gold'">
                         <i class="icon icon-gold" />
-                        {{reward.count}}
+                        {{ reward.count }}
                     </div>
-                    <div class="d-inline-flex" v-if="hex.hexType==50&&reward.id == 'energy'">
+                    <div class="d-inline-flex" v-if="hex.hexType == 50 && reward.id == 'energy'">
                         <i class="icon icon-energy" />
-                        {{reward.count}}
+                        {{ reward.count }}
                     </div>
                     <div class="d-inline-flex" v-if="reward.id == 'gacha_point'">
                         <i class="icon icon-gacha-point" />
-                        {{reward.count}}
+                        {{ reward.count }}
                     </div>
                 </div>
                 <div class="d-inline-flex" v-for="item in requireMapItems" v-bind:key="item.index">
                     <i
-                        v-bind:class="['icon','icon-key',
-                        'icon-key-01-' + '00'.substring(0, 2 - String(item.index+1).length) + String(item.index+1)]"
+                        v-bind:class="[
+                            'icon',
+                            'icon-key',
+                            'icon-key-01-' +
+                                '00'.substring(0, 2 - String(item.index + 1).length) +
+                                String(item.index + 1),
+                        ]"
                     />
-                    {{item.count}}
+                    {{ item.count }}
                 </div>
             </div>
-            <div class="hex-area-count" v-if="areaCount>0">{{areaCount}}</div>
+            <div class="hex-area-count" v-if="areaCount > 0">{{ areaCount }}</div>
             <div class="hex-is-hard">
                 <i class="material-icons" v-if="isHighDifficulty">warning</i>
                 <i class="material-icons" v-if="isNoSupport">person_add_disabled</i>
             </div>
-            <div class="hex-hitokoe" v-if="hex.hitokoeId>0">
+            <div class="hex-hitokoe" v-if="hex.hitokoeId > 0">
                 <i class="material-icons">question_answer</i>
             </div>
         </a>
@@ -83,32 +93,35 @@ import { Event } from "../js/event.js";
 export default {
     props: {
         hex: Object,
-        map: Object
+        map: Object,
     },
-    mounted: function() {
+    mounted: function () {
         var $vm = this;
         var $target = $vm.$el.getElementsByClassName("hex-content")[0];
-        $target.addEventListener("mouseenter", function() {
+        $target.addEventListener("mouseenter", function () {
             Event.$emit("show-popover", $target, $vm.hex, $vm.map);
         });
-        $target.addEventListener("mouseleave", function() {
+        $target.addEventListener("mouseleave", function () {
             Event.$emit("hide-popover");
         });
     },
     methods: {
-        showHexInfo: function() {
+        showHexInfo: function () {
             Event.$emit("show-hex-info", this.hex, this.map);
-        }
+        },
     },
     computed: {
-        hexSvg: function() {
+        hexSvg: function () {
             switch (this.hex.hexType) {
                 case 10:
                 case 90:
+                case 91:
                     return hexEnemy_svg;
                 case 20:
+                case 93:
                     return hexDanger_svg;
                 case 30:
+                case 92:
                     return hexRare_svg;
                 case 40:
                     return hexDefault_svg;
@@ -125,49 +138,46 @@ export default {
                     return hexDefault_svg;
             }
         },
-        zakoAttr: function() {
+        zakoAttr: function () {
             return Data.get("attrset", this.hex.zakoAttr) || {};
         },
-        bossAttr: function() {
+        bossAttr: function () {
             return Data.get("attrset", this.hex.bossAttr) || {};
         },
-        stage: function() {
+        stage: function () {
             return Data.get("stage", this.hex.questId) || {};
         },
-        rewards: function() {
+        rewards: function () {
             var items = [];
-            _.each(this.hex.rewards, function(reward, i) {
+            _.each(this.hex.rewards, function (reward, i) {
                 if (reward.id) {
                     items.push(_.extend(reward, Data.get("items", reward.id)));
                 }
             });
             return items;
         },
-        areaCount: function() {
+        areaCount: function () {
             return (this.stage.areaList || []).length;
         },
-        isHighDifficulty: function() {
+        isHighDifficulty: function () {
             return this.stage.highDifficulty == 1;
         },
-        isNoSupport: function() {
-            return (
-                [10, 20, 30, 90].indexOf(this.hex.hexType) >= 0 &&
-                this.hex.supportType == 0
-            );
+        isNoSupport: function () {
+            return [10, 20, 30, 90].indexOf(this.hex.hexType) >= 0 && this.hex.supportType == 0;
         },
-        requireMapItems: function() {
+        requireMapItems: function () {
             var result = [];
-            _.each(this.hex.requireMapItems, function(count, index) {
+            _.each(this.hex.requireMapItems, function (count, index) {
                 if (count) {
                     result.push({
                         index: index,
-                        count: count
+                        count: count,
                     });
                 }
             });
             return result;
-        }
-    }
+        },
+    },
 };
 </script>
 <style scoped>
